@@ -1,0 +1,163 @@
+<template>
+
+    <!--Loading Spinner-->
+    <div class="spinner">
+           <template if:true={isLoading}>
+               <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+               </lightning-spinner>
+           </template>
+    </div>
+
+   
+    <lightning-card  variant="Narrow" class="myColor">
+        <article class="slds-card">
+            
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div>
+                        <p id="standard">
+                            <lightning-icon icon-name="standard:task" alternative-text="Task" title="Task"></lightning-icon>
+                        </p>
+                    </div> 
+                  <div class="slds-media__body slds-p-left_small">
+                    <u><h1 style=font-size:20px class="slds-card__header-title">
+                        <span>Action Items Tracker</span>
+                    </h1></u>
+                  </div>
+                  <div class="slds-no-flex">
+                    <lightning-button variant="Brand" label="Mark as Complete" title="Mark as Complete" class="slds-m-right_small "></lightning-button>
+                  </div>
+                  <div class="slds-no-flex">
+                    <lightning-button variant="Brand" label="New" title="New" onclick={navigateToNewPage} class="slds-m-right_small "></lightning-button>
+                  </div>
+                </header>
+              </div>
+              <div class="slds-card__body"></div>
+              <footer class="slds-card__footer"></footer>
+        </article>
+
+       <!--Task List table starts-->
+
+       <template if:true={renderTable}>
+           <div class="tableDiv">
+               <div class={tableStyle}>
+                   <table aria-describedby="task-list" class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+
+                       <!--Header of the table-->
+                       <thead>
+                           <tr class="slds-line-height_reset">
+                                 <th class="slds-text-align_right" scope="col" style="width:3.25rem">
+                                   <!-- <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
+                                    <div class="slds-th__action slds-th__action_form">
+                                      <div class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="checkbox-unique-id-313" value="checkbox-unique-id-313" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                                        <label class="slds-checkbox__label" for="checkbox-unique-id-313" id="check-select-all-label">
+                                          <span class="slds-checkbox_faux"></span>
+                                          <span class="slds-form-element__label slds-assistive-text">Select All</span>
+                                        </label>
+                                      </div>
+                                    </div> -->
+                                </th> 
+                                <th class="slds-size_1-of-19" scope="col">
+                                    <div class="slds-truncate " title=""></div>
+                                </th>
+                                <th class="slds-size_3-of-19" scope="col">
+                                    <div class="slds-truncate " title="Action Item Name">Action Item Name</div>
+                                </th>
+                                <th class="slds-size_3-of-19" scope="col">
+                                    <div class="slds-truncate " title="Description">Description</div>    
+                                </th>
+                                <th class="slds-size_3-of-19" scope="col">
+                                    <div class="slds-truncate " title="Steps To Be Taken">Steps To Be Taken</div>
+                                </th>
+                                <th class="slds-size_2-of-19" scope="col">
+                                    <div class="slds-truncate " title="Type">Type</div>
+                                </th>
+                                <th class="slds-size_2-of-19" scope="col">
+                                    <div class="slds-truncate " title="Owner">Owner</div>
+                                </th>
+                                <th class="slds-size_2-of-19" scope="col">
+                                    <div class="slds-truncate" title="Asked By">Asked By</div>
+                                </th>
+                                <th class="slds-size_2-of-19" scope="col">
+                                    <div class="slds-truncate" title="Due Date">Due Date</div>
+                                </th>
+                                <th class="slds-size_1-of-19" scope="col">
+                                    <div class="slds-truncate" title=""></div>
+                                </th>
+
+                            </tr>   
+                       </thead>
+
+                       <!--Body of the table-->
+                       <tbody>
+                           <template for:each={taskList} for:item="item" for:index="indexVar">
+                            <tr key={item.Id} class="slds-hint-parent">
+                                <td class="slds-text-align_right" role="gridcell">
+                                    <div class="slds-checkbox">
+                                        <lightning-input key={item.Id} type="checkbox" ></lightning-input>
+                                    </div>
+                                  </td>
+                                <td class="slds-size_1-of-19">
+                                    <div class="slds-cell-wrap slds-row-number">
+                                    </div>
+                                </td>
+                                <td class="slds-size_3-of-19">
+                                    <div class="slds-cell-wrap">
+                                        {item.Subject}
+                                    </div>
+                                </td>
+                                <td class="slds-size_3-of-19">
+                                    <div class="slds-cell-wrap">
+                                        {item.Description}
+                                    </div>
+                                </td>
+                                <td class="slds-size_3-of-19">
+                                    <div class="slds-cell-wrap">
+                                        {item.Steps_to_be_taken__c}
+                                    </div>
+                                </td>
+                                <td class="slds-size_2-of-19">
+                                    <div class="slds-truncate">
+                                        {item.Type__c}
+                                    </div>
+                                </td>
+                                <td class="slds-size_2-of-19">
+                                    <div class="slds-truncate">
+                                        {item.Owner.Name}
+                                    </div>
+                                </td>
+                                <td class="slds-size_2-of-19">
+                                    <div class="slds-truncate">
+                                     {item.Who.Name}
+                                    </div>
+                                </td>
+                                <td class="slds-size_2-of-19">
+                                    <div class="slds-truncate">
+                                     {item.ActivityDate}
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-19">
+                                    <div class="buttonMenu">
+                                        <lightning-button-menu alternative-text="Toggle menu">
+                                            <P onclick={navigateToRecordEditPage} data-recid={item.Id}>
+                                                <lightning-menu-item label="Edit">
+                                                </lightning-menu-item>
+                                            </P>
+                                            <p onclick={deleteTask} data-recid={item.Id}>
+                                                <lightning-menu-item label="Delete">
+                                                </lightning-menu-item>
+                                            </p>
+                                        </lightning-button-menu>
+                                    </div>
+                                </td>
+                            </tr>    
+                           </template>
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+
+       </template>
+   </lightning-card>
+</template>

@@ -1,0 +1,28 @@
+<aura:component controller="AttendanceRecordManager_controller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="startDate" type="Date" />
+    <aura:attribute name="endDate" type="Date" />
+   
+    <lightning:card>
+        <div class="slds-p-around_xx-large">
+            <div class="slds-page-header slds-page-header_record-home slds-text-heading_large slds-text-align_center header">
+                {!$Label.c.Attendance_Record_Manager_Header}
+            </div>
+            <br/>
+            
+            <div class="slds-grid slds-grid_vertical slds-align_absolute-center">
+                <div class="slds-col">
+                   <lightning:input type="date" label="Start Date" value="{!v.startDate}" style = "width:15rem"/> 
+                </div>
+                <br />
+                <div class="slds-col">
+                    <lightning:input type="date" label="End Date" value="{!v.endDate}" style = "width:15rem" /> 
+                </div>
+                <br /><br />
+                <div class="slds-col">
+                    <lightning:button label="Submit" variant="brand" onclick="{!c.saveDate}"/>
+                </div>
+            </div>
+            
+        </div>
+    </lightning:card>
+</aura:component>

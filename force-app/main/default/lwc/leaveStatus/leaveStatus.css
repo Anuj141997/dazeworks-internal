@@ -1,0 +1,7 @@
+.dummyClass{color:black;}
+.exampleHolder{
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}

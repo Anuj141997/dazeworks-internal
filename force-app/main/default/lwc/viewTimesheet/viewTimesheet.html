@@ -1,0 +1,273 @@
+<template>
+
+	<div class="slds-box slds-theme_default">
+		
+		<div class="slds-box slds-theme_shade slds-grid ">
+			<div class="slds-grid slds-gutters ">
+				<div class="slds-col slds-text-heading_medium slds-align_absolute-center ">
+					<h3 slot="title">
+						<lightning-icon icon-name="standard:date_time" alternative-text="Timesheet" class="medium"></lightning-icon>
+					   <b>&nbsp;Timesheet </b> 
+					</h3>
+				</div>
+			</div>
+			<div class="slds-grid slds-col_bump-left slds-grid slds-wrap slds-p-top_small">
+				<div class=" slds-form-element slds-p-right_xxx-small" >
+						<label class="slds-checkbox_toggle slds-grid">
+							<span class="slds-form-element__label slds-m-bottom_none">Weekends</span>
+							<input type="checkbox" name="checkbox-toggle-15" disabled  aria-describedby="checkbox-toggle-15" onchange={handleToggle} value={isToggle} checked={isToggle} />
+							<span id="checkbox-toggle-15" class="slds-checkbox_faux_container" aria-live="assertive">
+							<span class="slds-checkbox_faux"></span>
+							<span class="slds-checkbox_on"></span>
+							<span class="slds-checkbox_off"></span>
+							</span>
+						</label>
+					</div>
+				<div class="slds-p-right_x-small" >
+					<lightning-button-icon icon-name="utility:back" variant="brand" onclick={prevWeek} alternative-text="Previous Week" class="slds-m-left_xx-small " title="Previous Week"></lightning-button-icon>
+				</div>
+				<div class="slds-p-right_xxx-small">
+					<h4 class="title" >
+						<b class="slds-box">{start_to_end}</b>	
+						<lightning-button-icon icon-name="utility:forward" variant="brand" onclick={nextWeek} alternative-text="Next Week" class="slds-m-left_xx-small slds-p-left_xx-small" title="Next Week"></lightning-button-icon>
+					</h4>
+				</div>
+				<div  >
+					<lightning-button variant="brand" label="Today"   onclick={currWeek} class="slds-m-left_xx-small" title="Refresh"></lightning-button>
+				</div>
+			</div>
+		</div>
+		<template if:true={openmodelForReject}>
+            <section aria-describedby="modal-content-id-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open" role="dialog" tabindex="-1">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={rejetctCloseModal} title="Close">
+                            <lightning-icon icon-name="utility:close" size="medium" variant="inverse"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="modal-heading-01">Reject Timesheet</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <h2></h2>
+                        <lightning-textarea name="comments" label="Comments" value={commentRejectAll} onchange={handleCommentsRejectAll} required ></lightning-textarea>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Cancel" onclick={rejetctCloseModal} variant="neutral"></lightning-button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <lightning-button label="Save" onclick={saveRejectall} variant="brand"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+		<template if:true={openModalForApprove}>
+            <section aria-describedby="modal-content-id-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open" role="dialog" tabindex="-1">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={approveCloseModal} title="Close">
+                            <lightning-icon icon-name="utility:close" size="medium" variant="inverse"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="modal-heading-02">Approve All Timesheet</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                        <h2></h2>
+                        <lightning-textarea name="comments" label="Comments" value={commentApproveAll} onchange={handleCommentsApproveAll}  ></lightning-textarea>
+                        
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Cancel" onclick={approveCloseModal} variant="neutral"></lightning-button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <lightning-button label="Save" onclick={saveApproveall} variant="brand"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+		<div class="slds-box slds-theme_shade slds-grid">
+			<table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" role="grid">
+				<thead>
+					<tr>
+						<th scope="col" height="22" style="width: 3rem">S.No</th>
+						<th scope="col" height="22">Project</th>
+						<th scope="col" height="22">Billable</th>
+						<th scope="col" height="22">Task</th>
+						<th scope="col" height="22">Mon,{mon}</th>
+						<th scope="col" height="22">Tue,{tues}</th>
+						<th scope="col" height="22">Wed,{wed}</th>
+						<th scope="col" height="22">Thu,{thur}</th>
+						<th scope="col" height="22">Fri,{fri}</th>
+						<th scope="col" height="22">Sat,{sat}</th>
+						<th scope="col" height="22">Sun,{sun}</th>
+						<th scope="col" height="22">Total</th>
+						<th scope="col" height="22" style="width: 3rem"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<template for:each={listOfTimecards} for:item="rec">
+						<tr key={rec.index} class="slds-hint-parent">
+							
+							<td style="font-weight: bold">
+								<lightning-formatted-number  value={rec.index}></lightning-formatted-number>. </td>
+							<td class="comboBoxMargin">
+							<lightning-combobox								
+								name={rec.index}
+								placeholder="Select Project"
+								value={rec.Project}
+								options={projectOptions}
+								disabled
+								onchange={handleProjectSelection}
+								variant="label-hidden"
+							 >
+						    </lightning-combobox>
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<label class="slds-checkbox_toggle">
+										<input type="checkbox" data-id={rec.index} value={rec.projectBillable} disabled onclick={handlepopUpBillable} aria-describedby="checkbox-toggle-15" checked={rec.projectBillable} />
+										<span  class="slds-checkbox_faux_container" aria-live="assertive">
+										<span class="slds-checkbox_faux"></span>
+										</span>
+									</label>
+								</div>
+							</td>
+							<td>
+								<lightning-textarea name="Task" value={rec.task} style="width: 10rem" onchange={handleTask} disabled data-title={tues} data-id={rec.index} ></lightning-textarea>
+							</td>
+							
+							<td>
+								<div class="slds-form-element">
+									<lightning-input type="text" autocomplete="off" style="width: 5rem" variant="label-hidden"   label="" data-title={mon} data-id={rec.index} disabled name="Mon" value={rec.Mon.hour}   onchange={handleInputChange}></lightning-input>
+								</div>
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<lightning-input type="text" autocomplete="off" style="width: 5rem" variant="label-hidden" label="" data-title={tues} data-id={rec.index} disabled name="Tue" value={rec.Tue.hour}  onchange={handleInputChange}></lightning-input>
+									
+								</div>
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<lightning-input type="text" autocomplete="off" style="width: 5rem" variant="label-hidden" label="" data-title={wed} data-id={rec.index} disabled name="Wed" value={rec.Wed.hour}  onchange={handleInputChange}></lightning-input>
+							
+								</div>
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<lightning-input type="text" autocomplete="off" style="width: 5rem" variant="label-hidden" label="" data-title={thur} data-id={rec.index} name="Thu" disabled value={rec.Thu.hour}  onchange={handleInputChange}></lightning-input>
+							
+								</div>
+								
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<lightning-input type="text" autocomplete="off" style="width: 5rem" variant="label-hidden" label="" data-title={fri} data-id={rec.index} name="Fri" disabled value={rec.Fri.hour} onchange={handleInputChange}  ></lightning-input>
+							
+								</div>
+								
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<lightning-input type="text" autocomplete="off" style="width: 5rem" variant="label-hidden" label="" data-title={sat} data-id={rec.index} name="Sat" value={rec.Sat.hour}  onchange={handleInputChange} disabled></lightning-input>
+							
+								</div>
+								
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<lightning-input type="text" autocomplete="off" style="width: 5rem" variant="label-hidden" label="" data-title={sun} data-id={rec.index} name="Sun" value={rec.Sun.hour}  onchange={handleInputChange} disabled></lightning-input>
+							
+								</div>
+								
+							</td>
+							<td>
+								<lightning-input type="text" variant="label-hidden" label="" style="width: 5rem" data-id={rec.index} name="Total" value={rec.totalHours} disabled></lightning-input>
+							</td>
+							<td>
+								<div class="slds-grid slds-grid_align-end">
+									<div class="slds-col slds-p-right_x-small ">
+										<lightning-button  variant="brand" label="Approve" title="Approve" data-id={rec.index} onclick={ApproveHandleClick}></lightning-button>
+									</div>
+									<div class="slds-col">
+										<lightning-button variant="brand" label="Reject" title="Reject" data-id={rec.index} onclick={rejectHandleClick}></lightning-button>
+									</div>
+								</div>
+							</td>
+							<template if:true={openmodelForReject}>
+								<section aria-describedby="modal-content-id-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open" role="dialog" tabindex="-1">
+									<div class="slds-modal__container">
+										<header class="slds-modal__header">
+											<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={rejetctCloseModal} title="Close">
+												<lightning-icon icon-name="utility:close" size="medium" variant="inverse"></lightning-icon>
+												<span class="slds-assistive-text">Close</span>
+											</button>
+											<h2 class="slds-text-heading_medium slds-hyphenate" >Reject Timesheet</h2>
+										</header>
+										<div class="slds-modal__content slds-p-around_medium" >
+											<h2></h2>
+											<lightning-textarea name="comments" label="Comments"  data-id={rec.index} value={commentReject} onchange={handleComments} required ></lightning-textarea>
+											
+										</div>
+										<footer class="slds-modal__footer">
+											<lightning-button label="Cancel" data-id={rec.index} onclick={rejetctCloseModal} variant="neutral"></lightning-button>&nbsp;&nbsp;&nbsp;&nbsp;
+											<lightning-button label="Save" data-id={rec.index} onclick={saveReject} variant="brand"></lightning-button>
+										</footer>
+									</div>
+								</section>
+								<div class="slds-backdrop slds-backdrop_open"></div>
+							</template>
+							<!--Approve  Raw -->
+							<template if:true={openModalApproveRaw}>
+								<section aria-describedby="modal-content-id-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open" role="dialog" tabindex="-1">
+									<div class="slds-modal__container">
+										<header class="slds-modal__header">
+											<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={rawApproveCloseModal} title="Close">
+												<lightning-icon icon-name="utility:close" size="medium" variant="inverse"></lightning-icon>
+												<span class="slds-assistive-text">Close</span>
+											</button>
+											<h2 class="slds-text-heading_medium slds-hyphenate" >Approve Timesheet</h2>
+										</header>
+										<div class="slds-modal__content slds-p-around_medium" >
+											<h2></h2>
+											<lightning-textarea name="comments" label="Comments" data-id={rec.index} value={commentApprove} onchange={ApproveRawhandleComments} required ></lightning-textarea>
+											
+										</div>
+										<footer class="slds-modal__footer">
+											<lightning-button label="Cancel" data-id={rec.index} onclick={rawApproveCloseModal} variant="neutral"></lightning-button>&nbsp;&nbsp;&nbsp;&nbsp;
+											<lightning-button label="Save" data-id={rec.index} onclick={saveApprove} variant="brand"></lightning-button>
+										</footer>
+									</div>
+								</section>
+								<div class="slds-backdrop slds-backdrop_open"></div>
+							</template>
+						</tr>
+					</template>
+					<tr>
+						<th scope="col" height="22" style="width: 3rem">&nbsp;</th>
+						<th scope="col" height="22">&nbsp;</th>
+						<th scope="col" height="22" ></th>
+						<th scope="col" height="22" ></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 5rem" value={totalMonday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 5rem" value={totalTuesday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 5rem" value={totalWednesday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 5rem" value={totalThrusday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 5rem" value={totalFriday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 5rem" value={totalSaturday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 5rem" value={totalSunday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 5rem" value={totalAll} disabled></lightning-input></th>
+						<th scope="col" height="22" style="width: 3rem"></th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<footer class="slds-modal__footer" style="padding: 0.50rem 1rem;">
+			<div class="slds-grid slds-grid_align-end">
+				<div class="slds-col slds-p-right_x-small ">
+					<lightning-button  variant="brand" label="Approve All" title="Approve" data-id="Approve"  onclick={approveHandleClick}></lightning-button>
+				</div>
+				<div class="slds-col">
+					<lightning-button variant="brand" label="Reject All" title="Reject" data-id="Reject" onclick={rejectAllHandleClick}></lightning-button>
+				</div>
+			</div>
+		</footer>
+	</div>
+</template>

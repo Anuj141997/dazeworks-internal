@@ -1,0 +1,84 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
+                controller="CandidtaesListWithInterviews_Controller"
+                access="global" >
+    <aura:attribute name="interviewedList" type="Interview__c[]" />
+    <aura:attribute name="interviewId" type="String" />
+    <aura:attribute name="noRecordsFound" type="boolean"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+    
+    <aura:if isTrue="{!v.noRecordsFound}">
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+            <span class="slds-assistive-text">error</span>
+            <h2>There is no past Interview Feedback for this Candidate.</h2>
+        </div>
+        <aura:set attribute="else">
+            <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered ">
+                <thead >
+                    <tr class="slds-text-title_caps ">
+                        <th class="slds-truncate header" scope="col"  style = "width : 5rem;">
+                            <div class="slds-truncate" title="View Details">View Details</div>
+                        </th>
+                        <th class="slds-truncate header" scope="col">
+                            <div class="slds-truncate" title="Application Id">Interview Round</div>
+                        </th>
+                        <th class="slds-truncate header" scope="col">
+                            <div class="slds-truncate" title="Candidate Name">Candidate Name</div>
+                        </th>
+                        <th class="slds-truncate header" scope="col">
+                            <div class="slds-truncate" title="Interviewer Name">Interviewer Name</div>
+                        </th>
+                        <th class="slds-truncate header" scope="col">
+                            <div class="slds-truncate" title="Language Rating">Language Rating</div>
+                        </th>
+                        <th class="slds-truncate header" scope="col">
+                            <div class="slds-truncate" title="Technical Rating">Technical Rating</div>
+                        </th>
+                        <th class="slds-truncate header" scope="col">
+                            <div class="slds-truncate" title="Overall Rating">Overall Rating</div>
+                        </th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.interviewedList}" var="item" indexVar="itemIndex">
+                        <tr class="slds-hint-parent ">
+                            <td class="body" data-label="View Details" style = "width : 4 rem;">
+                                <div class="slds-truncate" title="View Details"  >
+                                    <lightning:buttonIcon class="icon" value="{!itemIndex}" onclick="{!c.toggle}" iconName="{!item.expanded?'utility:chevrondown':'utility:chevronright'}" />
+                                </div>
+                            </td>
+                            <td class="body" data-label="{!item.Application__r.Name}">
+                                <div class="slds-truncate" title="{!item.Application__r.Name}">{!item.Interview_Round__c}</div>
+                            </td>
+                            <td class="body" data-label="{!item.Application__r.Candidate__r.Name}">
+                                <div class="slds-truncate" title="{!item.Application__r.Candidate__r.Name}">{!item.Application__r.Candidate__r.Name}</div>
+                            </td>
+                            <td class="body" data-label="{!item.Interviewer__r.Name}">
+                                <div class="slds-truncate" title="{!item.Interviewer__r.Name}">{!item.Interviewer__r.Name}</div>
+                            </td>
+                            <td class="body" data-label="{!item.Language_on_10__c}">
+                                <div class="slds-truncate" title="{!item.Language_on_10__c}">{!item.Language_on_10__c}</div>
+                            </td>
+                            <td class="body" data-label="{!item.Technical_on_10__c}">
+                                <div class="slds-truncate" title="{!item.Technical_on_10__c}">{!item.Technical_on_10__c}</div>
+                            </td>
+                            <td class="body" data-label="{!item.Overall_on_10__c}">
+                                <div class="slds-truncate" title="{!item.Overall_on_10__c}">{!item.Overall_on_10__c}</div>
+                            </td>
+                        </tr>
+
+                        <aura:if isTrue="{!item.expanded}">
+                            <td colspan="7" >
+                                <c:RelatedInterviews recordId="{!item.Id}" />
+                            </td>
+                        </aura:if>
+                        
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </aura:set>
+    </aura:if>
+</aura:component>

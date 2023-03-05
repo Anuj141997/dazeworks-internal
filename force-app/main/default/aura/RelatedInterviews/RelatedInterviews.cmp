@@ -1,0 +1,290 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+                controller="RelatedInterviews_Controller"
+                access="global" >
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="interview" type="Interview__c[]" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:if isTrue="{!v.interview[0].Application__r.Position__r.HR__c}">
+        <div class="slds-m-horizontal_x-small">
+            <div class="slds-box ">
+                <div class="slds-grid slds-wrap">
+                    <div class="header-column slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <p class="field-title" title="Interview Id">
+                            Interview Id&nbsp;:&nbsp;
+                            {!v.interview[0].Name}
+                        </p>
+                    </div>
+                    
+                    <div class="header-column slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <p class="field-title" title="Feedback">
+                            Feedback&nbsp;:&nbsp;
+                            HR
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-box">
+                <div class="slds-grid slds-wrap ">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Attitude
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Attitude__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Communication
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Communication__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Language
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Language__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Comments
+                            </div>
+                            <div class="slds-col slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Comments1__c}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Listening Skills
+                            </div>
+                            <div class="slds-col slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Listening_skills__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Presentation Skills
+                            </div>
+                            <div class="slds-col slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Presentation_skills__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Technical Skills
+                            </div>
+                            <div class="slds-col slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Technical_skills__c}
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.interview[0].Application__r.Position__r.Technical__c}">
+        <div class="slds-m-horizontal_x-smalll">
+            <div class="slds-box ">
+                <div class="slds-grid slds-wrap">
+                    <div class="header-column slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <p class="field-title" title="Interview Id">
+                            Interview Id&nbsp;:&nbsp;
+                            {!v.interview[0].Name}
+                        </p>
+                    </div>
+                    
+                    <div class="header-column slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <p class="field-title" title="Feedback">
+                            Feedback&nbsp;:&nbsp;
+                            Technical
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-box">
+                <div class="slds-grid slds-wrap ">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Apex
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Apex__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Aura Components
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Aura_Components__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Integration
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Integration__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Comments
+                            </div>
+                            <div class="slds-col slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Comments__c}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                JavaScript
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Java_Script__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                LWC
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].LWC__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                SOQL
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].SQL__c}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.interview[0].Application__r.Position__r.QA__c}">
+        <div class="slds-m-horizontal_x-small">
+            <div class="slds-box ">
+                <div class="slds-grid slds-wrap">
+                    <div class="header-column slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <p class="field-title" title="Interview Id">
+                            Interview Id&nbsp;:&nbsp;
+                            {!v.interview[0].Name}
+                        </p>
+                    </div>
+                    
+                    <div class="header-column slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <p class="field-title" title="Feedback">
+                            Feedback&nbsp;:&nbsp;
+                            QA
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-box">
+                <div class="slds-grid slds-wrap ">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Cross Browser Testing
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Cross_Browser_Testing__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Functional Testing
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Functional_Testing__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Load Testing Data<br/>
+                                Loader or Jmeter
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Load_Testing_Data_Loader_or_Jmeter__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Performance Testing
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Performance_Testing__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Comments
+                            </div>
+                            <div class="slds-col slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Comments2__c}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Regression Testing
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Regression_Testing__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Smoke Testing
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Smoke_Testing__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Tosca Provar
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Tosca_Provar__c}
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                                Test Rail
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                {!v.interview[0].Test_Rail__c}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

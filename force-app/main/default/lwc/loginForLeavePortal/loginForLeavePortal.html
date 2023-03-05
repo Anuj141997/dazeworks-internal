@@ -1,0 +1,55 @@
+<template>
+     <template if:true={showOTP}>
+    <lightning-card >
+
+        
+
+        <template if:true={login}>
+        <div class="slds-page-header__name-title">
+            <h1 style="color:Black;font-size:25px;">
+               <B>
+                  <div class="slds-align_absolute-center">Employee Leave portal Login</div>
+               </B>
+            </h1>
+         </div>
+
+        <div class="slds-m-horizontal_x-small">
+            <lightning-input class='empid' type="text" label='Enter Your Employee ID' value={empId} onchange={handleInput}></lightning-input>
+        </div>
+
+        
+        <div class="slds-m-horizontal_x-small slds-clearfix " style='margin-top: 1rem; '>
+          
+            <lightning-button class=slds-float_right  label="Get OTP" variant="brand" onclick={handleNext}></lightning-button>
+        </div>
+    </template>
+
+    <template if:true={otp}>
+
+        <div class="slds-page-header__name-title">
+            <h1 style="color:Black;font-size:20px;">
+               <B>
+                  <div class="slds-align_absolute-center">Verification for Employee Id - {empId}</div>
+               </B>
+            </h1>
+         </div>
+
+         <p style='font-size: 12px;margin: 1rem 1rem 1rem;'>
+             Check your email {emailMap}, for verification code.
+         </p>
+         <div class="slds-m-horizontal_x-small">
+         <lightning-input class='otp' label={label.verification} required value={vCode} onchange={handleOtp}></lightning-input>
+        </div>
+
+        <div class="slds-m-horizontal_x-small slds-clearfix " style='margin-top: 1rem; '>
+            <lightning-button class=slds-float_right  label="Submit" variant="brand" onclick={handleNext1}></lightning-button>
+        </div>
+    </template>
+     </lightning-card>
+    
+    </template>
+   
+    <template if:true={showContainer}>
+         <c-leave-container empid = {employID}></c-leave-container>
+    </template>
+</template>

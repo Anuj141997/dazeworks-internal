@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT">
+    <aura:attribute name="rating" type="integer"/>
+    <aura:attribute name="Option" type="String"/>
+</aura:event>

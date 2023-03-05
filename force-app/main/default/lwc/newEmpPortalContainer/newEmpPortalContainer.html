@@ -1,0 +1,20 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 08-09-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   08-05-2022   Shivam Kumar   Initial Version
+-->
+<template>
+    <template if:true={showLogin}>
+        <c-new-emp-portal ipaddress = {messageFromVF} onotpverify={submitLogin} ></c-new-emp-portal>
+    </template>    
+    <template if:true={showConnect}>
+        <c-new-emp-portal-home emp-id={empid}  rec-id={recid} emp-name={empName} home={showConnect} ipaddress = {messageFromVF}
+        tittle={tittle} emp-manager={empManager} phone={phone} mobile={mobile} emp-d-o-j={empDOJ} emp-email={empEmail}
+        ></c-new-emp-portal-home>
+    </template>
+</template>

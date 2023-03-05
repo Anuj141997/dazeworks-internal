@@ -1,0 +1,12 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+<aura:attribute name="openReport" type="Boolean" default="false"/>
+    
+    <!-- Brand variant: Identifies the primary action in a group of buttons -->
+    <lightning:button variant="brand" label="Create Resume" title="Brand action" onclick="{! c.handleClick }" />
+    
+    <aura:if isTrue="{!v.openReport}">
+        
+    </aura:if> 
+    
+</aura:component>

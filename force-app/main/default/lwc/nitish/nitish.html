@@ -1,0 +1,192 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-card >
+        <div class="slds-grid slds-gutters_medium slds-wrap " style="background-color:rgb(241, 241, 241)">
+
+            
+               
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding:10px;
+                font-size: 20px;" >
+                <lightning-icon icon-name="standard:timesheet"></lightning-icon>
+                <span>   Active Timesheets </span>   
+             </div> 
+                <div style=" background-color:white;" >
+                   you have 2 active timesheets that need updating</div>
+               
+            </div>
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding: 10px ;
+                font-size: 20px;">
+                <lightning-icon icon-name="standard:hierarchy"></lightning-icon>
+                <span>   You Report To </span> </div> 
+
+
+                <div style=" background-color:white;">
+                    Lorem ipsum dcolor sit amet, officia excepteur ex fugiat reprehenderit enim
+               labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi
+               animcupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est
+               aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia
+               pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit
+               commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa
+               proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia
+               eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim.
+               Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et
+               culpa duis.</div>
+               
+            </div>
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding: 10px ;
+                font-size: 20px;">
+                <lightning-icon icon-name="standard:job_profile"></lightning-icon>
+               <span>  Job Portal </span>
+            </div> 
+                <div style=" background-color:white;">
+                     Lorem ipsum dcolor sit amet, officia excepteur ex fugiat reprehenderit enim
+                labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi
+                animcupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est
+                aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia
+                pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit
+                commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa
+                proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia
+                eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim.
+                Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et
+                culpa duis.</div>
+
+                
+               
+            </div>
+            
+
+            <!-- 2nd row -->
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding: 10px ;
+                font-size: 20px;">
+                <lightning-icon icon-name="standard:product_required"></lightning-icon>
+                <span>  Active Checklists </span>
+            </div> 
+                <div style=" background-color:white;">
+                    Lorem ipsum dcolor sit amet, officia excepteur ex fugiat reprehenderit enim
+               labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi
+               animcupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est
+               aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia
+               pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit
+               commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa
+               proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia
+               eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim.
+               Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et
+               culpa duis.</div>
+                
+               
+            </div>
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding: 10px ;
+                font-size: 20px;">
+                <lightning-icon icon-name="custom:custom109"></lightning-icon>
+                <span> Recent Reviews </span>
+                
+                
+                </div> 
+                
+                <lightning-datatable 
+                
+                min-column-width="100"
+                key-field="type"
+                data={data}
+                columns={columns}>
+                </lightning-datatable>
+
+                
+               
+            </div>
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding: 10px ;
+                font-size: 20px;">
+                <lightning-icon icon-name="standard:bot_training"></lightning-icon>
+                <span> Recent Training </span>
+                
+                
+                
+                </div> 
+                
+                <lightning-datatable 
+
+                
+                min-column-width="100"
+                key-field="type"
+                data={traindata}
+                columns={traincolumns}>
+                </lightning-datatable>
+
+                
+               
+            </div>
+
+            <!-- 3rd row -->
+
+          
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding: 10px ;
+                font-size: 20px;">
+                <lightning-icon icon-name="standard:event"></lightning-icon>
+                <span> Calender </span>
+                
+                </div> 
+                
+
+                
+               
+            </div>
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding: 10px ;
+                font-size: 20px;">
+                <lightning-icon icon-name="standard:asset_relationship"></lightning-icon>
+                <span> Assets In Your Care </span>
+                
+                
+                </div> 
+                
+                <lightning-datatable 
+                
+                min-column-width="100"
+                key-field="type"
+                data={empasset_data}
+                columns={empasset_columns}>
+                </lightning-datatable>
+
+                
+               
+            </div>
+            <div class="slds-col slds-size_4-of-12 ">
+                <div style=" background-color: rgba(90, 224, 241, 0.8);
+                padding: 10px ;
+                font-size: 20px;">
+                <lightning-icon icon-name="standard:assigned_resource"></lightning-icon>
+                <span> Your Position History</span>
+               
+                </div> 
+                
+                <lightning-datatable 
+                
+                min-column-width="100"
+                key-field="type"
+                data={empposi_data}
+                columns={empposi_columns}>
+                </lightning-datatable>
+
+                
+               
+            </div>
+        
+            </div>
+    </lightning-card>
+
+</template>

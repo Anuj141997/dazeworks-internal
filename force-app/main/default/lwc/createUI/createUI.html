@@ -1,0 +1,49 @@
+<template>
+    <lightning-card title="Apply for leave">
+      <div id ="maindiv">
+        <lightning-layout multiple-rows id="" >&nbsp;&nbsp;&nbsp;
+            <div> Leave Duration : </div> &nbsp; &nbsp;&nbsp;&nbsp;
+            <input type="radio" name="Radiobutton" value="HalfDay" style="margin-top: 5px ;" onchange={handleRadioChange}>
+            <div>Half Day</div> &nbsp; &nbsp;&nbsp;&nbsp;
+            <input type="radio" name="Radiobutton" value="SingleDay" style="margin-top: 5px ;" onchange={handleRadioChange}>
+            <div>Single Day</div> &nbsp; &nbsp;&nbsp;&nbsp;
+            <input type="radio" name="Radiobutton" value="MultipleDays" style="margin-top: 5px ;" onchange={handleRadioChange}>
+            <div>Multiple Day</div>
+            <!--<lightning-radio-group name="radioGroup"
+            label="Radio Group"
+            options={leaveoptions}
+            value={value}
+            type="radio"
+            onchange={handleRadioChange}>
+            </lightning-radio-group>-->
+        </lightning-layout>
+        <div class="slds-wrap slds-grid">
+            <div class="slds-col slds-size_4-of-12 slds-p-horizontal--small slds-m-bottom--medium">
+                <template if:true={radiosel}>
+                    <div class="slds-grid slds-col Date">
+                        <div class="slds-size_7-of-12 slds-p-horizontal--small slds-m-bottom--medium"><p><lightning-input required="True" label="Date " type="date" value={Start_Date__c} name="StartDate" onchange={scoreHandleChange}></lightning-input></p></div>
+                    </div>
+                </template>
+                <template if:true={radSelMultiple}>
+                    <div class="slds-grid slds-col Date">
+                        <div class="slds-size_7-of-12 slds-p-horizontal--small slds-m-bottom--medium"><p><lightning-input required="True" label="Start Date " type="date" value={Start_Date__c} name="StartDate" onchange={scoreHandleChange}></lightning-input></p></div>
+                        <div class="slds-size_7-of-12 slds-p-horizontal--small slds-m-bottom--medium"><p><lightning-input required="True" label="End Date " type="date" value={End_Date__c} name="EndDate" onchange={scoreHandleChange}></lightning-input></p></div>
+                    </div>
+                </template>
+                <p>
+                    <lightning-layout multiple-rows ="">
+                    <lightning-combobox required label="Leave Type" value={value} placeholder="Select Leave Type" options={options} onchange={handleChange} >
+                    </lightning-combobox>
+                </lightning-layout>
+                </p> &nbsp;&nbsp;
+                <lightning-textarea  name="input1" label="Reason" class="mytextarea">
+                </lightning-textarea>
+                <div class="slds-align_absolute-center slds-grid slds-col" >
+                    <lightning-button type="brand" label="Apply" variant="brand" onclick={submitAction}>
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+     </div>
+    </lightning-card>
+</template>

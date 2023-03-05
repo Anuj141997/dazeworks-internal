@@ -1,0 +1,1195 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 08-31-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   08-23-2022   Shivam Kumar   Initial Version
+-->
+<template>
+  <lightning-card>
+      <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_7-of-12">
+      <lightning-layout multiple-rows="true">
+          <lightning-layout-item padding="around-small" size="2">
+                  <lightning-combobox label="Interview Round" value={levelValue} placeholder="Select Level"
+                      options={levelOptions} onchange={handleLevelChange}>
+                  </lightning-combobox>
+          </lightning-layout-item>
+          <lightning-layout-item padding="around-small" size="2">
+              <lightning-input type="Date" name="inputDate" label="Enter a Date"></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item padding="around-small" size="2">
+              <lightning-input type="Text" name="searchName" label="Interviewee" placeholder="Enter the Name" onchange={handleNameSearch}></lightning-input>
+          </lightning-layout-item>
+      </lightning-layout>
+  <div class="slds-m-around_xxx-large slds-p-horizontal_large">
+      <table class="slds-table slds-table_bordered slds-table_cell-buffer sldx-box">
+          <thead>
+              <tr  class="slds-text-title_caps">
+                  <th scope="col">
+                      <strong><div class="slds-truncate" title="View Details">View Details</div></strong>
+                  </th>
+                  <th scope="col">
+                      <strong><div class="slds-truncate" title="Application Id">Application Id</div></strong>
+                  </th>
+                  <th scope="col">
+                      <strong><div class="slds-truncate" title="Name">Name</div></strong>
+                  </th>
+                  <th scope="col">
+                      <strong><div class="slds-truncate" title="Round">Round</div></strong>
+                  </th>
+                  <th scope="col">
+                      <strong><div class="slds-truncate" title="Job Position">Job Position</div></strong>
+                  </th>
+                  <th scope="col">
+                      <strong><div class="slds-truncate" title="Status">Status</div></strong>
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <template for:each={interviewList} for:item="val" for:index="index">
+                  <tr key={val.Id}>
+                      <th scope="row" data-label="View Details">
+                          <lightning-button-icon icon-name={val.button} alternative-text="chevronright" title="chevronright" onclick={showDetails} data-index={index}></lightning-button-icon>
+                      </th>
+                      <th scope="row" data-label="Application Id">
+                          <div class="slds-truncate" title={val.application}>{val.application}</div>
+                      </th>
+                      <th scope="row" data-label="Name">
+                          <div class="slds-truncate" title={val.intObj.Interviewee__c}>{val.intObj.Interviewee__c}</div>
+                      </th>
+                      <th scope="row" data-label="Round">
+                          <div class="slds-truncate" title={val.intObj.Interview_Round_Number__c}>{val.intObj.Interview_Round_Number__c}</div>
+                      </th>
+                      <th scope="row" data-label="Job Position">
+                          <div class="slds-truncate" title={val.position}>{val.position}</div>
+                      </th>
+                      <th scope="row" data-label="Status">
+                          <div class="slds-truncate" title={val.intObj.Interview_Status__c}>{val.intObj.Interview_Status__c}</div>
+                      </th>
+                  </tr>
+                  <template if:true={val.content}>
+                      <tr key={val.Id}>
+                          <td colspan="6">
+                            <lightning-card title="Details">
+                              <div class="slds-box accColor">
+                                     
+                                      <div class="slds-grid slds-gutters">
+                                          <div class="slds-col slds-size_1-of-3">
+                                              &nbsp;&nbsp;Id : {val.intObj.Name}
+                                              <br/><br/>
+                                              &nbsp;&nbsp;Date & Time : {val.intTime}
+                                              <br/><br/>
+                                              &nbsp;&nbsp;Overall Rating : {val.intObj.Overall_on_10__c}
+                                          </div>
+                                          <div class="slds-col slds-size_1-of-3">
+                                              Email : {val.intObj.Candidate_Email__c}
+                                              <br/><br/>
+                                              Language Rating : {val.intObj.Language_on_10__c}
+                                              <br/><br/>
+                                              Average of Rating : {val.intObj.Average_of_Rating__c}
+                                          </div>
+                                          <div class="slds-col slds-size_1-of-3">
+                                              Phone : {val.intObj.Candidate_Phone_number__c}
+                                              <br/><br/>
+                                              Technical Rating : {val.intObj.Technical_on_10__c}
+                                          </div>
+                                          <!--<div class="slds-col slds-size_1-of-4">
+                                              
+                                          </div>-->
+                                      </div>
+                                    
+                              </div>
+                            </lightning-card>
+                              <lightning-accordion class="accordion"  active-section-name="Technical_Initial_Feedback" onsectiontoggle={handleToggleSection} >
+                              <div class="slds-box accColor">
+                                  <lightning-accordion-section name="Technical_Initial_Feedback" label="Technical Initial Feedback" class="accColor" onclick={openTechInitial}>
+                                      <div>
+                                          <lightning-button-icon class="slds-float_right" icon-name="utility:edit" alternative-text="edit" title="edit" onclick={getRecordToEdit1} data-index={index}></lightning-button-icon>
+                                      </div>
+                                      <div class="slds-grid slds-gutters">
+                                          <div class="slds-col slds-size_1-of-2">
+                                              <div class="slds-grid slds-gutters">
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      &nbsp;&nbsp;Apex
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;Integration
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;LWC
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;MuleSoft
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;Velocity/CPQ
+                                                  </div>
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      {val.intObj.Apex__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Integration__c}
+                                                      <br/><br/>
+                                                      {val.intObj.LWC__c}
+                                                      <br/><br/>
+                                                      {val.intObj.MuleSoft__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Velocity_CPQ__c}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="slds-col slds-size_1-of-2">
+                                              <div class="slds-grid slds-gutters">
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      Aura
+                                                      <br/><br/>
+                                                      JavaScript
+                                                      <br/><br/>
+                                                      Visualforce
+                                                      <br/><br/>
+                                                      SOQL
+                                                      <br/><br/>
+                                                      Admin
+                                                  </div>
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      {val.intObj.Aura_Components__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Java_Script__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Visualforce__c}
+                                                      <br/><br/>
+                                                      {val.intObj.SQL__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Admin__c}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <br/>
+                                      <div class="slds-grid slds-gutters">
+                                          <div class="slds-col slds-size_1-of-4">
+                                              &nbsp;&nbsp;&nbsp;&nbsp;Technical Comments
+                                              <br/><br/>
+                                          </div>
+                                          <div class="slds-col slds-size_3-of-4">
+                                              {val.intObj.Comments__c}
+                                              <br/><br/>
+                                          </div>
+                                      </div>
+                                  </lightning-accordion-section>
+                              </div>
+                              <div class="slds-box accColor">
+                                  <lightning-accordion-section name="Feedback" label="Feedback" class="accColor" onclick={openFeedBack}>
+                                      <div>
+                                          <lightning-button-icon class="slds-float_right" icon-name="utility:edit" alternative-text="edit" title="edit" onclick={getRecordToEdit2} data-index={index}></lightning-button-icon>
+                                      </div>
+                                      <div class="slds-grid slds-gutters">
+                                          <div class="slds-col slds-size_1-of-2">
+                                              <div class="slds-grid slds-gutters">
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      &nbsp;&nbsp;Comm Skill
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;Motivation
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;Management
+                                                  </div>
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      {val.intObj.Comm_Skill__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Motivation__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Management__c}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="slds-col slds-size_1-of-2">
+                                              <div class="slds-grid slds-gutters">
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      Attitude
+                                                      <br/><br/>
+                                                      Flexibility
+                                                      <br/><br/>
+                                                      Project Lead
+                                                  </div>
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      {val.intObj.Attitude__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Flexibility__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Project_Lead__c}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <br/>
+                                      <div class="slds-grid slds-gutters">
+                                          <div class="slds-col slds-size_1-of-4">
+                                              &nbsp;&nbsp;&nbsp;&nbsp;Technical Comments
+                                              <br/><br/>
+                                          </div>
+                                          <div class="slds-col slds-size_3-of-4">
+                                              {val.intObj.Comments__c}
+                                              <br/><br/>
+                                          </div>
+                                      </div>
+                                  </lightning-accordion-section>
+                              </div>
+                              <div class="slds-box accColor">
+                                  <lightning-accordion-section name="QA_Ratings" label="QA Ratings" class="accColor" onclick={openQA}>
+                                      <div>
+                                          <lightning-button-icon class="slds-float_right" icon-name="utility:edit" alternative-text="edit" title="edit" onclick={getRecordToEdit3} data-index={index}></lightning-button-icon>
+                                      </div>
+                                      <div class="slds-grid slds-gutters">
+                                          <div class="slds-col slds-size_1-of-2">
+                                              <div class="slds-grid slds-gutters">
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      &nbsp;&nbsp;Cross Browser Testing
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;Functional Testing
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;Load Testing Data<br/>&nbsp;&nbsp;Loader or Jmeter
+                                                      <br/><br/>
+                                                      &nbsp;&nbsp;Performance Testing
+                                                  </div>
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      {val.intObj.Cross_Browser_Testing__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Functional_Testing__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Load_Testing_Data_Loader_or_Jmeter__c}
+                                                      <br/><br/><br/>
+                                                      {val.intObj.Performance_Testing__c}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="slds-col slds-size_1-of-2">
+                                              <div class="slds-grid slds-gutters">
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      Regression Testing
+                                                      <br/><br/>
+                                                      Smoke Testing
+                                                      <br/><br/>
+                                                      Tosca Provar
+                                                      <br/><br/>
+                                                      Test Rail
+                                                  </div>
+                                                  <div class="slds-col slds-size_1-of-2">
+                                                      {val.intObj.Regression_Testing__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Smoke_Testing__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Tosca_Provar__c}
+                                                      <br/><br/>
+                                                      {val.intObj.Test_Rail__c}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <br/>
+                                      <div class="slds-grid slds-gutters">
+                                          <div class="slds-col slds-size_1-of-4">
+                                              &nbsp;&nbsp;&nbsp;&nbsp;Testing Comments
+                                              <br/><br/>
+                                          </div>
+                                          <div class="slds-col slds-size_3-of-4">
+                                              {val.intObj.Comments2__c}
+                                              <br/><br/>
+                                          </div>
+                                      </div>
+                                  </lightning-accordion-section>
+                              </div>
+                              </lightning-accordion>
+                           </td>
+                      </tr>
+                  </template>
+              </template>
+          </tbody>
+      </table>
+  </div>
+</div>
+<div class="slds-col slds-size_5-of-12">
+  <template if:true={QARating}>
+  <div class="slds-m-around_medium">
+      <div>
+      <br/>
+      <br/>
+      <br/>
+          <div class="slds-align_absolute-center">
+              <div class="slds-box  slds-align_absolute-center" style="position: relative;
+          color: white;
+          background-color: #1e194e;
+          width: 100%;
+          font-size: xx-large;
+          font-style: initial;"> Testing Interview Feedback </div>
+          </div>
+          <br/>
+          <br/>
+          <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-left_large">
+                      <div class="slds-form-element">
+                          <label class="slds-checkbox_toggle slds-grid" style="position: relative; ">
+                              <span class="slds-form-element__label slds-m-bottom_none"><b>Interviewee didn't join
+                                      &nbsp; &nbsp;</b></span>
+                              <input type="checkbox" name="checkbox-toggle-17" value="checkbox-toggle-17"
+                                  aria-describedby="checkbox-toggle-17" checked="" />
+                              <span id="checkbox-toggle-18" class="slds-checkbox_faux_container"
+                                  aria-live="assertive">
+                                  <span class="slds-checkbox_faux"></span>
+                                  <span class="slds-checkbox_on">Active</span>
+                                  <span class="slds-checkbox_off">Inactive</span>
+                              </span>
+                          </label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <br/>
+          <br/>
+          <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="position: relative;">
+                      Cross browser <br/> Testing &nbsp;
+                      <input type="radio" id="star35" name="Cross browser" value="5" checked={star35} onchange={rating} />
+                      <label for="star35" style=" position: relative; bottom: 58%; left: 30%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star34" name="Cross browser" value="4" checked={star34} onchange={rating} />
+                      <label for="star34" style=" position: relative; bottom: 58%;left: 30%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star33" name="Cross browser" value="3" checked={star33} onchange={rating} />
+                      <label for="star33" style=" position: relative; bottom: 58%;left: 30%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star32" name="Cross browser" value="2" checked={star32} onchange={rating} />
+                      <label for="star32" style=" position: relative; bottom: 58%;left: 30%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star31" name="Cross browser" value="1" checked={star31} onchange={rating} />
+                      <label for="star31" style=" position: relative; bottom: 58%;left: 30%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate " style="   position: relative;">
+                      Functional <br/>Testing &nbsp;
+                      <input type="radio" id="star65" name="Functional" value="5" checked={star65} onchange={rating} />
+                      <label for="star65" style=" position: relative; bottom: 58%;left: 22%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star64" name="Functional" value="4" checked={star64} onchange={rating} />
+                      <label for="star64" style=" position: relative; bottom: 58%;left: 22%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star63" name="Functional" value="3" checked={star63} onchange={rating} />
+                      <label for="star63" style=" position: relative; bottom: 58%;left: 22%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star62" name="Functional" value="2" checked={star62} onchange={rating} />
+                      <label for="star62" style=" position: relative; bottom: 58%;left: 22%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star61" name="Functional" value="1" checked={star61} onchange={rating} />
+                      <label for="star61" style=" position: relative; bottom: 58%;left: 22%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+          </div>
+          <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="position: relative;">
+                      Data Loader <br/>or Jmeter Testing &nbsp;
+                      <input type="radio" id="star55" name="Data Loader" value="5" checked={star55} onchange={rating} />
+                      <label for="star55" style=" position: relative; bottom: 58%; left: 1%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star54" name="Data Loader" value="4" checked={star54} onchange={rating} />
+                      <label for="star54" style=" position: relative; bottom: 58%;left: 1%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star53" name="Data Loader" value="3" checked={star53} onchange={rating} />
+                      <label for="star53" style=" position: relative; bottom: 58%;left: 1%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star52" name="Data Loader" value="2" checked={star52} onchange={rating} />
+                      <label for="star52" style=" position: relative; bottom: 58%;left: 1%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star51" name="Data Loader" value="1" checked={star51} onchange={rating} />
+                      <label for="star51" style=" position: relative; bottom: 98%;left: 1%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="     position: relative;">
+                      Performance <br/>Testing &nbsp;
+                      <input type="radio" id="star45" name="Performance" value="5" checked={star45} onchange={rating} />
+                      <label for="star45" style=" position: relative; bottom: 58%;    left: 22.5%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star44" name="Performance" value="4" checked={star44} onchange={rating} />
+                      <label for="star44" style=" position: relative; bottom: 58%;    left:22.5%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star43" name="Performance" value="3" checked={star43} onchange={rating} />
+                      <label for="star43" style=" position: relative; bottom: 58%;    left: 22.5%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star42" name="Performance" value="2" checked={star42} onchange={rating} />
+                      <label for="star42" style=" position: relative; bottom: 58%;    left: 22.5%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star41" name="Performance" value="1"  checked={star41} onchange={rating} />
+                      <label for="star41" style=" position: relative; bottom: 58%;    left: 22.5%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+          </div>
+          <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="position: relative;">
+                      Regression <br/>Testing &nbsp;
+                      <input type="radio" id="star30" name="Regression" value="5" checked={star30} onchange={rating} />
+                      <label for="star30" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star29" name="Regression" value="4" checked={star29} onchange={rating} />
+                      <label for="star29" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star28" name="Regression" value="3" checked={star28} onchange={rating} />
+                      <label for="star28" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star27" name="Regression" value="2" checked={star27} onchange={rating} />
+                      <label for="star27" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star26" name="Regression" value="1" checked={star26} onchange={rating} />
+                      <label for="star26" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="    position: relative;">
+                      Smoke Testing &nbsp;
+                      <input type="radio" id="star25" name="Smoke" value="5" checked={star25} onchange={rating} />
+                      <label for="star25" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star24" name="Smoke" value="4" checked={star24} onchange={rating} />
+                      <label for="star24" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star23" name="Smoke" value="3" checked={star23} onchange={rating} />
+                      <label for="star23" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star22" name="Smoke" value="2" checked={star22} onchange={rating} />
+                      <label for="star22" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star21" name="Smoke" value="1" checked={star21} onchange={rating} />
+                      <label for="star21" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+          </div>
+          <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="position: relative;">
+                      Test Rail &nbsp;
+                      <input type="radio" id="star20" name="Test" value="5" checked={star20} onchange={rating} />
+                      <label for="star20" style=" position: relative; bottom: 25%;left: 27%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star19" name="Test" value="4" checked={star19} onchange={rating} />
+                      <label for="star19" style=" position: relative; bottom: 25%;left: 27%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star18" name="Test" value="3" checked={star18} onchange={rating} />
+                      <label for="star18" style=" position: relative; bottom: 25%;left: 27%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star17" name="Test" value="2" checked={star17} onchange={rating} />
+                      <label for="star17" style=" position: relative; bottom: 25%;left: 27%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star16" name="Test" value="1" checked={star16} onchange={rating} />
+                      <label for="star16" style=" position: relative; bottom: 25%;left: 27%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="    position: relative;">
+                      Tosca Provar &nbsp;
+                      <input type="radio" id="star15" name="Tosca" value="5" checked={star15} onchange={rating} />
+                      <label for="star15" style=" position: relative; bottom: 25%;left: 7%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star14" name="Tosca" value="4" checked={star14} onchange={rating} />
+                      <label for="star14" style=" position: relative; bottom: 25%;left: 7%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star13" name="Tosca" value="3" checked={star13} onchange={rating} />
+                      <label for="star13" style=" position: relative; bottom: 25%;left: 7%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star12" name="Tosca" value="2" checked={star12} onchange={rating} />
+                      <label for="star12" style=" position: relative; bottom: 25%;left: 7%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star11" name="Tosca" value="1" checked={star11} onchange={rating} />
+                      <label for="star11" style=" position: relative; bottom: 25%;left: 7%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+          </div>
+          <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="position: relative;">
+                      Language &nbsp;
+                      <input type="radio" id="star10" name="Language3" value="5" checked={star10} onchange={rating} />
+                      <label for="star10" style=" position: relative; bottom: 25%;left: 22%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star9" name="Language3" value="4" checked={star9} onchange={rating} />
+                      <label for="star9" style=" position: relative; bottom: 25%;left: 22%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star8" name="Language3" value="3" checked={star8} onchange={rating} />
+                      <label for="star8" style=" position: relative; bottom: 25%;left: 22%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star7" name="Language3" value="2" checked={star7} onchange={rating} />
+                      <label for="star7" style=" position: relative; bottom: 25%;left: 22%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star6" name="Language3" value="1" checked={star6} onchange={rating} />
+                      <label for="star6" style=" position: relative; bottom: 25%;left: 22%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+              <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-p-around_medium rate" style="    position: relative;">
+                      Overall Rating &nbsp;
+                      <input type="radio" id="star101" name="Overall3" value="5" checked={star101} onchange={rating} />
+                      <label for="star101" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">5
+                          stars</label>
+                      <input type="radio" id="star91" name="Overall3" value="4" checked={star91} onchange={rating} />
+                      <label for="star91" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">4
+                          stars</label>
+                      <input type="radio" id="star81" name="Overall3" value="3" checked={star81} onchange={rating} />
+                      <label for="star81" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">3
+                          stars</label>
+                      <input type="radio" id="star71" name="Overall3" value="2" checked={star71} onchange={rating} />
+                      <label for="star71" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">2
+                          stars</label>
+                      <input type="radio" id="star67" name="Overall3" value="1" checked={star67} onchange={rating} />
+                      <label for="star67" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">1
+                          star</label>
+                  </div>
+              </div>
+          </div>
+          <div class="slds-grid ">
+              <div class="slds-col">
+                  <div class="slds-p-around_medium">
+                      <lightning-textarea style="position: relative;" value={recordDetails.intObj.Comments2__c} label="Comments"></lightning-textarea>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <br/>
+      <div class="slds-grid slds-wrap" style="position: relative;">
+          Interview Id : {recordDetails.intObj.Name}
+      </div>
+      <br/>
+      <div class="slds-grid slds-wrap" style="position: relative;">
+          Employee Id/ Professional Consultant Id : {recordDetails.intObj.Employee_Id__c}
+      </div>
+      <br/>
+      <br/>
+      <br/>
+      <div class="slds-align_absolute-center">
+          <lightning-button label="Submit" variant="brand"></lightning-button>
+
+      </div>
+  </div>
+  <br/>
+  <br/>
+  </template>
+  <template if:true={TechInitRating}>
+      <div class="slds-m-around_medium">
+          <div>
+          <br/>
+          <br/>
+          <br/>
+              <div class="slds-align_absolute-center">
+                  <div class="slds-box  slds-align_absolute-center" style="position: relative;
+              color: white;
+              background-color: #1e194e;
+              width: 100%;
+              font-size: xx-large;
+              font-style: initial;"> Technical Interview Feedback </div>
+              </div>
+              <br/>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-left_large">
+                          <div class="slds-form-element">
+                              <label class="slds-checkbox_toggle slds-grid" style="position: relative; ">
+                                  <span class="slds-form-element__label slds-m-bottom_none"><b>Interviewee didn't join
+                                          &nbsp; &nbsp;</b></span>
+                                  <input type="checkbox" name="checkbox-toggle-17" value="checkbox-toggle-17"
+                                      aria-describedby="checkbox-toggle-17" checked="" />
+                                  <span id="checkbox-toggle-19" class="slds-checkbox_faux_container"
+                                      aria-live="assertive">
+                                      <span class="slds-checkbox_faux"></span>
+                                      <span class="slds-checkbox_on">Active</span>
+                                      <span class="slds-checkbox_off">Inactive</span>
+                                  </span>
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <br/>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 3%;">
+                          Apex
+                          <input type="radio" id="star235" name="Apex" value="5" checked={star235} onchange={rating} />
+                          <label for="star235" style=" position: relative; bottom: 35%; left: 35%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star234" name="Apex" value="4" checked={star234} onchange={rating} />
+                          <label for="star234" style=" position: relative; bottom: 35%;left: 35%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star233" name="Apex" value="3" checked={star233} onchange={rating} />
+                          <label for="star233" style=" position: relative; bottom: 35%;left: 35%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star232" name="Apex" value="2" checked={star232} onchange={rating} />
+                          <label for="star232" style=" position: relative; bottom: 35%;left: 35%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star231" name="Apex" value="1" checked={star231} onchange={rating} />
+                          <label for="star231" style=" position: relative; bottom: 35%;left: 35%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate " style="position: relative; right: 3%;">
+                          Aura
+                          <input type="radio" id="star265" name="Aura" value="5" checked={star265} onchange={rating} />
+                          <label for="star265" style=" position: relative; bottom: 35%;left: 38%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star264" name="Aura" value="4" checked={star264} onchange={rating} />
+                          <label for="star264" style=" position: relative; bottom: 35%;left: 38%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star263" name="Aura" value="3" checked={star263} onchange={rating} />
+                          <label for="star263" style=" position: relative; bottom: 35%;left: 38%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star262" name="Aura" value="2" checked={star262} onchange={rating} />
+                          <label for="star262" style=" position: relative; bottom: 35%;left: 38%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star261" name="Aura" value="1" checked={star261} onchange={rating} />
+                          <label for="star261" style=" position: relative; bottom: 35%;left: 38%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Apex_Remarks__c}></lightning-textarea>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Apex_Remarks__c}></lightning-textarea>
+                  </div>
+              </div>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 3%;">
+                          Integration
+                          <input type="radio" id="star255" name="Integration" value="5" checked={star255} onchange={rating} />
+                          <label for="star255" style=" position: relative; bottom: 30%; left: 13%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star254" name="Integration" value="4" checked={star254} onchange={rating} />
+                          <label for="star254" style=" position: relative; bottom: 30%; left: 13%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star253" name="Integration" value="3" checked={star253} onchange={rating} />
+                          <label for="star253" style=" position: relative; bottom: 30%; left: 13%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star252" name="Integration" value="2" checked={star252} onchange={rating} />
+                          <label for="star252" style=" position: relative; bottom: 30%; left: 13%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star251" name="Integration" value="1" checked={star251} onchange={rating} />
+                          <label for="star251" style=" position: relative; bottom: 30%; left: 13%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 3%;">
+                          JavaScript
+                          <input type="radio" id="star245" name="JavaScript" value="5" checked={star245} onchange={rating} />
+                          <label for="star245" style=" position: relative; bottom: 30%;    left: 18%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star244" name="JavaScript" value="4" checked={star244} onchange={rating} />
+                          <label for="star244" style=" position: relative; bottom: 30%;    left:18%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star243" name="JavaScript" value="3" checked={star243} onchange={rating} />
+                          <label for="star243" style=" position: relative; bottom: 30%;    left: 18%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star242" name="JavaScript" value="2" checked={star242} onchange={rating} />
+                          <label for="star242" style=" position: relative; bottom: 30%;    left: 18%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star241" name="JavaScript" value="1" checked={star241} onchange={rating} />
+                          <label for="star241" style=" position: relative; bottom: 30%;    left: 18%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Integration_Remarks__c}></lightning-textarea>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.JavaScript_Remarks__c}></lightning-textarea>
+                  </div>
+              </div>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 3%;">
+                          LWC
+                          <input type="radio" id="star230" name="LWC" value="5" checked={star230} onchange={rating} />
+                          <label for="star230" style=" position: relative; bottom: 37%;left: 37%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star229" name="LWC" value="4" checked={star229} onchange={rating} />
+                          <label for="star229" style=" position: relative; bottom: 37%;left: 37%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star228" name="LWC" value="3" checked={star228} onchange={rating} />
+                          <label for="star228" style=" position: relative; bottom: 37%;left: 37%;;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star227" name="LWC" value="2" checked={star227} onchange={rating} />
+                          <label for="star227" style=" position: relative; bottom: 37%;left: 37%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star226" name="LWC" value="1" checked={star226} onchange={rating} />
+                          <label for="star226" style=" position: relative; bottom: 37%;left: 37%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 3%;">
+                          Visualforce
+                          <input type="radio" id="star225" name="Visualforce" value="5" checked={star225} onchange={rating} />
+                          <label for="star225" style=" position: relative; bottom: 37%; left: 14.5%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star224" name="Visualforce" value="4" checked={star224} onchange={rating} />
+                          <label for="star224" style=" position: relative; bottom: 37%; left: 14.5%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star223" name="Visualforce" value="3" checked={star223} onchange={rating} />
+                          <label for="star223" style=" position: relative; bottom: 37%; left: 14.5%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star222" name="Visualforce" value="2" checked={star222} onchange={rating} />
+                          <label for="star222" style=" position: relative; bottom: 37%; left: 14.5%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star221" name="Visualforce" value="1" checked={star221} onchange={rating} />
+                          <label for="star221" style=" position: relative; bottom: 37%; left: 14.5%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.LWC_Remarks__c}></lightning-textarea>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Visualforce_Remarks__c}></lightning-textarea>
+                  </div>
+              </div>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative; right: 3%;">
+                          MuleSoft
+                          <input type="radio" id="star220" name="MuleSoft" value="5" checked={star220} onchange={rating} />
+                          <label for="star220" style=" position: relative; bottom: 35%; left: 19%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star219" name="MuleSoft" value="4" checked={star219} onchange={rating} />
+                          <label for="star219" style=" position: relative; bottom: 35%; left: 19%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star218" name="MuleSoft" value="3" checked={star218} onchange={rating} />
+                          <label for="star218" style=" position: relative; bottom: 35%; left: 19%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star217" name="MuleSoft" value="2" checked={star217} onchange={rating} />
+                          <label for="star217" style=" position: relative; bottom: 35%; left: 19%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star216" name="MuleSoft" value="1" checked={star216} onchange={rating} />
+                          <label for="star216" style=" position: relative; bottom: 35%; left: 19%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative; right: 3%;">
+                          SOQL
+                          <input type="radio" id="star215" name="SOQL" value="5" checked={star215} onchange={rating} />
+                          <label for="star215" style=" position: relative; bottom: 35%; left: 33.5%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star214" name="SOQL" value="4" checked={star214} onchange={rating} />
+                          <label for="star214" style=" position: relative; bottom: 35%; left: 33.5%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star213" name="SOQL" value="3" checked={star213} onchange={rating} />
+                          <label for="star213" style=" position: relative; bottom: 35%; left: 33.5%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star212" name="SOQL" value="2" checked={star212} onchange={rating} />
+                          <label for="star212" style=" position: relative; bottom: 35%; left: 33.5%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star211" name="SOQL" value="1" checked={star211} onchange={rating} />
+                          <label for="star211" style=" position: relative; bottom: 35%; left: 33.5%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.MuleSoft_Remarks__c}></lightning-textarea>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.SQL_Remarks__c}></lightning-textarea>
+                  </div>
+              </div>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative; right: 3%;">
+                          Velocity/CPQ &nbsp;
+                          <input type="radio" id="star210" name="Velocity" value="5" checked={star210} onchange={rating} />
+                          <label for="star210" style=" position: relative; bottom: 35%;left: 3.5%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star2229" name="Velocity" value="4" checked={star2229} onchange={rating} />
+                          <label for="star2229" style=" position: relative; bottom: 35%;left: 3.5%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star2228" name="Velocity" value="3" checked={star2228} onchange={rating} />
+                          <label for="star2228" style=" position: relative; bottom: 35%;left: 3.5%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star2227" name="Velocity" value="2" checked={star2227} onchange={rating} />
+                          <label for="star2227" style=" position: relative; bottom: 35%;left: 3.5%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star2226" name="Velocity" value="1" checked={star2226} onchange={rating} />
+                          <label for="star2226" style=" position: relative; bottom: 35%;left: 3.5%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative; right: 3%;">
+                          Admin &nbsp;
+                          <input type="radio" id="star2101" name="Admin" value="5" checked={star2101} onchange={rating} />
+                          <label for="star2101" style=" position: relative; bottom: 35%;left: 25%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star291" name="Admin" value="4" checked={star291} onchange={rating} />
+                          <label for="star291" style=" position: relative; bottom: 35%;left: 25%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star281" name="Admin" value="3" checked={star281} onchange={rating} />
+                          <label for="star281" style=" position: relative; bottom: 35%;left: 25%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star271" name="Admin" value="2" checked={star271} onchange={rating} />
+                          <label for="star271" style=" position: relative; bottom: 35%;left: 25%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star267" name="Admin" value="1" checked={star267} onchange={rating} />
+                          <label for="star267" style=" position: relative; bottom: 35%;left: 25%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Velocity_CPQ_Remarks__c}></lightning-textarea>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Admin_Remarks__c}></lightning-textarea>
+                  </div>
+              </div>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 3%;">
+                          Language &nbsp;
+                          <input type="radio" id="star310" name="Language1" value="5" checked={star310} onchange={rating} />
+                          <label for="star35" style=" position: relative; bottom: 35%;left: 12.5%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star3229" name="Language1" value="4" checked={star3229} onchange={rating} />
+                          <label for="star34" style=" position: relative; bottom: 35%;left: 12.5%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star3228" name="Language1" value="3" checked={star3228} onchange={rating} />
+                          <label for="star33" style=" position: relative; bottom: 35%;left: 12.5%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star3227" name="Language1" value="2" checked={star3227} onchange={rating} />
+                          <label for="star32" style=" position: relative; bottom: 35%;left: 12.5%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star3226" name="Language1" value="1" checked={star3226} onchange={rating} />
+                          <label for="star31" style=" position: relative; bottom: 35%;left: 12.5%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative; right: 3%;">
+                          Overall Rating &nbsp;
+                          <input type="radio" id="star3101" name="Overall1" value="5" checked={star3101} onchange={rating} />
+                          <label for="star35" style=" position: relative; bottom: 35%;left: 2.5%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star391" name="Overall1" value="4" checked={star391} onchange={rating} />
+                          <label for="star34" style=" position: relative; bottom: 35%;left: 2.5%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star381" name="Overall1" value="3" checked={star381} onchange={rating} />
+                          <label for="star33" style=" position: relative; bottom: 35%;left: 2.5%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star371" name="Overall1" value="2" checked={star371} onchange={rating} />
+                          <label for="star32" style=" position: relative; bottom: 35%;left: 2.5%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star367" name="Overall1" value="1" checked={star367} onchange={rating} />
+                          <label for="star31" style=" position: relative; bottom: 35%;left: 2.5%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+                  <lightning-record-edit-form object-api-name="Interview__c" style="position: relative;left: 1%;">
+                      <lightning-input-field field-name="Suitable_for_which_Role__c" value={recordDetails.intObj.Suitable_for_which_Role__c}></lightning-input-field>
+                      <lightning-input-field field-name="Next_Step__c" value={recordDetails.intObj.Next_Step__c}></lightning-input-field>
+                  </lightning-record-edit-form>
+              <div class="slds-grid ">
+                  <div class="slds-col">
+                      <div class="slds-p-around_medium">
+                          <lightning-textarea style="position: relative;" label="Comments" value={recordDetails.intObj.Comments2__c}></lightning-textarea>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <br/>
+          <div class="slds-grid slds-wrap" style="position: relative;">
+              Interview Id : {recordDetails.intObj.Name}
+          </div>
+          <br/>
+          <div class="slds-grid slds-wrap" style="position: relative;">
+              Employee Id/ Professional Consultant Id : {recordDetails.intObj.Employee_Id__c}
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <div class="slds-align_absolute-center">
+              <lightning-button label="Submit" variant="brand"></lightning-button>
+  
+          </div>
+      </div>
+      <br/>
+      <br/>
+      </template>
+  <template if:true={TechRating}>
+      <div class="slds-m-around_medium">
+          <div>
+          <br/>
+          <br/>
+          <br/>
+              <div class="slds-align_absolute-center">
+                  <div class="slds-box  slds-align_absolute-center" style="position: relative;
+              color: white;
+              background-color: #1e194e;
+              width: 100%;
+              font-size: xx-large;
+              font-style: initial;"> Interview Feedback </div>
+              </div>
+              <br/>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-left_large">
+                          <div class="slds-form-element">
+                              <label class="slds-checkbox_toggle slds-grid" style="position: relative; ">
+                                  <span class="slds-form-element__label slds-m-bottom_none"><b>Interviewee didn't join
+                                          &nbsp; &nbsp;</b></span>
+                                  <input type="checkbox" name="checkbox-toggle-17" value="checkbox-toggle-17"
+                                      aria-describedby="checkbox-toggle-17" checked="" />
+                                  <span id="checkbox-toggle-20" class="slds-checkbox_faux_container"
+                                      aria-live="assertive">
+                                      <span class="slds-checkbox_faux"></span>
+                                      <span class="slds-checkbox_on">Active</span>
+                                      <span class="slds-checkbox_off">Inactive</span>
+                                  </span>
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <br/>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 4%;">
+                          Comm Skill &nbsp;
+                          <input type="radio" id="star135" name="Comm Skill" value="5" checked={star135} onchange={rating} />
+                          <label for="star135" style=" position: relative; bottom: 30%; left: 18%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star134" name="Comm Skill" value="4" checked={star134} onchange={rating} />
+                          <label for="star134" style=" position: relative; bottom: 30%;left: 18%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star133" name="Comm Skill" value="3" checked={star133} onchange={rating} />
+                          <label for="star133" style=" position: relative; bottom: 30%;left: 18%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star132" name="Comm Skill" value="2" checked={star132} onchange={rating} />
+                          <label for="star132" style=" position: relative; bottom: 30%;left: 18%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star131" name="Comm Skill" value="1" checked={star131} onchange={rating} />
+                          <label for="star131" style=" position: relative; bottom: 30%;left: 18%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate " style="   position: relative;right: 4%;">
+                          Attitude &nbsp;
+                          <input type="radio" id="star165" name="Attitude" value="5" checked={star165} onchange={rating} />
+                          <label for="star165" style=" position: relative; bottom: 25%;left: 18%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star164" name="Attitude" value="4" checked={star164} onchange={rating} />
+                          <label for="star164" style=" position: relative; bottom: 25%;left: 18%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star163" name="Attitude" value="3" checked={star163} onchange={rating} />
+                          <label for="star163" style=" position: relative; bottom: 25%;left: 18%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star162" name="Attitude" value="2" checked={star162} onchange={rating} />
+                          <label for="star162" style=" position: relative; bottom: 25%;left: 18%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star161" name="Attitude" value="1" checked={star161} onchange={rating} />
+                          <label for="star161" style=" position: relative; bottom: 25%;left: 18%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Comm_Skill_Remarks__c} ></lightning-textarea>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Attitude_Remarks__c}></lightning-textarea>
+                  </div>
+              </div>
+              <br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 4%;">
+                          Motivation &nbsp;
+                          <input type="radio" id="star155" name="Motivation" value="5" checked={star155} onchange={rating} />
+                          <label for="star155" style=" position: relative; bottom: 23%; left: 19.5%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star154" name="Motivation" value="4" checked={star154} onchange={rating} />
+                          <label for="star154" style=" position: relative; bottom: 23%;left: 19.5%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star153" name="Motivation" value="3" checked={star153} onchange={rating} />
+                          <label for="star153" style=" position: relative; bottom: 23%;left: 19.5%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star152" name="Motivation" value="2" checked={star152} onchange={rating} />
+                          <label for="star152" style=" position: relative; bottom: 23%;left: 19.5%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star151" name="Motivation" value="1" checked={star151} onchange={rating} />
+                          <label for="star151" style=" position: relative; bottom: 23%;left: 19.5%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="     position: relative;right: 4%;">
+                          Flexibility &nbsp;
+                          <input type="radio" id="star145" name="Flexibility" value="5" checked={star145} onchange={rating} />
+                          <label for="star145" style=" position: relative; bottom: 25%;    left: 14.4%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star144" name="Flexibility" value="4" checked={star144} onchange={rating} />
+                          <label for="star144" style=" position: relative; bottom: 25%;    left:14.4%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star143" name="Flexibility" value="3" checked={star143} onchange={rating} />
+                          <label for="star143" style=" position: relative; bottom: 25%;    left: 14.4%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star142" name="Flexibility" value="2" checked={star142} onchange={rating} />
+                          <label for="star142" style=" position: relative; bottom: 25%;    left: 14.4%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star141" name="Flexibility" value="1" checked={star141} onchange={rating} />
+                          <label for="star141" style=" position: relative; bottom: 25%;    left: 14.4%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Motivation_Remarks__c}></lightning-textarea>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Flexibility_Remarks__c}></lightning-textarea>
+                  </div>
+              </div><br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 4%;">
+                          Management &nbsp;
+                          <input type="radio" id="star130" name="Management" value="5" checked={star130} onchange={rating} />
+                          <label for="star130" style=" position: relative; bottom: 27%;left: 12.2%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star129" name="Management" value="4" checked={star129} onchange={rating} />
+                          <label for="star129" style=" position: relative; bottom: 27%;left: 12.2%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star128" name="Management" value="3" checked={star128} onchange={rating} />
+                          <label for="star128" style=" position: relative; bottom: 27%;left: 12.2%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star127" name="Management" value="2" checked={star127} onchange={rating} />
+                          <label for="star127" style=" position: relative; bottom: 27%;left: 12.2%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star126" name="Management" value="1" checked={star126} onchange={rating} />
+                          <label for="star126" style=" position: relative; bottom: 27%;left: 12.2%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 4%;">
+                          Project Lead &nbsp;
+                          <input type="radio" id="star125" name="Project" value="5" checked={star125} onchange={rating} />
+                          <label for="star125" style=" position: relative; bottom: 25%;left: 5.7%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star124" name="Project" value="4" checked={star124} onchange={rating} />
+                          <label for="star124" style=" position: relative; bottom: 25%;left: 5.7%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star123" name="Project" value="3" checked={star123} onchange={rating} />
+                          <label for="star123" style=" position: relative; bottom: 25%;left: 5.7%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star122" name="Project" value="2" checked={star122} onchange={rating} />
+                          <label for="star122" style=" position: relative; bottom: 25%;left: 5.7%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star121" name="Project" value="1" checked={star121} onchange={rating} />
+                          <label for="star121" style=" position: relative; bottom: 25%;left: 5.7%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Management_Remarks__c}></lightning-textarea>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      <lightning-textarea label="Remark" value={recordDetails.intObj.Project_Lead_Remarks__c}></lightning-textarea>
+                  </div>
+              </div><br/>
+              <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-2">
+                      <div class="slds-p-around_medium rate" style="position: relative;right: 4%;">
+                          Overall Rating &nbsp;
+                          <input type="radio" id="star110" name="Overall2" value="5" checked={star110} onchange={rating} />
+                          <label for="star110" style=" position: relative; bottom: 24%;left: 10.2%;" title="text">5
+                              stars</label>
+                          <input type="radio" id="star1219" name="Overall2" value="4" checked={star1219} onchange={rating} />
+                          <label for="star1219" style=" position: relative; bottom: 24%;left: 10.2%;" title="text">4
+                              stars</label>
+                          <input type="radio" id="star1218" name="Overall2" value="3" checked={star1218} onchange={rating} />
+                          <label for="star1218" style=" position: relative; bottom: 24%;left: 10.2%;" title="text">3
+                              stars</label>
+                          <input type="radio" id="star1217" name="Package" value="2" checked={star1217} onchange={rating} />
+                          <label for="star1217" style=" position: relative; bottom: 24%;left: 10.2%;" title="text">2
+                              stars</label>
+                          <input type="radio" id="star1216" name="Package" value="1" checked={star1216} onchange={rating} />
+                          <label for="star1216" style=" position: relative; bottom: 24%;left: 10.2%;" title="text">1
+                              star</label>
+                      </div>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                      
+                  </div>
+              </div>
+              <div class="slds-grid ">
+                  <div class="slds-col">
+                      <div class="slds-p-around_medium">
+                          <lightning-textarea style="position: relative;" label="Comments" value={recordDetails.intObj.Comments2__c}></lightning-textarea>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <br/>
+          <div class="slds-grid slds-wrap" style="position: relative;">
+              Interview Id :{recordDetails.intObj.Name} 
+          </div>
+          <br/>
+          <div class="slds-grid slds-wrap" style="position: relative;">
+              Employee Id/ Professional Consultant Id : {recordDetails.intObj.Employee_Id__c}
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <div class="slds-align_absolute-center">
+              <lightning-button label="Submit" variant="brand"></lightning-button>
+  
+          </div>
+      </div>
+      <br/>
+      <br/>
+      </template>
+</div>
+</div>
+  </lightning-card>
+</template>

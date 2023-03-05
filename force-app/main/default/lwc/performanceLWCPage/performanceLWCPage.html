@@ -1,0 +1,39 @@
+<template>
+
+    <lightning-card>
+
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+
+       
+        <h1 class="heading">{label.PerformanceLogin}</h1>
+    
+        
+        <div class="slds-p-horizontal_small" style='margin-top: 3rem;'>
+            <span>
+                <div class="row">
+                    <div class="column" onclick={clickHandlerImage1} data-id={awrdN}>
+                        <image src={image1} >
+                    </div>
+                    <div class="column" onclick={clickHandlerImage2} data-name = "Award Nomination">
+                        <image src={image2}  >
+
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="column" onclick={clickHandlerImage3} data-name = "Award Nomination">
+                        <image src={image3}  >
+                            
+                    </div>
+                    <div class="column" onclick={clickHandlerImage4} data-name = "Award Nomination">
+                       <image src={image4}  >
+
+                    </div> 
+                 </div>
+            </span>
+       </div>
+    
+    </lightning-card>
+ </template>

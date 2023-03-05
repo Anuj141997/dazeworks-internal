@@ -1,0 +1,14 @@
+<template>
+    <div style="height: 300px;">
+        <lightning-card title="Leaves In Current Session">
+            <template if:true={LeaveList}>
+                <lightning-datatable class="dt-outer-container"
+                    key-field="id"
+                    hide-checkbox-column="true"
+                    data={LeaveList}
+                    columns={columns}>
+                </lightning-datatable>
+            </template>
+        </lightning-card>
+    </div>    
+</template>

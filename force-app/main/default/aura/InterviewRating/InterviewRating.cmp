@@ -1,0 +1,210 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="InterviewRating_Controller" access="global" >
+    <aura:attribute name="interviewId" type="String" />
+    <aura:attribute name="empId" type="String" />
+    <aura:attribute name="objectName" type="String" default="Interview__c" access="global"/>
+    <aura:attribute name="role" type="String" default="Suitable_for_which_Role__c" access="global"/>
+    <aura:attribute name="nextStep" type="String" default="Next_Step__c" access="global"/>
+    <aura:attribute name="rolePicklist" type="String[]" />
+    <aura:attribute name="nextStepPicklist" type="String[]" />
+    <aura:attribute name="intervieweeDidntJoin" type="boolean" default="false"/>
+    <aura:attribute name="isFieldRequired" type="boolean" default="true" />
+    <aura:attribute name="technicalFeedback" type="Interview__c" default="{'sObjectType' : 'Interview__c',
+                                                                          'Language__c' : '0',
+                                                                          'Apex__c' : '0',
+                                                                          'Aura_Components__c' : '0',
+                                                                          'Integration__c' : '0',
+                                                                          'Java_Script__c' : '0',
+                                                                          'LWC__c' : '0',
+                                                                          'SQL__c' : '0',
+                                                                          'Overall_on_10__c' : '0',
+                                                                          'Admin__c' : '0',
+                                                                          'Visualforce__c' : '0',
+                                                                          'MuleSoft__c' : '0',
+                                                                          'Velocity_CPQ__c' : '0',
+                                                                          'Admin_Remarks__c' : '',
+                                                                          'Visualforce_Remarks__c' : '',
+                                                                          'MuleSoft_Remarks__c' : '',
+                                                                          'Velocity_CPQ_Remarks__c' : '',
+                                                                          'Apex_Remarks__c' : '',
+                                                                          'Lightning_Remarks__c' : '',
+                                                                          'Integration_Remarks__c' : '',
+                                                                          'LWC_Remarks__c' : '',
+                                                                          'SQL_Remarks__c' : '',
+                                                                          'JavaScript_Remarks__c' : '',
+                                                                          'Comments__c' : ''}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card >
+        <div class="slds-p-around_xx-large">
+            <div class="slds-page-header slds-page-header_record-home slds-text-heading_large slds-text-align_center header">
+                {!$Label.c.InterviewRatingHeader}
+            </div>
+            <br/><br/>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-13 slds-p-right_x-small">
+                    <p class="slds-text-heading_small"><b>Interviewee didn't join</b></p>
+                </div>
+                <div class="slds-col slds-size_0-of-12 ">
+                    <lightning:input type="toggle" checked="{!v.intervieweeDidntJoin}" onchange="{!c.setIsRequired}" /><br/>
+                </div>
+            </div>
+            <aura:if isTrue="{!!v.intervieweeDidntJoin}">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Apex
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Apex__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Apex_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Integration
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Integration__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Integration_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                LWC
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.LWC__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.LWC_Remarks__c}"/><br/>
+                        </div>
+                        
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                MuleSoft
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.MuleSoft__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.MuleSoft_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Velocity/CPQ
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Velocity_CPQ__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Velocity_CPQ_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Language
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small starUI">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Language__c}" />
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Aura
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Aura_Components__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Lightning_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                JavaScript
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Java_Script__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.JavaScript_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Visualforce
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Visualforce__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Visualforce_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                SOQL
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.SQL__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.SQL_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Admin
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Admin__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Admin_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Overall Rating
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Overall_on_10__c}" />
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+                <br/>
+                
+                <lightning:select label="Suitable for which Role?" aura:id="role"  >
+                    <aura:iteration items="{!v.rolePicklist}" var="val">
+                        <option value="{!val}"> {!val}</option>
+                    </aura:iteration>
+                </lightning:select><br/>  
+                <lightning:select label="Next Step" aura:id="next" >
+                    <aura:iteration items="{!v.nextStepPicklist}" var="val">
+                        <option value="{!val}"> {!val}</option>
+                    </aura:iteration>
+                </lightning:select><br/>
+                <lightning:textarea label="Comments" value="{!v.technicalFeedback.Comments__c}" required="true" aura:id="inputField" messageWhenValueMissing="Please enter Comments"/><br/>
+            </aura:if>
+            <lightning:input label="Interview Id" value="{!v.interviewId}" required="true" readonly="true"/><br/>
+            <lightning:input label="Employee Id/ Professional Consultant Id" value="{!v.empId}" required="true" readonly="true"/><br/>
+            <div class="slds-align_absolute-center" style="height:5rem">
+                <lightning:button label="Submit" onclick="{!c.doSave}" variant="brand" />
+            </div>
+        </div>
+    </lightning:card>
+</aura:component>

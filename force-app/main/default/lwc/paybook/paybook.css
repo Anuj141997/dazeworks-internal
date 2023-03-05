@@ -1,0 +1,7 @@
+.maindiv {
+    font-family: system-ui;
+    font-size: medium !important;
+    margin: 20px !important;
+    border-color: #1798c1;
+    border-style: double;
+}

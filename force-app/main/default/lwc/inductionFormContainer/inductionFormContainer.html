@@ -1,0 +1,11 @@
+<template>
+    <lightning-card >
+        <template if:true={showLogin}>  
+            <c-induction-login-form onotpverify={hendleNext}></c-induction-login-form>
+          
+        </template>
+    <template if:true={showCertification}>
+        <c-update-contact emp-id={empid} em-name={emplName} ></c-update-contact>
+    </template> 
+    </lightning-card>
+</template>

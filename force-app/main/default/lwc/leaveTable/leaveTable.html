@@ -1,0 +1,172 @@
+<template>
+		<lightning-card>
+				<lightning-layout class="slds-align_absolute-center" multiple-rows="true">
+						<lightning-layout-item padding="around-small" size="2">
+								<lightning-combobox label="Session" value={sessionValue} placeholder="Select Session"
+																		options={sessionOptions} onchange={handleSessionChange}>
+								</lightning-combobox>
+						</lightning-layout-item>
+						<lightning-layout-item padding="around-small" size="2">
+								<lightning-combobox label="Month" value={monthValue} placeholder="Select Month"
+																		options={monthOptions} onchange={handleMonthChange}>
+								</lightning-combobox>
+						</lightning-layout-item>
+						<lightning-layout-item padding="around-small" size="2">
+								<lightning-combobox label="Leave Status" value={statusValue} placeholder="Select Leave Status"
+																		options={statusOptions} onchange={handleStatusChange}>
+								</lightning-combobox>
+						</lightning-layout-item>
+						<lightning-layout-item padding="around-small" size="3">
+								<c-custom-lookup-for-leave-table lookup-label="Employee Name"
+																									 object-api-name="Contact" icon-name="standard:contact"
+																									 onrecordselection={meetingSelection}>
+								</c-custom-lookup-for-leave-table>
+						</lightning-layout-item>
+				</lightning-layout>
+				<lightning-layout-item padding="around-small" size="12">
+						<div class="page-section">
+								<!--<lightning-datatable key-field="id" data={data} hide-checkbox-column="true" columns={columns}></lightning-datatable>-->
+								<table class="slds-table slds-table_bordered slds-table_cell-buffer">
+										<thead>
+												<tr class="slds-line-height_reset">
+														<th scope="col">
+																<strong><div class="slds-truncate" title="Leave Id">Leave Id
+																		<lightning-button-icon class=" slds-float_right slds-m-left_xx-small" icon-name="utility:sort" variant="bare" alternative-text="sort" onclick={sortRecs} data-id="lvName">
+																		</lightning-button-icon>
+																		</div></strong>
+														</th>
+														<th scope="col">
+																<strong><div class="slds-truncate" title="Employee Name">Employee Name
+																		<lightning-button-icon class=" slds-float_right slds-m-left_xx-small" icon-name="utility:sort" variant="bare" alternative-text="sort" onclick={sortRecs} data-id="empName">
+																		</lightning-button-icon>
+																		</div></strong>
+														</th>
+														<th scope="col">
+																<strong><div class="slds-truncate" title="Manager Name">Manager Name
+																		<lightning-button-icon class=" slds-float_right slds-m-left_xx-small" icon-name="utility:sort" variant="bare" alternative-text="sort" onclick={sortRecs} data-id="mngName">
+																		</lightning-button-icon>
+																		</div></strong>
+														</th>
+														<th scope="col">
+																<strong><div class="slds-truncate" title="From">From
+																		<lightning-button-icon class=" slds-float_right slds-m-left_xx-small" icon-name="utility:sort" variant="bare" alternative-text="sort" onclick={sortRecs} data-id="fromDate">
+																		</lightning-button-icon>
+																		</div></strong>
+														</th>
+														<th scope="col">
+																<strong><div class="slds-truncate" title="Till">Till
+																		<lightning-button-icon class=" slds-float_right slds-m-left_xx-small" icon-name="utility:sort" variant="bare" alternative-text="sort" onclick={sortRecs} data-id="tillDate">
+																		</lightning-button-icon>
+																		</div></strong>
+														</th>
+														<th scope="col">
+																<strong><div class="slds-truncate" title="Number of Buisness Days">Number of Buisness Days
+																		<lightning-button-icon class=" slds-float_right slds-m-left_xx-small" icon-name="utility:sort" variant="bare" alternative-text="sort" onclick={sortRecs} data-id="noOfBsn">
+																		</lightning-button-icon>
+																		</div></strong>
+														</th>
+														<th scope="col">
+																<strong><div class="slds-truncate" title="Status">Status
+																		<lightning-button-icon class=" slds-float_right slds-m-left_xx-small" icon-name="utility:sort" variant="bare" alternative-text="sort" onclick={sortRecs} data-id="Status">
+																		</lightning-button-icon>
+																		</div></strong>
+														</th>
+														<!--<th class="" scope="col">
+								<a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" onclick={sortRecs} data-id="lvName">
+									Leave Id
+								</a>
+							</th>
+							<th class="" scope="col">
+								<a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" onclick={sortRecs} data-id="empName">
+									Employee Name
+								</a>
+							</th>
+							<th class="" scope="col">
+								<a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" onclick={sortRecs} data-id="mngName">
+									Manager Name
+								</a>
+							</th>
+							<th class="" scope="col">
+								<a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" onclick={sortRecs} data-id="fromDate">
+									From
+								</a>
+							</th>
+							<th class="" scope="col">
+								<a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" onclick={sortRecs} data-id="tillDate">
+									Till
+								</a>
+							</th>
+							<th class="" scope="col">
+								<a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" onclick={sortRecs} data-id="noOfBsn">
+									Number of Buisness Days
+								</a>
+							</th>
+							<th class="" scope="col">
+								<a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" onclick={sortRecs} data-id="Status">
+									Status
+								</a>
+							</th>-->
+												</tr>
+										</thead>
+										<tbody>
+												<template if:true={data}>
+														<template for:each={data} for:item="lv">
+																<tr key={lv.lvId}>
+																		<th scope="row" data-label="Employee Name">
+																				<a data-id={lv.lvId} onclick={viewRecord}>{lv.lvName}</a>
+																		</th>
+																		<th scope="row" data-label="Employee Name">
+																				<div class="slds-truncate" title={lv.empName}>{lv.empName}</div>
+																		</th>
+																		<th scope="row" data-label="Manager Name">
+																				<div class="slds-truncate" title={lv.mngName}>{lv.mngName}</div>
+																		</th>
+																		<th scope="row" data-label="From">
+																				<div class="slds-truncate" title={lv.fromDate}>{lv.fromDate}</div>
+																		</th>
+																		<th scope="row" data-label="Till">
+																				<div class="slds-truncate" title={lv.tillDate}>{lv.tillDate}</div>
+																		</th>
+																		<th scope="row" data-label="Number of Buisness Days">
+																				<div class="slds-truncate" title={lv.noOfBsn}>{lv.noOfBsn}</div>
+																		</th>
+																		<th scope="row" data-label="Status">
+																				<div class="slds-truncate" title={lv.Status}>{lv.Status}</div>
+																		</th>
+																</tr>
+														</template>
+												</template>
+										</tbody>
+								</table>
+								<template if:true={isDisplayNoRecords}>
+										<div class="slds-align_absolute-center">
+												<br/>
+												No records found
+										</div>
+								</template>
+								<br/>
+								<div class="slds-align_absolute-center"> 
+										<div class="slds-p-right_xx-small">
+
+												<lightning-button label="Prev"
+																					disabled={isPrev} onclick={handlePagePrevAction}
+																					variant="brand"
+																					icon-name="utility:back"
+																					name="prev"></lightning-button>  
+										</div>
+										<span class="slds-badge slds-badge_lightest">
+												{recordStart}-{recordEnd} of {totalRecords} | Page {pageNumber} of {totalPages}
+										</span>
+										<div class="slds-p-left_xx-small">
+												<lightning-button label="Next"
+																					disabled={isNext} onclick={handlePageNextAction}
+																					variant="brand"
+																					icon-name="utility:forward"
+																					icon-position="right"
+																					name="next"></lightning-button>
+										</div>
+								</div>  
+						</div>
+				</lightning-layout-item>
+		</lightning-card>
+</template>

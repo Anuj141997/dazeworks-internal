@@ -1,0 +1,16 @@
+<!--
+  @description       : 
+  @author            : Aviral Agrawal
+  @group             : 
+  @last modified on  : 06-23-2022
+  @last modified by  : Aviral Agrawal
+-->
+<template>
+    <template if:true={showLogin}>
+        <c-login ipaddress = {messageFromVF}   onotpverify={submitLogin} ></c-login>
+    </template>
+        <template if:true={showConnect}  >
+            <!--c-update-contact emp-id={empid}> </c-update-contact-->
+            <c-emp-portal-home emp-id={empid}  rec-id={recid} emp-name={empName} home={showConnect} ipaddress = {messageFromVF}> </c-emp-portal-home>
+        </template>
+</template>

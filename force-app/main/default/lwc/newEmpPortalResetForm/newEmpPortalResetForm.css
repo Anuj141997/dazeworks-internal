@@ -1,0 +1,8 @@
+.bg_1 { background-image: url('/resource/portalLoginPortalBackground');
+   
+    height: 120vh !important;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    
+}

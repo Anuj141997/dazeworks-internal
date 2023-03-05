@@ -1,0 +1,16 @@
+.bodyHeader{
+	background-color : white;
+}
+.body{
+	background-color : white;
+	padding: 2%;
+
+}
+
+.data
+{
+	margin-top: 3rem;
+	border-radius: 10px;
+	border : 3px solid rgba(188, 230, 232, 0.707);
+	padding: 10px;
+}

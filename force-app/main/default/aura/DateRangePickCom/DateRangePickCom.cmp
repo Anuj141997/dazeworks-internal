@@ -1,0 +1,55 @@
+<aura:component controller="DateRangePicCom_Controller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="startDate" type="Date" default=" "/>
+    <aura:attribute name="endDate" type="Date" default=" "/>
+    <aura:attribute name="url" type="String" />
+    
+    <aura:attribute name="objectAPIName" type="String" default="Contact"/>
+    <aura:attribute name="listOfSearchRecords" type="List"/>
+    <aura:attribute name="SearchKeyWord" type="string"/>
+    <aura:attribute name="lstSelectedRecords" type="Contact[]"/>
+    <aura:attribute name="IconName" type="String" default="standard:contact"/>
+    <aura:attribute name="label" type="String" default="Select Interviewers"/>
+    <aura:attribute name="allInterviewers" type="Contact[]" />
+    <aura:attribute name="slectedInterviewers" type="Contact[]" />
+    <aura:attribute name="interviewersNotSelected" type="boolean" />
+    
+    <aura:handler name="init" value ="{!this}" action = "{!c.doInit}" />
+    
+    <lightning:card>
+        <div class="slds-p-around_xx-large">
+            <div class="slds-page-header slds-page-header_record-home slds-text-heading_large slds-text-align_center header">
+                {!$Label.c.DateRangePickCom_Header}
+            </div>
+            <br/>
+            <div class="slds-clearfix">
+                <div class="slds-float_right">
+                    <a href="{!v.url}"  onclick="{!c.goToDetail}" >
+                        Manage Interviewer Slots
+                    </a>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-grid slds-gutters ">
+                <div class="slds-col slds-size_1-of-4 slds-align_absolute-center">
+                        <c:reUsableMultiSelectLookup objectAPIName="{!v.objectAPIName}"
+                                                     listOfSearchRecords="{!v.listOfSearchRecords}"
+                                                     lstSelectedRecords="{!v.lstSelectedRecords}"
+                                                     IconName="{!v.IconName}"
+                                                     label="{!v.label}"
+                                                     SearchKeyWord="{!v.SearchKeyWord}"/>
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-align_absolute-center">
+                    <lightning:input type="date" label="Start Date" value="{!v.startDate}" class="dateInput"/>  
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-align_absolute-center">
+                    <lightning:input type="date" label="End Date" value="{!v.endDate}" class="dateInput"/>      
+                </div>
+                <div class="slds-col slds-size_1-of-4 slds-align_absolute-center">
+                    <br/>
+                    <lightning:button class="slds-button slds-button_brand" onclick="{!c.saveDate}">Submit</lightning:button>
+                </div>
+            </div>
+        </div>
+    </lightning:card> 
+</aura:component>

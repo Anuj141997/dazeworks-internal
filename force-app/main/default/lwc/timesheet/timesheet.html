@@ -1,0 +1,306 @@
+<template>
+
+	<div class="slds-box slds-theme_default">
+		
+		<div class="slds-box slds-theme_shade slds-grid ">
+			<div class="slds-grid slds-gutters ">
+				<div class="slds-col slds-text-heading_medium slds-align_absolute-center ">
+					<h3 slot="title">
+						<lightning-icon icon-name="standard:date_time" alternative-text="Timesheet" class="medium"></lightning-icon>
+					   <b>&nbsp;Timesheet</b>&nbsp;
+					</h3>
+					<h4>
+						<div class="slds-box slds-box_xx-small slds-text-heading_medium slds-align_absolute-center">
+							<p><i style="font-size:12px">{employID} {empname}</i></p>
+							</div>
+					</h4>
+					
+				</div>
+			</div>
+			<div class="slds-grid slds-col_bump-left slds-grid slds-wrap slds-p-top_small">
+				<div class=" slds-form-element slds-p-right_xxx-small" >
+						<label class="slds-checkbox_toggle slds-grid">
+							<span class="slds-form-element__label slds-m-bottom_none">Weekends</span>
+							<input type="checkbox" name="checkbox-toggle-15"  aria-describedby="checkbox-toggle-15" onchange={handleToggle} value={isToggle} checked={isToggle} />
+							<span id="checkbox-toggle-15" class="slds-checkbox_faux_container" aria-live="assertive">
+							<span class="slds-checkbox_faux"></span>
+							<span class="slds-checkbox_on"></span>
+							<span class="slds-checkbox_off"></span>
+							</span>
+						</label>
+					</div>
+				<div class="slds-p-right_x-small" >
+					<lightning-button-icon icon-name="utility:back" variant="brand" onclick={prevWeek} alternative-text="Previous Week" class="slds-m-left_xx-small " title="Previous Week"></lightning-button-icon>
+				</div>
+				<div class="slds-p-right_xxx-small">
+					<h4 class="title" >
+						<b class="slds-box">{start_to_end}</b>	
+						<lightning-button-icon icon-name="utility:forward" variant="brand" onclick={nextWeek} alternative-text="Next Week" class="slds-m-left_xx-small slds-p-left_xx-small" title="Next Week"></lightning-button-icon>
+					</h4>
+				</div>
+				<div  >
+					<lightning-button variant="brand" label="Today"   onclick={currWeek} class="slds-m-left_xx-small" title="Refresh"></lightning-button>
+				</div>
+				
+			</div>
+			
+			
+			
+		</div>
+		
+		<div class="slds-box slds-theme_shade slds-grid">
+			<table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" role="grid">
+				<thead>
+					<tr>
+						<th scope="col" height="22" style="width: 3rem">S.No</th>
+						<th scope="col" height="22">Project</th>
+						<th scope="col" height="22">Billable</th>
+						<th scope="col" height="22">Task</th>
+						<th scope="col" height="22">Mon,{mon}</th>
+						<th scope="col" height="22">Tue,{tues}</th>
+						<th scope="col" height="22">Wed,{wed}</th>
+						<th scope="col" height="22">Thu,{thur}</th>
+						<th scope="col" height="22">Fri,{fri}</th>
+						<th scope="col" height="22">Sat,{sat}</th>
+						<th scope="col" height="22">Sun,{sun}</th>
+						<th scope="col" height="22">Total</th>
+						<th scope="col" height="22" style="width: 3rem"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<template for:each={listOfTimecards} for:item="rec">
+						<tr key={rec.index} class="slds-hint-parent">
+							<td style="font-weight: bold">
+								<lightning-formatted-number value={rec.index}></lightning-formatted-number>. </td>
+							<td class="comboBoxMargin">
+								<!--c-custom-lookup child-object-api-name='Timecard__c' target-field-api-name='Project__c' required onvalueselected={handleValueSelected}></c-custom-lookup-->
+							<lightning-combobox								
+								name={rec.index}
+								placeholder="Select Project"
+								value={rec.Project}
+								options={projectOptions}
+								onchange={handleProjectSelection}
+								variant="label-hidden"
+							 >
+						    </lightning-combobox>
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<label class="slds-checkbox_toggle">
+										<input type="checkbox" data-id={rec.index} value={rec.projectBillable} onclick={handlepopUpBillable} aria-describedby="checkbox-toggle-15" checked={rec.projectBillable} />
+										<span  class="slds-checkbox_faux_container" aria-live="assertive">
+										<span class="slds-checkbox_faux"></span>
+										</span>
+									</label>
+								</div>
+							</td>
+							<td>
+								<lightning-textarea name="Task" value={rec.task} style="width: 10rem" onchange={handleTask} disabled={rec.showRow} data-title={tues} data-id={rec.index} ></lightning-textarea>
+							</td>
+							
+							<td>
+								<div class="slds-form-element">
+									<div class="slds-form-element__control slds-input-has-icon   slds-input-has-icon_right">
+										<template if:true={rec.MonAvail} >
+											<lightning-button-icon icon-name="utility:drag_and_drop"  alternative-text="Add user" data-id={rec.index} data-title={mon} name="Mon" value={rec.Mon.hour} class="slds-m-right_xx-small  slds-input-has-icon_right slds-float_right" title="Create/Edit" onclick={openModal}></lightning-button-icon>
+										</template>
+										<lightning-input type="text" autocomplete="off" style="width: 5.5rem" variant="label-hidden"   label="" data-title={mon} data-id={rec.index} disabled={rec.showRow} name="Mon" value={rec.Mon.hour}   onchange={handleInputChange}></lightning-input>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+										<template if:true={rec.TueAvail} >
+										<lightning-button-icon icon-name="utility:drag_and_drop" data-id={rec.index}  alternative-text="Add user" data-title={tues} name="Tue" class="slds-m-right_xx-small slds-input-has-icon_right slds-float_right" title="Add user" onclick={openModal}></lightning-button-icon>
+										</template>
+										<lightning-input type="text" autocomplete="off" style="width: 5.5rem" variant="label-hidden" label="" data-title={tues} data-id={rec.index} disabled={rec.showRow} name="Tue" value={rec.Tue.hour}  onchange={handleInputChange}></lightning-input>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+										<template if:true={rec.WedAvail} >
+										<lightning-button-icon icon-name="utility:drag_and_drop" data-id={rec.index}  alternative-text="Add user" name="Wed" data-title={wed} class="slds-m-right_xx-small slds-input-has-icon_right slds-float_right" title="Add user" onclick={openModal}></lightning-button-icon>
+									</template>
+										<lightning-input type="text" autocomplete="off" style="width: 5.5rem" variant="label-hidden" label="" data-title={wed} data-id={rec.index} disabled={rec.showRow} name="Wed" value={rec.Wed.hour}  onchange={handleInputChange}></lightning-input>
+							
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+										<template if:true={rec.ThuAvail} >
+										<lightning-button-icon icon-name="utility:drag_and_drop" data-id={rec.index}  alternative-text="Add user" data-title={thur} name="Thu" class="slds-m-right_xx-small slds-input-has-icon_right slds-float_right" title="Add user" onclick={openModal}></lightning-button-icon>
+									</template>
+										<lightning-input type="text" autocomplete="off" style="width: 5.5rem" variant="label-hidden" label="" data-title={thur} data-id={rec.index} name="Thu" disabled={rec.showRow} value={rec.Thu.hour}  onchange={handleInputChange}></lightning-input>
+							
+									</div>
+								</div>
+								
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+										<template if:true={rec.FriAvail} >
+										<lightning-button-icon icon-name="utility:drag_and_drop" data-id={rec.index}  alternative-text="Add user" data-title={fri} name="Fri" class="slds-m-right_xx-small slds-input-has-icon_right slds-float_right" title="Add user" onclick={openModal} ></lightning-button-icon>
+										</template>
+										<lightning-input type="text" autocomplete="off" style="width: 5.5rem" variant="label-hidden" label="" data-title={fri} data-id={rec.index} name="Fri" disabled={rec.showRow} value={rec.Fri.hour} onchange={handleInputChange}></lightning-input>
+							
+									</div>
+								</div>
+								
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+										<template if:true={rec.SatAvail} >
+											<lightning-button-icon icon-name="utility:drag_and_drop" data-id={rec.index}  alternative-text="Add user" data-title={sat} name="Sat" class="slds-m-right_xx-small slds-input-has-icon_right slds-float_right" title="Add user" onclick={openModal}></lightning-button-icon>
+										</template>
+										<lightning-input type="text" autocomplete="off" style="width: 5.5rem" variant="label-hidden" label="" data-title={sat} data-id={rec.index} name="Sat" value={rec.Sat.hour}  onchange={handleInputChange} disabled={isDisabled}></lightning-input>
+							
+									</div>
+								</div>
+								
+							</td>
+							<td>
+								<div class="slds-form-element">
+									<div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+										<template if:true={rec.SunAvail} >
+										<lightning-button-icon icon-name="utility:drag_and_drop" data-id={rec.index}  alternative-text="Add user" data-title={sun} name="Sun" class="slds-m-right_xx-small slds-input-has-icon_right slds-float_right" title="Add user" onclick={openModal}></lightning-button-icon>
+										</template>
+										<lightning-input type="text" autocomplete="off" style="width: 5.5rem" variant="label-hidden" label="" data-title={sun} data-id={rec.index} name="Sun" value={rec.Sun.hour}  onchange={handleInputChange} disabled={isDisabled}></lightning-input>
+							
+									</div>
+								</div>
+								
+							</td>
+							<td>
+								<lightning-input type="text" variant="label-hidden" label="" style="width: 7rem" data-id={rec.index} name="Total" value={rec.totalHours} disabled></lightning-input>
+							</td>
+							<td>
+								<lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove" name={rec.index} onclick={removeRow}></lightning-button-icon>
+							</td>
+
+							<template if:true={isModalOpen}>
+								<section key={rec.index} role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+									<div class="slds-modal__container">
+										<header class="slds-modal__header">
+											<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+												<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon> <span class="slds-assistive-text">Close</span> </button>
+											<h2 class="slds-text-heading_medium slds-hyphenate">Add/Edit Time</h2> </header>
+										<!-- Modal/Popup Box LWC body starts here -->
+									
+										<div class="slds-modal__content slds-p-around_medium" >
+											
+												<div class="slds-grid">
+													<div class="slds-col slds-order_2 slds-large-order_1" >
+														<label> Date:-</label>
+														<lightning-input style="width: 10rem;" type="text" variant="label-hidden" label="" name="input6" readonly value={selectedPopUpDate}></lightning-input>
+													</div>
+														<div class="slds-col slds-order_1 slds-large-order_2">
+														<label> Project:-</label>
+														<lightning-combobox							
+														value={selectedProjectName}
+														options={projectOptions}
+														disabled="true"
+														variant="label-hidden">
+														</lightning-combobox>
+													</div>
+												</div>
+												<div class="slds-grid">
+													<div class="slds-col slds-order_2 slds-large-order_1" >
+														<label> <span class="slds-form-element__label slds-m-bottom_none">Hours</span></label>
+														<lightning-input type="text" autocomplete="off" style="width: 5.5rem" variant="label-hidden" label="Hours"  data-id={rec.index} name="Sun" value={popupHours}></lightning-input>
+													</div>
+													<div class="slds-col slds-order_1 slds-large-order_2" style="padding-top: 5px;">
+															<label>Billable</label>
+															<label class="slds-checkbox_toggle slds-grid"> 
+															<input type="checkbox" checked={popUpBillable} aria-describedby="billable" disabled /> <span class="slds-checkbox_faux_container" aria-live="assertive">
+															<span class="slds-checkbox_faux slds-p-around_medium"></span> <span class="slds-checkbox_on"></span> <span class="slds-checkbox_off"></span> </span>
+														</label>
+													</div>
+												</div>
+											
+																					
+											<!--div class="slds-col slds-grid">
+												<div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+													<lightning-input type="time" name="popUpStartTime" value={popUpStartTime} onchange={handlePopUpStartTime} label="Start Time"></lightning-input>
+												</div>
+												<div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+													<lightning-input type="time" name="popUpEndTime" value={popUpEndTime} onchange={handlePopUpEndTime} label="End Time"></lightning-input>
+												</div>
+											</div-->
+											<div >
+												<div class="slds-p-around_medium">
+													<lightning-textarea name="Description" value={popUpDescription} label="Description" onchange={handlepopUpDescription} placeholder="What you have worked on?"></lightning-textarea>
+												</div>
+											</div>
+										<div >
+												<label class="slds-form-element__label slds-p-left_medium slds-p-top_medium">Activity Type</label>
+											<div class="slds-form-element__control slds-p-left_medium slds-p-right_medium slds-p-bottom_medium">
+
+												<lightning-combobox								
+													name={rec.index}
+													placeholder="Select Activity"
+													value={popUpActivityType}
+													options={selectTargetValues.data}
+													onchange={selectOptionChangeValue}
+													variant="label-hidden">
+												</lightning-combobox>
+											</div>
+										</div>
+									</div>
+										<!-- Modal/Popup Box LWC footer starts here -->
+										<footer class="slds-modal__footer">
+											<button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+											<button class="slds-button slds-button_brand" data-id={rec.index} name={}  onclick={submitDetails} title="Save">Save</button>
+										</footer>
+									</div>
+								</section>
+							</template>
+
+						</tr>
+						
+					</template>
+					<tr>
+						<th scope="col" height="22" style="width: 3rem">&nbsp;</th>
+						<th scope="col" height="22">&nbsp;</th>
+						<th scope="col" height="22" ></th>
+						<th scope="col" height="22" ></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 7rem" value={totalMonday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 7rem" value={totalTuesday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 7rem" value={totalWednesday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 7rem" value={totalThrusday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 7rem" value={totalFriday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 7rem" value={totalSaturday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 7rem" value={totalSunday} disabled></lightning-input></th>
+						<th scope="col" height="22"><lightning-input type="text" variant="label-hidden" style="width: 7rem" value={totalAll} disabled></lightning-input></th>
+						<th scope="col" height="22" style="width: 3rem"></th>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="slds-p-left_small slds-p-vertical_small">
+			<!--lightning-button class="slds-p-right_small" variant="destructive" label="Delete All Rows" title="delete all rows" icon-name="utility:recycle_bin_full" onclick={removeAllRows}></lightning-button-->
+			<lightning-button variant="neutral" label="Add Additional Row" title="Add Additional Row" icon-name="utility:add" onclick={addNewRow}></lightning-button>
+		</div>
+		<footer class="slds-modal__footer" style="padding: 0.50rem 1rem;">
+			<div class="slds-grid">
+				<div>
+					<lightning-button  variant="brand" label="Back" title="Back" onclick={backToLoginPageHandle}></lightning-button>
+				</div>
+				
+				<div class="slds-col_bump-left slds-p-right_x-small ">
+					<lightning-button  variant="brand" label="Save" title="Save" onclick={createTimecards}></lightning-button>
+				</div>
+				<div>
+					<lightning-button icon-name="utility:save" variant="brand" label="Submit For Approval" title="Submit Timesheet" onclick={submitTimesheet} ></lightning-button>
+				</div>
+			</div>
+		</footer>
+	</div>
+</template>

@@ -1,0 +1,50 @@
+<aura:component>
+    <!--Boolean attribute to indicate if modal is open or not 
+       default value is false as modal is closed when page is loaded 
+    -->
+    <aura:registerEvent name="cmpMoreFiltersEvent" type="c:MoreFiltersModalEvent"/>
+
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'None', 'value': 'option0'},
+    {'label': 'Applications without Interviews', 'value': 'option1'},
+    {'label': 'Applications with Last Scheduled Interviews', 'value': 'option2'},
+    {'label': 'Show All', 'value': 'option3'}
+    ]"/>
+    <aura:attribute name="value" type="String" default="option0"/>
+     
+    <div class="slds-m-around_xx-large">
+       
+        <!--Use aura:if tag to display/hide popup based on isModalOpen value-->  
+        <aura:if isTrue="{!v.isModalOpen}">
+             
+            <!-- Modal/Popup Box starts here-->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box Header Starts here-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Choose Filter</h2>
+                    </header>
+                    <!--Modal/Popup Box Body Starts here-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning:radioGroup name="radioGroup"
+                          label="Choose one of the following"
+                          options="{! v.options }"
+                          value="{! v.value }"
+                          type="radio"
+                          onchange = "{!c.radioButtonChange}"/>
+                        
+    
+                    </div>
+                  
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+    </div>
+</aura:component>

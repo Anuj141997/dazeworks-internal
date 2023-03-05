@@ -1,0 +1,86 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 09-06-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   06-27-2022   Shivam Kumar   Initial Version
+-->
+<template>
+		<template if:true={feedpage}>
+    <lightning-card>
+									
+        <lightning-layout multiple-rows="true" >
+            <lightning-layout-item size="12" padding="around-small">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <lightning-input label="Meeting Name" value={meetingName} onchange={meetingNameONCH}></lightning-input>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-input label="Department" value={department} onchange={departmentONCH}></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <lightning-input label="Meeting Link" value={link}  onchange={linkONCH}></lightning-input>
+                    </div>
+                    <div class="slds-col">
+                            <lightning-input label="Recorded Session Drive Link" value={recordedSessionLink}  onchange={recDriveLinkONCH}></lightning-input>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <lightning-input label="Start Date" value={startdate} type="date" onchange={startdateONCH}></lightning-input>
+                       
+                    </div>
+                    <div class="slds-col">
+                        <lightning-input label="End Date" type="date" value={enddate} onchange={enddateONCH}></lightning-input>
+                    </div>
+                </div><br/>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <label>Meeting Type</label>
+                        <select  class="slds-select " onchange={selectOptionChanveValue}>
+                            <option label="----Select----" value={picklistVal}></option>                
+                              <template for:each={selectTargetValues.data} for:item="selectOptItem">
+                                 <option  key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}>
+                                   {selectOptItem.custFldlabel}
+                                 </option>
+                            </template>
+                      </select><br/>
+                        <div style="padding-top: 5px;">
+                            <c-contact-lookupfor-int-meets lookup-label="Delivered By" rec-id={recId} object-api-name="Contact" icon-name="standard:contact"  
+                            onrecordselection={onContactSelection}></c-contact-lookupfor-int-meets>
+                        </div>
+                           
+                    </div>
+                </div>
+                
+            </lightning-layout-item>
+
+            <lightning-layout-item padding="around-small"  class="slds-align_absolute-center">
+                <lightning-button variant="neutral" label="Cancel" onclick={cancelHandler} style="padding-right: 1rem;"></lightning-button>
+                <lightning-button variant="brand" label="Save"  onclick={submitMeetingDetails}></lightning-button>
+              
+            </lightning-layout-item>
+        </lightning-layout>
+           
+    </lightning-card>
+		</template>
+		<template if:true={showaction}>
+
+				<lightning-card title="Meeting Feedback">
+						<div class="slds-m-around_medium">
+								<h1>
+										<b>You have Successfully inserted the data.</b>
+								</h1>
+						</div>
+						<div class="slds-align_absolute-center"><lightning-button variant="brand"  name="Pervious" label="Pervious"
+																																			onclick={PreviouspageHandler}></lightning-button></div>
+
+				</lightning-card>
+
+		</template>
+</template>

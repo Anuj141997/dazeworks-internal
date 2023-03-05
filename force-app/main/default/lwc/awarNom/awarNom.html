@@ -1,0 +1,87 @@
+<template>
+    
+    <lightning-card >
+    <div class="slds-page-header__row">
+        <div class="slds-page-header__col-title">
+    <div class="slds-media__body">
+        <div class="slds-page-header__name">
+            <div class="slds-page-header__name-title slds-m-left_medium">
+                <h1>
+                    <span class="slds-page-header__title slds-truncate" title="Performance">{label.PerformanceLogin}</span>
+                </h1>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class='body'>
+
+            <div class="slds-grid slds-gutters slds-m-around_small">
+                <div class="slds-col">
+                <span>
+                    <lightning-combobox label={label.Employee} placeholder="Select Employee"
+                    options={items} onchange={handleEmployeeChange} value={empValue}
+                    required></lightning-combobox>
+                </span>
+                </div>
+                <div class="slds-col">
+                <span style='margin-top: 1rem;'>
+                    <!-- <lightning-input disabled label=></lightning-input> -->
+                    <c-custom-lookup field-label={label.Manager} child-object-api-name='Contact' 
+                    target-field-api-name='AccountId' value='0012v00002trB0vAAE'
+                    onvalueselected={handleValue}></c-custom-lookup>
+                </span>
+                </div>
+                <div class="slds-col">
+                <span>
+                    <lightning-input type="Date" label={label.FromDate} required></lightning-input>
+                </span>
+                </div>
+                <div class="slds-col">
+                <span>
+                    <lightning-input type="Date" label={label.TillDate} required></lightning-input>
+                </span>
+                </div>
+                </div>
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col">
+                    <span>
+                        <lightning-input label={label.AwardType} required></lightning-input>
+                    </span>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col">
+                    <span>
+                        <!-- <lightning-input label= ></lightning-input> -->
+                        <c-custom-lookup field-label={label.NominatedBy} onvalueselected={handleValue}></c-custom-lookup>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col">
+                    <span>
+                        <lightning-textarea label={label.JustificationPoints} required></lightning-textarea>
+                    </span>
+                    </div>
+                </div>
+
+             <div class="slds-clearfix">
+                <div class="slds-grid slds-gutters slds-m-around_small slds-float_right" >
+                    <div class="slds-col">
+                    <span>
+                        <lightning-button label="Previous" ></lightning-button>
+                    </span>
+                    </div>
+                    <div class="slds-col">
+                    <span>
+                        <lightning-button label="Next" variant="brand" ></lightning-button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

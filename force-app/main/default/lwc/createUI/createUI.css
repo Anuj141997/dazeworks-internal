@@ -1,0 +1,25 @@
+/*body {
+    font-family: arial;
+  }
+  .hide {
+    display: none;
+  }
+  p {
+    font-weight: bold;
+  }
+  p {
+    font-size: 10px;
+  }*/
+  .maindiv {
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+        background-color: rgb(0, 255, 85)
+  }
+      
+      .maindiv {background-color: #4CAF50;}
+      .maindiv {background-color: #2196F3;}
+      .maindiv {background-color: #ff9800;}

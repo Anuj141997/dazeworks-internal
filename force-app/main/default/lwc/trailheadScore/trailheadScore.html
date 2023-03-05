@@ -1,0 +1,291 @@
+<template>
+    <div class="slds-grid slds-gutters slds-box">
+        <div class="slds-col slds-size_1-of-3 " style="background-color: #031f50">
+          <span style="display: inline-block; margin-right:10px;text-align: center"><img src={emp_logo} class="trailimage"></span>
+          <hr class="hrline">
+          <template if:true={experience}>
+          <div class="userNumber">{experience} <br>
+            Years of <br>
+            Experience
+           </div>
+                <hr class="hrline">
+             </template>
+
+        <template if:true={project}>
+          <div class="userNumber">{project} <br>
+            Completed <br>
+            Projects
+          </div>
+        
+          <hr class="hrline">
+          </template>
+
+           <template if:true={certifications}>
+          <div class="userNumber">{certifications} <br>
+            Certifications
+          </div>
+          <hr class="hrline">
+           </template>
+
+           <template if:true={trailheadBadges}>
+          <div class="userNumber">{trailheadBadges} <br> 
+            Trailhead <br>
+            Badges
+          </div>
+           </template>
+        </div>
+        <div class="slds-col slds-size_2-of-3" style="background-color: aliceblue;"> 
+          <div class="slds-col slds-size_1-of-1 slds-m-top_large" style="font-size: large;text-align-last: end;font-weight: 110;font-style: italic;">
+            DAZEWORKS NINJA PROFILE
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-m-top_xx-large" >
+            <div class="slds-grid slds-gutters">
+
+            <div class="slds-col slds-size_1-of-2" style="font-size: x-large;font-weight: bold;">
+             {Name}
+             
+            </div>
+            <div class="slds-col slds-size_1-of-2" style="text-align-last: end;">
+             My Trailhead
+             
+            </div>
+             </div>
+            <br>
+            <div style="font-size:medium;font-weight: 500;">
+            {Title}
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1" style="font-weight: 450;">
+              {about}    
+                     
+          </div> 
+          <hr style="height: 1px;margin: revert">
+           <div class="slds-col slds-size_1-of-1" >
+             SALESFORCE PROFICIENCY
+             </div> 
+          
+
+<div class="slds-grid slds-wrap">
+  
+<div class="slds-col slds-size_1-of-3">
+  
+<lightning-progress-ring value={salesCloudSP} variant="active-step" direction="drain" size="large"> </lightning-progress-ring>
+
+</div>
+<div class="slds-col slds-size_1-of-3">
+<lightning-progress-ring value={experienceCloudSP} variant="active-step" direction="drain" size="large"> </lightning-progress-ring>
+</div>
+<div class="slds-col slds-size_1-of-3">
+<lightning-progress-ring value={serviceCloudSP} variant="active-step" direction="drain" size="large"> </lightning-progress-ring>
+</div>
+
+<div class="slds-col slds-size_1-of-3">
+<lightning-progress-ring value={apexSP} variant="active-step" direction="drain" size="large"> </lightning-progress-ring>
+
+</div>
+<div class="slds-col slds-size_1-of-3">
+<lightning-progress-ring value={lightningPSP} variant="active-step" direction="drain" size="large"> </lightning-progress-ring>
+</div>
+<div class="slds-col slds-size_1-of-3">
+<lightning-progress-ring value={integrationSP} variant="active-step" direction="drain" size="large"> </lightning-progress-ring>
+</div>
+
+</div>
+
+ <hr style="height: 1px;margin: revert">
+
+<div class="slds-col slds-size_1-of-1" >
+           TECHNICAL PROFICIENCY
+</div> 
+
+<div class="slds-grid slds-wrap">
+  <div class="slds-col slds-size_2-of-12">
+    <span>SOQL</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar variant="active-step" value="35" size="large"></lightning-progress-bar>
+  </div>
+  <div class="slds-col slds-size_2-of-12">
+    <span>AURA</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar value="28" size="large"></lightning-progress-bar>
+  </div>
+
+  <div class="slds-col slds-size_2-of-12">
+    <span>Visualforce</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar variant="active-step" value="15" size="large"></lightning-progress-bar>
+  </div>
+  <div class="slds-col slds-size_2-of-12">
+    <span>APEX</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar value="18" size="large"></lightning-progress-bar>
+  </div>
+
+  <div class="slds-col slds-size_2-of-12">
+    <span>SOSL</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar variant="active-step" value="5" size="large"></lightning-progress-bar>
+  </div>
+  <div class="slds-col slds-size_2-of-12">
+    <span>LWC</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar value="78" size="large"></lightning-progress-bar>
+  </div>
+
+  <div class="slds-col slds-size_2-of-12">
+    <span>Javascript</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar variant="active-step" value="25" size="large"></lightning-progress-bar>
+  </div>
+  <div class="slds-col slds-size_2-of-12">
+    <span>HTML</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar value="48" size="large"></lightning-progress-bar>
+  </div>
+
+  <div class="slds-col slds-size_2-of-12">
+    <span>REST</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+     <lightning-progress-bar variant="active-step" value="65" size="large"></lightning-progress-bar>
+  </div>
+  <div class="slds-col slds-size_2-of-12">
+    <span>SOAP</span>
+  </div>
+  <div class="slds-col slds-size_4-of-12">
+    <lightning-progress-bar value="98" size="large"></lightning-progress-bar>
+  </div>
+</div>
+<hr style="height: 1px;margin: revert">
+<div class="slds-col slds-size_1-of-1" >
+      INDUSTRY EXPERTISE
+</div> 
+
+ <span ><img src={dazeworks_logo} class="dazerkslogo"></span>
+  </div>
+        
+      </div>
+
+      <div class="slds-grid slds-gutters slds-box" >
+        <div class="slds-col slds-size_1-of-1" style="background-color: aliceblue;">
+           <div class="slds-col slds-size_1-of-1 slds-m-top_large" style="font-size: large;text-align-last: end;font-weight: 110;font-style: italic;">
+            DAZEWORKS NINJA PROFILE
+          </div>
+          <br>
+          <div class="last_Position">
+          Vinod Gupta
+          </div>
+          <br>
+         
+        <div style="font-weight: bolder;font-size: large;">
+        <h2 > PROFESSIONAL SNAPSHOT </h2>
+        </div>
+          <ul class="slds-m-top_large slds-m-around_medium">
+            <template for:each={pslist} for:item="list">
+                <li key={list.Id} style="font-weight: 800;font-size: 117%">
+                    {list.Title}
+                </li>
+            </template>
+        </ul>
+
+          <br>
+           <hr style="height: 1px;margin: revert">
+        <div style="font-weight: bolder;font-size: large;">
+        <h2 > SALESFORCE CERTIFICATIONS </h2 >
+        </div>
+          <ul class=" slds-m-around_medium">
+            <template for:each={sclist} for:item="list">
+                <li key={list.Id} style="font-weight: 800;font-size: 117%">
+                    {list.Title}
+                </li>
+            </template>
+        </ul>
+          <br>
+           <hr style="height: 1px;margin: revert">
+           
+           <table>
+                <tbody>
+                    
+                        <tr >
+                            <td>
+                              <div style="font-weight: bolder;font-size: large;">
+                                KEY CLIENTS 
+                                </div>
+                            </td>
+                           
+                           
+                        </tr>
+                        <template for:each={sclist} for:item="row" for:index="indexChild">
+                            <tr key={row.index} style="float: left;width: 50%;">
+                                <td >
+                                  
+                                  <li style="font-weight: 800;font-size: 117%">
+                                        {row.Title}
+                                  </li>
+                                  
+                                </td>
+								             
+                            </tr>
+                        </template>
+                    
+                </tbody>
+            </table>
+
+
+        <span ><img src={dazeworks_logo} class="dazerkslogo2"></span>
+         </div>
+         </div>
+        <div >
+         
+       
+ <div class="slds-grid slds-gutters slds-box" >
+   <div class="slds-col slds-size_1-of-1" style="background-color: aliceblue;">
+           <div class="slds-col slds-size_1-of-1 slds-m-top_large" style="font-size: large;text-align-last: end;font-weight: 110;font-style: italic;">
+            DAZEWORKS NINJA PROFILE
+          </div>
+          <br>
+          <div class="last_Position">
+          Vinod Gupta
+          </div>
+
+    <br/>
+    <div style="font-weight: bolder;font-size: large;">
+    <h2 > WORK EXPERIENCE SUMMARY </h2>
+     </div>
+    <br/> 
+    <div class="slds-col slds-size_1-of-1" style="background-color: aliceblue;">
+      
+	 <div style="font-weight: bolder;font-size: large;">
+        <h2 > Dazeworks Technologies – July 2021 till Date </h2>
+        </div>
+        <br>
+         <div class="slds-col slds-size_1-of-1" style="font-weight: 450;">
+              {about}    
+                     
+          </div>
+ </div>
+             <br>
+ <div class="slds-col slds-size_1-of-1" style="background-color: aliceblue;">
+     <div style="font-weight: bolder;font-size: large;">
+        <h2 > Dazeworks Technologies – July 2021 till Date </h2>
+        </div>
+        <br>
+         <div class="slds-col slds-size_1-of-1" style="font-weight: 450;">
+              {about}    
+                     
+          </div>
+ </div>
+      <span class="slds-float_right"><img src={dazeworks_logo} ></span>
+ </div>
+    
+  </div> 
+  </div>
+</template>

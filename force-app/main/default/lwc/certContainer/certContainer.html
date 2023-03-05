@@ -1,0 +1,11 @@
+<template>
+    <lightning-card >
+        
+        <template if:true={showLogin}>
+            <c-login-certification-d-w-e-m-p onotpverify={hendleNext} > </c-login-certification-d-w-e-m-p> 
+        </template>  
+        <template if:true={showCertification}>
+            <c-certification-d-w-e-m-p emp-id={empid} em-name={emplName} > </c-certification-d-w-e-m-p>
+        </template>
+    </lightning-card>
+</template>

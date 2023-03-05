@@ -1,0 +1,120 @@
+<aura:component>
+    <!--use boolean attribute for Store true/false value,
+    make default to "false" so modal box are not display on the load of component. 
+    --> 
+    
+    <aura:registerEvent name="compEvent" type="c:closeNewInterview"/>
+    <aura:registerEvent name="rescheduleEvent" type="c:closeRescheduleEvent"/>
+    <aura:attribute name="paramId" type="String"/>
+    <aura:attribute name="stageValue" type="String"/>
+    <aura:attribute name="ObjectNameToCreate" type="String" />
+    <aura:attribute name="ApplicationId" type="String" />
+    <aura:attribute name="roundVal" type="String" />
+    
+    <aura:attribute name="isOpen" type="boolean" default="true"/>
+    <aura:attribute name="disabled" type="Boolean" default="false" />
+    <aura:attribute name="saved" type="Boolean" default="false" />
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="closeWithoutRefresh" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    <!--Use "slds-m-around_xx-large" class to add standard X-Large padding to the component--> 
+    <div class="slds-m-around_xx-large">
+        
+        
+        <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->   
+        <aura:if isTrue="{!v.isOpen}">
+            
+            <!--###### MODAL BOX Start######--> 
+            <aura:if isTrue= "{!v.closeWithoutRefresh}">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <!-- ###### MODAL BOX HEADER Start ######-->
+                        <header class="slds-modal__header">
+                            <lightning:buttonIcon iconName="utility:close"
+                                                  onclick="{! c.closeFromModal }"
+                                                  alternativeText="close"
+                                                  variant="bare-inverse"
+                                                  class="slds-modal__close"/>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Interview Record</h2>
+                        </header>
+                        <!--###### MODAL BOX BODY Part Start######-->
+                        
+                        
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <lightning:recordEditForm aura:id="recordEditForm"
+                                                      objectApiName="Interview__c" onsuccess="{! c.closeFromModal }">
+                                <lightning:messages />
+                                <lightning:inputField fieldName="Application__c" value="{!v.ApplicationId}"/>
+                                <lightning:inputField fieldName="Interviewer__c" />
+                                <lightning:inputField fieldName="Interview_Date_and_Time__c" />
+                                <lightning:inputField fieldName="Interview_Round__c" value="{!v.roundVal}" />
+                                
+                                
+                                <lightning:button variant="brand" 
+                                                  label="Create"
+                                                  title="Create"
+                                                  type="submit"
+                                                  class="slds-float_right"
+                                                  />
+                                
+                                
+                            </lightning:recordEditForm>
+                            
+                        </div>
+                        
+                        
+                    </div>
+                </section>
+                <aura:set attribute="else">
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <!-- ###### MODAL BOX HEADER Start ######-->
+                            <header class="slds-modal__header">
+                                <lightning:buttonIcon iconName="utility:close"
+                                                      onclick="{! c.closeModel }"
+                                                      alternativeText="close"
+                                                      variant="bare-inverse"
+                                                      class="slds-modal__close"/>
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Interview Record</h2>
+                            </header>
+                            <!--###### MODAL BOX BODY Part Start######-->
+                            
+                            
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <lightning:recordEditForm aura:id="recordEditForm"
+                                                          objectApiName="{!v.ObjectNameToCreate}" onsuccess="{! c.createCloseModel }">
+                                    <lightning:messages />
+                                    <lightning:inputField fieldName="Application__c" value="{!v.ApplicationId}"/>
+                                    <lightning:inputField fieldName="Interviewer__c" />
+                                    <lightning:inputField fieldName="Interview_Date_and_Time__c" />
+                                    <lightning:inputField fieldName="Interview_Round__c" value="{!v.roundVal}" disabled = "true"/>
+                                    
+                                    
+                                    
+                                    
+                                    <lightning:button variant="brand" 
+                                                      label="Create"
+                                                      title="Cancel"
+                                                      type="submit"
+                                                      class="slds-float_right"
+                                                      />
+                                    
+                                    
+                                </lightning:recordEditForm>
+                                
+                            </div>
+                            
+                            
+                        </div>
+                    </section>
+                </aura:set>
+                
+            </aura:if>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            <!--###### MODAL BOX Part END Here ######-->
+            
+        </aura:if>
+    </div>
+</aura:component>

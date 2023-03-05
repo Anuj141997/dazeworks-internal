@@ -1,0 +1,156 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" controller="InterviewSlots_Controller" access="global" >
+    
+    <aura:attribute name="availableDate" type="Date" default=" "/>
+    <aura:attribute name="interviewSlots" type="Contact[]" />
+    <aura:attribute name="colorBackground" type="String" default="yellow"/>
+    <aura:attribute name="goToURL" type="String" />
+    <aura:attribute name="isBooked" type="boolean" default="false"/>
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="recId" type="String" />
+    <aura:attribute name="sObjName" type="String" default="{!v.sObjectName}"/>
+    <aura:attribute name="conId" type="String" />
+    <aura:attribute name="fields" type="String" />
+    <aura:attribute name="isHomePage" type="boolean" default="false" />
+    <aura:attribute name="InterviewId" type="id" />
+    
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.availableDate}" action="{!c.getRelatedSlots}"/>
+    <aura:handler name="change" value="{!v.isBooked}" action="{!c.getRelatedSlots}" />
+    
+    <lightning:card>
+        <div class="slds-p-around_xx-large">
+            <div class="slds-page-header slds-page-header_record-home slds-text-heading_large slds-text-align_center header">
+                {!$Label.c.InterviewerSlotsHeader}
+            </div>
+            <br/>
+            
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-2 slds-m-bottom_large">
+                    <lightning:input type="date" label="Date (Select a date to see available slots)" value="{!v.availableDate}" class="dateInput" />
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right slds-m-top_large">
+                    <lightning:button label="Refresh" onclick="{!c.handleSpinner}" class="refreshButton" iconName="utility:refresh" iconPosition="left" />
+                </div>
+            </div>
+            <lightning:spinner aura:id="mySpinner" variant="brand" size="medium" class="slds-hide"/>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="slds-text-align_center tableHeader" scope="col">
+                            <div class="slds-truncate" title="Name">Name</div>
+                        </th>
+                        <th class="slds-text-align_center tableHeader" scope="col">
+                            <div class="slds-truncate" title="Slot 1">Slot 1</div>
+                        </th>
+                        <th class="slds-text-align_center tableHeader" scope="col">
+                            <div class="slds-truncate" title="Slot 2">Slot 2</div>
+                        </th>
+                        <th class="slds-text-align_center tableHeader" scope="col">
+                            <div class="slds-truncate" title="Slot 3">Slot 3</div>
+                        </th>
+                        <th class="slds-text-align_center tableHeader" scope="col">
+                            <div class="slds-truncate" title="Slot 4">Slot 4</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.interviewSlots}" var="slot" >
+                        <tr class="slds-hint-parent">
+                            <td data-label="Name" class="tableData">
+                                <div class="slds-truncate slds-text-align_center" title=" ">
+                                    <a href="{!v.goToURL}" data-value="{!slot.Id}" onclick="{!c.goToDetail}" >
+                                        <div class="{!slot.Id == v.conId? 'highlightCon': 'noColor'}" title="" >
+                                            {!slot.key}
+                                        </div>
+                                    </a>
+                                </div>
+                            </td>
+                            <td data-label="Slot 1" class="tableData">
+                                <div class="slds-truncate slds-align_absolute-center" title=" ">
+                                    <lightning:button name="{!slot.value[0].Id}" aura:id="isBooked" class="{!slot.value[0].Booked__c? 'bgColor': 'noColor'}" variant="base" onclick="{!slot.value[0].Booked__c? c.redirectToInterview: c.openModel}">
+                                        <lightning:formattedDateTime value="{!slot.value[0].Start_Time__c}" timeZone="UTC" hour="2-digit" minute="2-digit" hour12="true"/>
+                                        &nbsp;{!slot.value[0].Time_String__c}&nbsp;
+                                        <lightning:formattedDateTime value="{!slot.value[0].End_Time__c}" timeZone="UTC" hour="2-digit" minute="2-digit" hour12="true"/>
+                                    </lightning:button>
+                                </div>
+                            </td>
+                            <td data-label="Slot 2" class="tableData">
+                                <div class="slds-truncate slds-align_absolute-center" title=" " onclick="{!slot.value[1].Booked__c? c.redirectToInterview : false}">
+                                    <lightning:button name="{!slot.value[1].Id}" aura:id="isBooked" class="{!slot.value[1].Booked__c? 'bgColor': 'noColor'}" variant="base" onclick="{!slot.value[1].Booked__c? c.redirectToInterview: c.openModel}">
+                                        <lightning:formattedDateTime value="{!slot.value[1].Start_Time__c}" timeZone="UTC" hour="2-digit" minute="2-digit" hour12="true"/>
+                                        &nbsp;{!slot.value[1].Time_String__c}&nbsp;
+                                        <lightning:formattedDateTime value="{!slot.value[1].End_Time__c}" timeZone="UTC" hour="2-digit" minute="2-digit" hour12="true"/>
+                                    </lightning:button>
+                                </div>
+                            </td>
+                            <td data-label="Slot 3" class="tableData">
+                                <div class="slds-truncate slds-align_absolute-center" title=" " onclick="{!slot.value[2].Booked__c? c.redirectToInterview : false}">
+                                    <lightning:button name="{!slot.value[2].Id}" aura:id="isBooked" class="{!slot.value[2].Booked__c? 'bgColor': 'noColor'}" variant="base" onclick="{!slot.value[2].Booked__c? c.redirectToInterview: c.openModel}">
+                                        <lightning:formattedDateTime value="{!slot.value[2].Start_Time__c}" timeZone="UTC" hour="2-digit" minute="2-digit" hour12="true"/>
+                                        &nbsp;{!slot.value[2].Time_String__c}&nbsp;
+                                        <lightning:formattedDateTime value="{!slot.value[2].End_Time__c}" timeZone="UTC" hour="2-digit" minute="2-digit" hour12="true"/>
+                                    </lightning:button>
+                                </div>
+                            </td>
+                            <td data-label="Slot 4" class="tableData">
+                                <div class="slds-truncate slds-align_absolute-center" title=" " onclick="{!slot.value[3].Booked__c? c.redirectToInterview : false}">
+                                    <lightning:button name="{!slot.value[3].Id}" aura:id="isBooked" class="{!slot.value[3].Booked__c? 'bgColor': 'noColor'}" variant="base" onclick="{!slot.value[3].Booked__c? c.redirectToInterview: c.openModel}">
+                                        <lightning:formattedDateTime value="{!slot.value[3].Start_Time__c}" timeZone="UTC" hour="2-digit" minute="2-digit" hour12="true"/>
+                                        &nbsp;{!slot.value[3].Time_String__c}&nbsp;
+                                        <lightning:formattedDateTime value="{!slot.value[3].End_Time__c}" timeZone="UTC" hour="2-digit" minute="2-digit" hour12="true"/>
+                                    </lightning:button>
+                                </div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </lightning:card>
+    
+    <aura:if isTrue="{!v.isModalOpen}">
+        
+        <!-- Modal/Popup Box starts here-->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Book Interview Slot</h2>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                    <lightning:recordEditForm objectApiName="Interview__c">
+                        <lightning:inputField aura:id="app" fieldName="Application__c"/>
+                        <lightning:inputField aura:id="round" fieldName="Interview_Round1__c" />
+                    </lightning:recordEditForm>
+                    
+                </div>
+                <!--Modal/Popup Box Footer Starts here-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeModel }"/>
+                    <lightning:button variant="brand"
+                                      label="OK"
+                                      title="OK"
+                                      onclick="{!c.submitDetails}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    <!-- <aura:if isTrue="{! v.loaded }">
+            <aura:set attribute="else">
+                <lightning:spinner alternativeText="Loading" />
+            </aura:set>
+        </aura:if> -->
+</aura:component>

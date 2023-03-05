@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Employe Leave" icon-name="standard:contact"> <br />
+        <div style="width: auto;">
+            <template if:true={LeaveList}>
+                <lightning-datatable data={LeaveList} columns={columns} draft-values={fldsItemValues} key-field="id"
+                    hide-checkbox-column="true" onrowaction={onRowUpdate} show-row-number-column>
+                </lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+</template>

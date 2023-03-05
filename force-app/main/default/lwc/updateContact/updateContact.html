@@ -1,0 +1,228 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 09-16-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   09-06-2022   Shivam Kumar   Initial Version
+-->
+<template>
+	<template if:false={home}>
+		
+			<lightning-card>
+					<div class="slds-box">
+							<lightning-card >
+									<br/>
+									<template if:true={details}>
+									<div class="slds-grid slds-gutters">
+											<div class="slds-col slds-size_1-of-2">
+													<span>
+															<h1><b>
+																	Name: {contRec.Name}
+																	</b></h1>
+															<br/>
+															<h1><b>
+																	Aadhar Card No: {contRec.AADHAR_ID__c}
+																	</b></h1>
+													</span>
+											</div>
+											<div class="slds-col slds-size_1-of-2">
+													<span>
+															<h1><b>
+																	PAN No: {contRec.PAN_Card__c}
+																	</b></h1>
+															<br/>
+															<h1><b>
+																	UAN No: {contRec.PF_UAN_Number__c}
+																	</b></h1>
+													</span>
+											</div>
+									</div>
+									<br/>
+									
+											<div class="slds-grid slds-gutters">
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	<lightning-input type="date" name="Birthdate" label="Birth Date:" disabled={editEnable} value={contRec.Birthdate} onchange={changesHandler} ></lightning-input>
+																	<br/>
+																	<lightning-input type="tel" label="Phone No:" name="MobilePhone" disabled={editEnable} value={contRec.MobilePhone} onchange={changesHandler}></lightning-input>
+																	<br/>
+																	<lightning-input type="email" name="Email" value={contRec.Email} disabled={editEnable} label="Email Address:" onchange={changesHandler}></lightning-input>
+																	<br/><br/>
+																	<lightning-input name="Fathers_Name__c" label="Father's Name:" disabled={editEnable} value={contRec.Fathers_Name__c} onchange={changesHandler}></lightning-input>
+																	<br/>
+																	<lightning-input name="Mother_s_Name__c" label="Mother's Name:" disabled={editEnable} value={contRec.Mother_s_Name__c} onchange={changesHandler}></lightning-input>
+															</span>
+													</div>
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																<lightning-input name="Permanent_Address__c" label="Permanent Address:" disabled={editEnable} value={contRec.Permanent_Address__c} onchange={changesHandler}></lightning-input>
+																<br/>
+																<lightning-combobox disabled={editEnable} name="Blood_Group__c" label="Blood Group:" value={contRec.Blood_Group__c} placeholder="Select Blood Group" onchange={changesHandler} options={bloodGroupOptions}></lightning-combobox>
+																<br/>
+																	
+																	<lightning-combobox disabled={editEnable} name="Shirt_Size__c" label="Shirt Size:" value={contRec.Shirt_Size__c} placeholder="Select Shirt Size" onchange={changesHandler} options={shrtSizeOption}></lightning-combobox>
+																	<br/><br/>
+																	
+																	<lightning-input type="date"  label="Father's DOB:" name="Father_s_DOB__c" value={contRec.Father_s_DOB__c}   disabled={editEnable} onchange={changesHandler}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="date"  label="Mothers's DOB:" name="Mother_s_DOB__c" value={contRec.Mother_s_DOB__c}  disabled={editEnable} onchange={changesHandler}></lightning-input>
+															</span>
+													</div>
+											</div>
+											<br/><br/>
+											<div class="slds-grid slds-gutters">
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	 
+																	<lightning-input label="Spouse Name:" type="text" name="Spouse_Name__c" value={contRec.Spouse_Name__c}  onchange={changesHandler} disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-combobox disabled={editEnable} name="Spouse_Gender__c" label="Spouse Gender" value={contRec.Spouse_Gender__c} onchange={changesHandler} placeholder="Select Gender" options={genderOption}></lightning-combobox>
+															</span>
+													</div>
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input type="date" label="Spouse DOB:" name="Spouse_DOB__c" value={contRec.Spouse_DOB__c}  onchange={changesHandler} disabled={editEnable}></lightning-input>
+															</span>
+													</div>
+											</div>
+											<br/><br/>
+											<div class="slds-grid slds-gutters">
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input type="text" label="Child 1 Name:" name="Child_1_Name__c" value={contRec.Child_1_Name__c}  onchange={changesHandler} disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-combobox disabled={editEnable} label="Child 1 Gender:" name="Child_1_Gender__c"  value={contRec.Child_1_Gender__c} onchange={changesHandler} placeholder="Select Gender" options={genderOption}></lightning-combobox>
+															</span>
+													</div>
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input  label="Child 1 DOB:" type="date" name="Child_1_DOB__c"  value={contRec.Child_1_DOB__c}  onchange={changesHandler} disabled={editEnable}></lightning-input>
+															</span>
+													</div>
+											</div>
+											<br/><br/>
+											<div class="slds-grid slds-gutters">
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input type="text" label="Child 2 Name:" name="Child_2_Name__c" value={contRec.Child_2_Name__c}  onchange={changesHandler} disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-combobox disabled={editEnable} label="Child 2 Gender:" name="Child_2_Gender__c"  value={contRec.Child_2_Gender__c} onchange={changesHandler} placeholder="Select Gender" options={genderOption}></lightning-combobox>
+															</span>
+													</div>
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input type="date" label="Child 2 DOB:" name="Child_2_DOB__c" value={contRec.Child_2_DOB__c}  onchange={changesHandler} disabled={editEnable}></lightning-input>
+															</span>
+													</div>
+											</div>
+											<br/><br/>
+											<div class="slds-grid slds-gutters">
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input type="text" label="Bank Account Number:"  value={contRec.Bank_Account_Number__c}  name="Bank_Account_Number__c" onchange={changesHandler}  disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="IFSC Code:"  name="IFSC_Code__c" value={contRec.IFSC_Code__c} onchange={changesHandler} disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="Bank Name:" name="Bank_Name__c"  value={contRec.Bank_Name__c} onchange={changesHandler} disabled={editEnable}></lightning-input>
+															</span>
+													</div>
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input type="text"  label="Certifications if any:" value={contRec.Certifications_if_any__c} name="Certifications_if_any__c" onchange={changesHandler}  disabled={editEnable}></lightning-input>
+																	<br/>
+																
+																	<lightning-input type="text" label="	Emergency Contact Name:" value={contRec.Emergency_contact_name__c} name="Emergency_contact_name__c" onchange={changesHandler}  disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="tell" label="Emergency Contact Phone No:" value={contRec.Emergency_Contact_Number__c} name="Emergency_Contact_Number__c" onchange={changesHandler}  disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="Medical History, If any:" value={contRec.Medical_History_If_any__c} name="Medical_History_If_any__c" onchange={changesHandler}  disabled={editEnable}></lightning-input>
+															</span>
+													</div>
+											</div>
+											<br/><br/>
+											<div class="slds-grid slds-gutters">
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input type="text" label="Fun Fact about you:" name="Fun_Fact_about_you__c" value={contRec.Fun_Fact_about_you__c}  onchange={changesHandler}  disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="Keywors that best describe you:" value={contRec.Keywords_that_best_describe_you__c} name="Keywords_that_best_describe_you__c" onchange={changesHandler}  disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="Hates:" name="Hates__c" value={contRec.Hates__c}  onchange={changesHandler} disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="Hobbies:" name="Hobbies__c" value={contRec.Hobbies__c} onchange={changesHandler} disabled={editEnable}></lightning-input>
+															</span>
+													</div>
+													<div class="slds-col slds-size_1-of-2">
+															<span>
+																	
+																	<lightning-input type="text" label="Success community profile link:" value={contRec.Success_community_profile_link__c} onchange={changesHandler} name="Success_community_profile_link__c"  disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="Facebook Link:" name="Facebook_Link__c" value={contRec.Facebook_Link__c}  onchange={changesHandler}  disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="LinkedIn Link:" name="LinkedIn_Link__c" value={contRec.LinkedIn_Link__c}  onchange={changesHandler} disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input type="text" label="Twitter Link:" name="Twitter_Link__c" value={contRec.Twitter_Link__c}  onchange={changesHandler}  disabled={editEnable}></lightning-input>
+																	<br/>
+																	
+																	<lightning-input label="Likes:" type="text" name="Likes__c"  value={contRec.Likes__c} onchange={changesHandler} disabled={editEnable}></lightning-input>
+															</span>
+													</div>
+											</div>
+											<br/>
+											<div class="slds-align_absolute-center">
+												<div class="slds-form-element buttons slds-text-align_center">
+													<lightning-button class="slds-m-top_small" label="Edit" title="Edit" onclick={makeRecordEditable} icon-name="utility:edit"></lightning-button>
+													&nbsp;&nbsp;
+													<lightning-button class="slds-m-top_small" label="Cancel" title="Cancel" onclick={makeRecordNotEditable}></lightning-button>
+													<!--<lightning-button-icon class="slds-m-top_small" icon-name="utility:edit" alternative-text="edit" title="edit" onclick={getRecordToEdit}></lightning-button-icon>-->
+													&nbsp;&nbsp;
+													<lightning-button disabled={editEnable} class="slds-m-top_small" variant="brand"  name="Update" label="Update"  onclick={onclickUpdateHandler}></lightning-button>
+												</div>
+											</div>		
+									
+									</template>
+									<template if:true={successmsg}>
+											<h1>
+													<b>Employee Updated Successfully!</b>
+											</h1>
+											<br/>
+											<lightning-button name="Back" label="Back" onclick={backToDetailPage}></lightning-button>
+										
+									</template>
+							</lightning-card>
+					</div>
+				<br/>
+					<div class="slds-align_absolute-center">
+				</div>
+				</lightning-card>
+	
+	</template>
+	<template if:true={home}>
+		<c-emp-portal-home ></c-emp-portal-home>
+	</template>
+</template>

@@ -1,0 +1,286 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 08-23-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   08-19-2022   Shivam Kumar   Initial Version
+-->
+<template>
+    <lightning-card>
+        <div class="slds-m-around_medium">
+            <div>
+                <div class="slds-align_absolute-center">
+                    <div class="slds-box  slds-align_absolute-center" style="position: relative;
+                color: white;
+                background-color: #1e194e;
+                width: 100%;
+                font-size: xx-large;
+                font-style: initial;"> Testing Interview Feedback </div>
+                </div>
+                </br>
+                </br>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-left_large">
+                            <div class="slds-form-element">
+                                <label class="slds-checkbox_toggle slds-grid" style="position: relative; ">
+                                    <span class="slds-form-element__label slds-m-bottom_none"><b>Interviewee didn't join
+                                            &nbsp; &nbsp;</b></span>
+                                    <input type="checkbox" name="checkbox-toggle-17" value="checkbox-toggle-17"
+                                        aria-describedby="checkbox-toggle-17" checked="" />
+                                    <span id="checkbox-toggle-18" class="slds-checkbox_faux_container"
+                                        aria-live="assertive">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-checkbox_on">Active</span>
+                                        <span class="slds-checkbox_off">Inactive</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </br>
+                </br>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="position: relative;">
+                            Cross browser </br> Testing &nbsp;
+                            <input type="radio" id="star35" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 58%; left: 30%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star34" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 58%;left: 30%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star33" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 58%;left: 30%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star32" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 58%;left: 30%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star31" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 58%;left: 30%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate " style="   position: relative;">
+                            Functional </br>Testing &nbsp;
+                            <input type="radio" id="star65" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 58%;left: 22%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star64" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 58%;left: 22%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star63" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 58%;left: 22%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star62" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 58%;left: 22%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star61" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 58%;left: 22%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="position: relative;">
+                            Data Loader </br>or Jmeter Testing &nbsp;
+                            <input type="radio" id="star55" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 58%; left: 1%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star54" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 58%;left: 1%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star53" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 58%;left: 1%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star52" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 58%;left: 1%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star51" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 58%;left: 1%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="     position: relative;">
+                            Performance </br>Testing &nbsp;
+                            <input type="radio" id="star45" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 58%;    left: 22.5%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star44" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 58%;    left:22.5%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star43" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 58%;    left: 22.5%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star42" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 58%;    left: 22.5%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star41" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 58%;    left: 22.5%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="position: relative;">
+                            Regression </br>Testing &nbsp;
+                            <input type="radio" id="star30" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star29" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star28" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star27" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star26" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 58%;left: 30.7%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="    position: relative;">
+                            Smoke Testing &nbsp;
+                            <input type="radio" id="star25" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star24" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star23" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star22" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star21" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 25%;left: 1.5%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="position: relative;">
+                            Test Rail &nbsp;
+                            <input type="radio" id="star20" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 25%;left: 27%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star19" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 25%;left: 27%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star18" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 25%;left: 27%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star17" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 25%;left: 27%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star16" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 25%;left: 27%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="    position: relative;">
+                            Tosca Provar &nbsp;
+                            <input type="radio" id="star15" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 25%;left: 7%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star14" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 25%;left: 7%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star13" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 25%;left: 7%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star12" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 25%;left: 7%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star11" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 25%;left: 7%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="position: relative;">
+                            Language &nbsp;
+                            <input type="radio" id="star10" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 25%;left: 22%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star9" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 25%;left: 22%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star8" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 25%;left: 22%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star7" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 25%;left: 22%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star6" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 25%;left: 22%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-p-around_medium rate" style="    position: relative;">
+                            Overall Rating &nbsp;
+                            <input type="radio" id="star101" name="Package" value="5" onchange={rating} />
+                            <label for="star35" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">5
+                                stars</label>
+                            <input type="radio" id="star91" name="Package" value="4" onchange={rating} />
+                            <label for="star34" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">4
+                                stars</label>
+                            <input type="radio" id="star81" name="Package" value="3" onchange={rating} />
+                            <label for="star33" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">3
+                                stars</label>
+                            <input type="radio" id="star71" name="Package" value="2" onchange={rating} />
+                            <label for="star32" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">2
+                                stars</label>
+                            <input type="radio" id="star67" name="Package" value="1" onchange={rating} />
+                            <label for="star31" style=" position: relative; bottom: 25%;left: 3.5%;" title="text">1
+                                star</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid ">
+                    <div class="slds-col">
+                        <div class="slds-p-around_medium">
+                            <lightning-textarea style="position: relative;
+                    " label="Comments"></lightning-textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </br>
+            <div class="slds-grid slds-wrap" style="position: relative;">
+                Interview Id : 12345
+            </div>
+            </br>
+            <div class="slds-grid slds-wrap" style="position: relative;">
+                Employee Id/ Professional Consultant Id : DW12345
+            </div>
+            </br>
+            </br>
+            </br>
+            <div class="slds-align_absolute-center">
+                <lightning-button label="Submit" variant="brand"></lightning-button>
+
+            </div>
+        </div>
+        </br>
+        </br>
+
+    </lightning-card>
+</template>

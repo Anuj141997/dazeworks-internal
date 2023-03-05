@@ -1,0 +1,169 @@
+<!--
+	@description       : 
+	@author            : Shivam Kumar
+	@group             : 
+	@last modified on  : 06-30-2022
+	@last modified by  : Shivam Kumar
+	Modifications Log
+	Ver   Date         Author         Modification
+	1.0   06-29-2022   Shivam Kumar   Initial Version
+-->
+<template>
+		<template if:true={perHomePage}>
+				<div class="c-container">
+						<template if:true={loading}>
+								<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+
+						</template>
+						<lightning-layout multiple-rows="true">
+								<lightning-layout-item padding="around-small" size="3">
+										<!--Session Picklist Starts-->
+										<lightning-combobox name="Session" label="Session" value={sessionValue} placeholder="Select Session"
+																				options={sessionOptions} onchange={handleSessionChange} variant="label-inline">
+										</lightning-combobox>
+										<template if:false={isSessionOptionAvailable}>
+												<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+										</template>
+
+										<!--Session Picklist Ends-->
+								</lightning-layout-item>
+								<lightning-layout-item padding="around-small" size="6">
+								</lightning-layout-item>
+								<lightning-layout-item padding="around-small" style="text-align:right" size="3">
+									<template if:true={permisOnchange}>
+										<lightning-button variant="brand" label="List of Employee Review" title="List of Employee Review"
+										onclick={listViewHandler} class="slds-m-left_x-small"></lightning-button>
+									</template>
+										<!--New Button Starts-->
+										<lightning-button variant="brand" label="New" title="New" onclick={createNewRecord}
+																			class="slds-m-left_x-small"></lightning-button>
+										<!--New Button Ends-->
+								</lightning-layout-item>
+								<template if:true={isSessionOptionAvailable}>
+										<template if:true={isDataAvailable}>
+												<lightning-layout-item padding="around-small" size="12">
+														<div class="page-section">
+																<lightning-datatable key-field="id" data={data} hide-checkbox-column="true"
+																										 min-column-width="200px" onrowaction={handleRowAction} columns={columns}>
+																</lightning-datatable>
+														</div>
+												</lightning-layout-item>
+										</template>
+										<template if:false={isDataAvailable}>
+												<lightning-layout-item padding="around-small" size="12">
+														<div class="page-section" style="text-align:center">
+																{noticeMessage}
+														</div>
+												</lightning-layout-item>
+										</template>
+								</template>
+								<lightning-layout-item flexibility="auto" padding="around-small" style="text-align:center" size="12">
+										<lightning-button label="Cancel" title="Cancel" onclick={handleCancel} class="slds-m-left_x-small">
+										</lightning-button>
+								</lightning-layout-item>
+
+						</lightning-layout>
+				</div>
+		</template>
+
+		<template if:true={listViewPage}>
+
+				<div class="c-container ">
+						<lightning-layout multiple-rows="true">
+								<lightning-layout-item padding="around-small" size="6">
+									<div class="slds-page-header__name-title">
+										<h1 style="color:Black;font-size:25px;">
+											<B>
+												<div>List Of Employees Review</div>
+											</B>
+										</h1>
+									</div>
+								</lightning-layout-item>
+								
+								<lightning-layout-item padding="around-small" size="3">
+								</lightning-layout-item>
+								<lightning-layout-item padding="around-small" style="text-align:right" size="3">
+										<lightning-button variant="brand" label="Previous" title="Previous" onclick={handleBack}
+																			class="slds-m-left_x-small"></lightning-button>
+								</lightning-layout-item>
+                               
+								<template if:true={isSessionOptionAvailable}>
+										<template if:true={isAllDataAvailable}>
+												<lightning-layout-item padding="around-small" size="12">
+														
+														
+															
+															<div class="page-section2">
+																<lightning-datatable data={getPerformanceDataList2} columns={columns2} key-field="id"
+																										 hide-checkbox-column="true" onrowaction={onRowUpdate} show-row-number-column>
+																</lightning-datatable>
+															</div>
+														
+												</lightning-layout-item>
+										</template>
+                                        <template if:false={isDataAvailable}>
+                                            <lightning-layout-item padding="around-small" size="12">
+                                                    <div class="page-section" style="text-align:center">
+                                                            {noticeMessage}
+                                                    </div>
+                                            </lightning-layout-item>
+                                    </template>
+										<template if:true={isModal}>
+                                           
+												<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+																 class="slds-modal slds-fade-in-open slds-modal_large">
+														<div class="slds-modal__container">
+																  <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+																	<lightning-icon icon-name="utility:close"
+																		alternative-text="close"
+																		variant="inverse"
+																		size="small" ></lightning-icon>
+																	<span class="slds-assistive-text">Close</span>
+																</button>
+																<div class="slds-modal__header">
+																		<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Edit Performance</h1>
+																</div>
+																
+																		<lightning-record-edit-form record-id={recId} object-api-name="Performance__c" onsuccess={handleSuccess}>
+																			<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+																				Employee
+																				<lightning-input-field field-name="Employee__c" variant="label-hidden" readonly disabled></lightning-input-field>
+																				<br/>
+																				Manager
+																				<lightning-input-field field-name="Manager__c" variant="label-hidden" readonly disabled></lightning-input-field>
+																				<br/>
+																				Employee Rating by Manager
+																				<lightning-input-field field-name="Employee_Rating_by_Manager__c" variant="label-hidden" readonly disabled></lightning-input-field>
+																				<br/>
+																				Overall Summery By Manager
+																				<lightning-input-field field-name="Overall_Summery_By_Manager__c" variant="label-hidden" readonly disabled></lightning-input-field>
+																				<br/>
+																				Final Performance Rating
+																				<lightning-input-field field-name="Final_Performance_Rating__c" variant="label-hidden"></lightning-input-field>
+																				</div>
+																				<div class="slds-modal__footer">
+																				<div class="slds-form-element buttons slds-text-align_center">
+																						<lightning-button class="slds-m-top_small" variant="Neutral" label="Cancel" onclick={closeModal}></lightning-button>
+																						&nbsp;&nbsp;
+																						<lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update"></lightning-button>
+																				</div>
+																			</div>
+																		</lightning-record-edit-form>
+															
+														</div>
+												</section>
+												<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+										</template>
+										<template if:false={isAllDataAvailable}>
+												<lightning-layout-item padding="around-small" size="12">
+														<div class="page-section" style="text-align:center">
+																{noticeMessage}
+														</div>
+												</lightning-layout-item>
+										</template>
+								</template>
+						</lightning-layout>
+
+				</div>
+		</template>
+</template>

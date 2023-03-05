@@ -1,0 +1,16 @@
+<aura:component implements="lightning:homeTemplate">
+	<aura:attribute name="up" type="Aura.Component[]" />
+    <aura:attribute name="down" type="Aura.Component[]" />
+     <div>
+        <lightning:layout multipleRows="true" verticalAlign="center">
+            <lightning:layoutItem flexibility="grow" size="12"
+                                  class="slds-m-bottom_small">
+                {!v.up}
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="grow" size="12">
+                {!v.down}
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+
+</aura:component>

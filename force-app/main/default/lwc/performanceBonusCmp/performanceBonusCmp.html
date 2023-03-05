@@ -1,0 +1,145 @@
+<template>
+    
+    <lightning-card >
+    <div class="slds-page-header__row">
+        <div class="slds-page-header__col-title">
+    <div class="slds-media__body">
+        <div class="slds-page-header__name">
+            <div class="slds-page-header__name-title slds-m-left_medium">
+                <h1>
+                    <span class="slds-page-header__title slds-truncate" title="Performance">{Header}</span>
+                </h1>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class='body'>
+
+            <div class="slds-grid slds-gutters slds-m-around_small">
+                <div class="slds-col">
+                <span>
+                    <lightning-combobox label={label.Employee} placeholder="Select Employee"
+                    options={items} value={bonusData.Employee__c} name='Employee__c' onchange={handleValueChange}
+                    required></lightning-combobox>                </span>
+                </div>
+                <div class="slds-col">
+                <span>
+                    <c-custom-lookup field-label={label.Manager} child-object-api-name='Performance__c' 
+                    target-field-api-name='Manager__c' value={managerValue}
+                    onvalueselected={handleValue}></c-custom-lookup>
+                </span>
+                </div>
+                <div class="slds-col">
+                <span>
+                    <lightning-input type="Date" label={label.FromDate} 
+                    value={bonusData.Review_Date_From__c} name='Review_Date_From__c' onchange={handleValueChange} required></lightning-input>
+                </span>
+                </div>
+                <div class="slds-col">
+                <span>
+                    <lightning-input type="Date" label={label.TillDate}
+                    value={bonusData.Review_Date_Till__c} name='Review_Date_Till__c' onchange={handleValueChange} required></lightning-input>
+                </span>
+                </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-around_medium">
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                       <b>{label.Parameters}</b>
+                    </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                       <b>{label.Review}</b> 
+                    </span>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                       {label.AreaofStrength}
+                    </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                     <lightning-textarea value={bonusData.Area_of_strength__c} name='Area_of_strength__c' onchange={handleValueChange} required></lightning-textarea>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                        {label.OperationalExcellence}
+                    </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                     <lightning-textarea value={bonusData.Operational_Excellence_Manager__c} name='Operational_Excellence_Manager__c' onchange={handleValueChange} required></lightning-textarea>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                        {label.Achievement}
+                    </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                     <lightning-textarea value={bonusData.Achievement__c} name='Achievement__c' onchange={handleValueChange} required></lightning-textarea>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                        {label.AreaofImprovement}
+                    </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                     <lightning-textarea value={bonusData.Area_of_improvement__c} name='Area_of_improvement__c' onchange={handleValueChange} required></lightning-textarea>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                       <lightning-combobox label={label.PerformanceRating} options={finalTypes}
+                       value={bonusData.Final_Performance_Rating__c} name='Final_Performance_Rating__c' onchange={handleValueChange} required></lightning-combobox>
+                    </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                    <span>
+                     <lightning-textarea label={label.OverallSummarybyManager}
+                     value={bonusData.Overall_Summery_By_Manager__c} name='Overall_Summery_By_Manager__c' onchange={handleValueChange} required></lightning-textarea>
+                    </span>
+                    </div>
+                </div>
+
+             
+             <div class="slds-align_absolute-center">
+                <div class="slds-grid slds-gutters slds-m-around_small " >
+                    <div class="slds-col">
+                    <span>
+                        <lightning-button label="Previous" onclick={handleBack} ></lightning-button>
+                    </span>
+                    </div>
+                    <div class="slds-col">
+                    <span>
+                        <lightning-button label="Save" variant="brand" onclick={handleSave} ></lightning-button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

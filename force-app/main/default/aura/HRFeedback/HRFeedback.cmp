@@ -1,0 +1,121 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="HRFeedback_Controller" access="global" >
+    <aura:attribute name="interviewId" type="String" />
+    <aura:attribute name="empId" type="String" />
+    <aura:attribute name="intervieweeDidntJoin" type="boolean" default="false"/>
+    <aura:attribute name="isFieldRequired" type="boolean" default="true" />
+    <aura:attribute name="hrFeedback" type="Interview__c" default="{'sObjectType' : 'Interview__c',
+                                                                   'Attitude__c' : '0',
+                                                                   'Communication__c' : '0',
+                                                                   'Language__c' : '0',
+                                                                   'Listening_skills__c' : '0',
+                                                                   'Technical_skills__c' : '0',
+                                                                   'Presentation_skills__c' : '0',
+                                                                   'Overall_on_10__c' : '0',
+                                                                   'Comments1__c' : ''}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card >
+        <div class="slds-p-around_xx-large">
+            <div class="slds-page-header slds-page-header_record-home slds-text-heading_large slds-text-align_center header">
+                {!$Label.c.HR_Feedback_Header}
+            </div>
+            <br/><br/>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-13 slds-p-right_x-small">
+                    <p class="slds-text-heading_small"><b>Interviewee didn't join</b></p>
+                </div>
+                <div class="slds-col slds-size_0-of-12 ">
+                    <lightning:input type="toggle" checked="{!v.intervieweeDidntJoin}" onchange="{!c.setIsRequired}" /><br/>
+                </div>
+            </div>
+            
+            <aura:if isTrue="{!!v.intervieweeDidntJoin}">
+                <!--
+                <lightning:slider label="Attitude" value="{!v.hrFeedback.Attitude__c}" min="1" max="5" aura:id="validField" required="true"/><br/>
+                <lightning:slider label="Communication" value="{!v.hrFeedback.Communication__c}" min="1" max="5" aura:id="validField"/><br/>
+                <lightning:slider label="Language" value="{!v.hrFeedback.Language__c}" min="1" max="5" aura:id="validField"/><br/>
+                <lightning:slider label="Listening Skills" value="{!v.hrFeedback.Listening_skills__c}" min="1" max="5" aura:id="validField"/><br/>
+                <lightning:slider label="Technical Skills" value="{!v.hrFeedback.Technical_skills__c}" min="1" max="5" aura:id="validField"/><br/>
+                <lightning:slider label="Presentation Skills" value="{!v.hrFeedback.Presentation_skills__c}" min="1" max="5" aura:id="validField"/><br/>
+                <lightning:slider label="Overall Rating" value="{!v.hrFeedback.Overall_on_10__c}" min="1" max="5" aura:id="validField"/><br/>
+                
+-->
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Attitude
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small starUI">
+                                <c:StarRatingInput readonly= "false" value = "{!v.hrFeedback.Attitude__c}" />
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Listening Skills
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.hrFeedback.Listening_skills__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Technical Skills
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.hrFeedback.Technical_skills__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Overall Rating
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.hrFeedback.Overall_on_10__c}" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Communication
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.hrFeedback.Communication__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Presentation Skills
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.hrFeedback.Presentation_skills__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Language
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.hrFeedback.Language__c}" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <br/>
+                <lightning:textarea label="Comments" value="{!v.hrFeedback.Comments1__c}" required="true" aura:id="inputField"/><br/>
+            </aura:if>
+            <lightning:input label="Interview Id" value="{!v.interviewId}" required="true" readonly="true"/><br/>
+            <lightning:input label="Employee Id/ Professional Consultant Id" value="{!v.empId}" required="true" readonly="true"/><br/>
+            
+            <div class="slds-align_absolute-center" style="height:5rem">
+                <lightning:button label="Submit" onclick="{!c.doSave}" variant="brand" />
+            </div>
+        </div>
+    </lightning:card> 
+</aura:component>

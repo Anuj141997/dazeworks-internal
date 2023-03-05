@@ -1,0 +1,87 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 09-08-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   09-07-2022   Shivam Kumar   Initial Version
+-->
+<template>
+    <lightning-card>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_4-of-12">
+                <div class="slds-m-around_medium">
+                    <div class="slds-section slds-is-open">
+                        <h3 class="slds-section__title">
+                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
+                              <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                              </svg>
+                              <label class="slds-align_absolute-center" style="color: dimgrey; font-size: 128%;"><b>Employee Appreciation </b></label>
+                            </button>
+                          </h3>
+                        
+                    </div>
+                    <!--table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                        <thead>
+                            <tr class="slds-text-title_caps">
+                                <th>
+                                    <label class="slds-align_absolute-center" style="color: dimgrey; font-size: 128%;"><b>Employee Appreciation </b></label>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table-->
+                    
+                    <br /><br />
+                    <c-appreciation-custom-lookup lookup-label="Member"
+									object-api-name="Contact" icon-name="standard:contact"
+									onrecordselection={meetingSelection}>
+					</c-appreciation-custom-lookup>
+                    <!-- <c-custom-lookup-for-leave-table lookup-label="Member" object-api-name="Contact"
+                    icon-name="standard:contact" onrecordselection={meetingSelection}>
+                    </c-custom-lookup-for-leave-table>    -->
+
+                    <lightning-input label="Date" value={appDate} onchange={appDateonchange} type="date"
+                    placeholder="Appreciation Date"></lightning-input>                
+                    
+                    <lightning-input label="From" value={appfrom} onchange={appfromonchange} type="text"
+                                placeholder="Appreciation From"></lightning-input>
+                    
+                    <lightning-input label="Project Name" value={projectName} onchange={projectNameonchange}
+                                type="text" placeholder="Project Name"></lightning-input>
+                    
+                    <lightning-textarea label="Message" value={appMassage} onchange={appMassageonchange}
+                                placeholder="Massage"></lightning-textarea>
+    
+                    <br/>
+                    <div class="slds-align_absolute-center">
+                        <lightning-button style="position: relative; right: 1.5%" variant="brand" label="Submit"
+                                title="Submit" icon-name="utility:save" icon-position="right" onclick={submitHandler}
+                                class="slds-m-left_x-small"></lightning-button>
+                    </div>
+                                           
+                </div>
+            </div>
+        
+            <div class="slds-col slds-size_8-of-12">
+                <div class="slds-align_absolute-center slds-p-top_medium">
+                
+                    <div style="width: 97%;">
+                        <template if:true={appreList}>
+                            <lightning-datatable data={appreList} columns={columns} key-field="id" hide-checkbox-column="true"
+                                show-row-number-column suppress-bottom-bar>
+                            </lightning-datatable>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <!--lightning-button label="" title="Download action" icon-name="utility:download" icon-position="right" class="slds-m-left_x-small"></lightning-button-->
+         
+        </div>
+
+        
+
+    </lightning-card>
+</template>

@@ -1,0 +1,509 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 09-15-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   08-01-2022   Shivam Kumar   Initial Version
+-->
+<template>
+   <template if:true={home}>
+      <div class="bg">
+         <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+               <div class="slds-clearfix">
+                  <div class="slds-float_left">
+                     <br />
+                     <!--image src={dazecon} style=" width:70%"></image-->
+                  </div>
+               </div>
+               <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-size_1-of-12">
+                     <div  class="slds-clearfix">
+                        <div class="slds-float_right ">
+                           <image src={inpuDes_1} style="height:62px; width:12px;"></image>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="slds-col slds-size_11-of-12">
+                     <div class="" >
+                        <div class="slds-text-heading_large slds-text-align_left">
+                           <b style="color:rgb(25, 165, 235)">Dazeworks Connect</b>
+                        </div>
+                        <div class="slds-text-heading_medium"><b >Welcome : {empId}</b></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="slds-col">
+               <div class="slds-clearfix">
+                  <div class="slds-float_right">
+                     <br/>
+                     <br/>
+                     <div class="slds-grid slds-grid_align-end">
+                        <button class="logoutButton" onclick={logoutHandler}>
+                           <b>LOGOUT</b></button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+        
+         <div class="">
+            <div class="slds-grid slds-wrap">
+               <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12" style="width:31%">
+                  <div class="slds-m-around_medium">
+                     <div class="slds-align_absolute-center">
+                        <div class="">
+                           <div class="" style="position: relative;
+                           left: 15%;">
+                              <br /><br />
+                              <div class="profile-pic slds-p-bottom_xx-large">
+                                 <label class="-label" for="file">
+                                    <span class="glyphicon glyphicon-camera"></span>
+                                    <span>Change Image</span>
+                                 </label>
+                                 <input id="file" type="file" onchange={profile} />
+                                 <img src={image_prf} id="output" width="50%" />
+                              </div>
+                           </div>
+                           <br/>
+                              <div class=" ">
+                                 <div class="slds-m-around_medium">
+                                 <h1 class="slds-align_absolute-center slds-text-heading_medium" style="color:  dodgerblue;"><B>{empName}</B></h1>
+                                 <h2 class="slds-align_absolute-center slds-text-heading_medium"><b>{tittle}</b></h2><br />
+                                 <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_4-of-10">
+                                    <div class="">
+                                       <b>&nbsp;Employee Manager :</b>
+                                    </div>
+                                    </div>
+                                    <div class="slds-col slds-size_6-of-10 datacolor">
+                                       <b  style="color:  dodgerblue;">&nbsp;{empManager}</b>
+                                    </div>
+                                 </div>
+                                 <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_2-of-10">
+                                       <b>&nbsp;Email :</b>
+                                    </div>
+                                    <div class="slds-col slds-size_8-of-10 datacolor">
+                                       <b  style="color:  dodgerblue;">&nbsp;{empEmail}</b>
+                                    </div>
+                                 </div>
+                                 <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_2-of-10">
+                                       <b>&nbsp;Phone :</b>
+                                    </div>
+                                    <div class="slds-col slds-size_8-of-10 datacolor">
+                                       <b style="color:  dodgerblue;">&nbsp;{phone}</b>
+                                    </div>
+                                 </div>
+                                 <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_4-of-10">
+                                       <b>&nbsp;Date of Joining :</b>
+                                    </div>
+                                    <div class="slds-col slds-size_6-of-10 datacolor">
+                                       <b  style="color:  dodgerblue;">&nbsp;{empDOJ}</b>
+                                    </div>
+                                 </div>
+                                 <!--<p class=""><b>Employee Manager : {empManager}</b></p>
+                                 <p class=""><b>Email : {empEmail}</b></p>
+                                 <p class=""><b>Phone 1 : {phone}</b> </p>
+                                 <p class=""><b>Phone 2 : {mobile}</b> </p>
+                                 <p class=""><b>Date of Joining : {empDOJ}</b></p>
+                                 <br />-->
+                              </div>
+                           </div>
+                           <!-- <br/>
+                           <div class="slds-grid">
+                              <div class="slds-col">
+                                 <img src={buttonBirthday} id="birthday" width="40%" />
+                              </div>
+                           </div> -->
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+               <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12">
+                  <div class="">
+                     <template if:true={page_1}>
+                        <br/><br/>
+                     <div class="slds-grid slds-gutters_xxx-small">
+                        <div class="slds-col  ">
+                           <button class="button button_font" onclick={inductionHandler}>EMPLOYEE DETAILS</button>
+                        </div>
+                        <div class="slds-col">
+                           <button class="button button_font" onclick={rewardHandler}>REWARDS & <br /> RECOGNITION</button>
+                        </div>
+                        <div class="slds-col">
+                           <button class="button button_font" onclick={companyPoliciesHandler}>COMPANY POLICIES</button>
+                        </div>
+                     </div>
+                     <br/>
+                     <div class="slds-grid">
+                        <div class="slds-col">
+                           <button class="button button_font" onclick={payslipHandler}>PAYSLIPS</button>
+                        </div>
+                        <div class="slds-col">
+                           <button class="button button_font" onclick={timsheetHandler}>TIMESHEET</button>
+                        </div>
+                        <div class="slds-col">
+                           <button class="button button_font" onclick={showTicketHandler}>RAISE TICKET <br /> SUPPORT
+                           </button>
+                        </div>
+                     </div>
+                     <br/>
+                     <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-3">
+                           <button class="button button_font" onclick={perfMangtHandler}> EMPLOYEE PERFORMANCE <br />
+                              MANAGEMENT</button>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                           <button class="button button_font" onclick={applyLeave}>LEAVE PORTAL</button>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 ">
+                           <button class="button button_font" onclick={internalMeeting}>SCHEDULE MEETINGS</button>
+                          
+                        </div>
+                     </div>
+                     <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-3"></div>
+                        <div class="slds-col slds-size_1-of-3"></div>
+                        <div class="slds-col slds-size_1-of-3">
+                           <div class="">
+                              <a>
+                                 <image class="next" src={rArrow}  style="position: relative; width: 25%; left:72% " onclick={page_1_next_handler}/>
+                              </a>
+                           </div>
+                          
+                        </div>
+                     </div>
+                  </template>
+                  <template if:false={page_1}>
+                     <br/><br/><br/>
+                     <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-3">
+                           <button class="button button_font" onclick={showMeetingfeedbackHandler}>MEETINGS FEEDBACK</button>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                           <button class="button button_font" onclick={certificatehandler}>CERTIFICATIONS</button>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                           <button class="button button_font"  onclick={interviewTemplateHandler}>INTERVIEW MANAGEMENT</button>
+                           <!-- <button class="button button_font"  onclick={interviewTemplateHandler}>INTERVIEW MANAGEMENT</button> -->
+                        </div>
+                        <!-- Next Button -->
+                        <!--<div class="slds-col slds-size_1-of-3 slds-align_absolute-center">
+                           <a class="icon icon__next" onclick={page_1_next_handler}></a>
+                        </div>-->
+                     </div>
+                     <br/>
+                     <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-3">
+                           <button class="button button_font"  onclick={appreciationHandler}>APPRECIATION</button>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                           <a>
+                              <image class="next" src={lArrow} style="position: relative; width: 25%; top: 13%;left: 21%;" onclick={page_2_back_handler}/>
+                           </a>
+                        </div>
+                     </div>
+                  </template>
+                  </div>
+               </div>
+            </div>
+            <div class="slds-grid" style="    width: 93%;width: 94%;
+            position: relative;
+            left: 3%;">
+               <div class="slds-col slds-size_1-of-3">
+                  <a class="slds-align_absolute-center">
+                  <c-birthday-status></c-birthday-status>
+               </a>
+               </div>
+               <div class="slds-col slds-size_1-of-3">
+                  <a class="slds-align_absolute-center">
+                  <c-last-month-spot-light></c-last-month-spot-light>
+               </a>
+               </div>
+               <div class="slds-col slds-size_1-of-3">
+                  <a class="slds-align_absolute-center">
+                  <c-leave-live-status></c-leave-live-status>
+               </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </template>
+   <!--a>      Induction Details     </a-->
+   <template if:true={showInductionDetails}>
+
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks -  Induction Form</div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+                  <!--lightning-button  icon-name="standard:home" onclick={homehandler} name="Home" >
+                </lightning-button-->
+               </div>
+            </div>
+            <c-update-contact emp-id={empId}></c-update-contact>
+
+         </lightning-card>
+      </div>
+   </template>
+   <!--a>      Leave Portal        </a-->
+   <template if:true={leaveport}>
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks - Leave Portal</div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+               </div>
+            </div>
+            <c-leave-container empid={empId}></c-leave-container>
+         </lightning-card>
+      </div>
+   </template>
+   <!--a>     Certification     </a-->
+   <template if:true={certificate}>
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks - Certificate Management </div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+               </div>
+            </div>
+            <c-certification-d-w-e-m-p emp-id={empId} emp-name={empName}></c-certification-d-w-e-m-p>
+         </lightning-card>
+      </div>
+   </template>
+   <!--a>     Performance Manag     </a-->
+   <template if:true={perfMangt}>
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks - Employee Performance Management </div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+               </div>
+            </div>
+            <c-performance-parent-cmp emp-id={recId} employee-id={empId}></c-performance-parent-cmp>
+         </lightning-card>
+      </div>
+   </template>
+   <!--  Ticket Management  -->
+   <template if:true={showTicket}>
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks - Ticket Management</div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+               </div>
+            </div>
+            <c-ticket-management emp-id={empId} emp-name={empName}></c-ticket-management>
+         </lightning-card>
+      </div>
+   </template>
+   <!--  Meeting Feedback   -->
+   <template if:true={showMeetingfeedback}>
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks - Meeting Feedback</div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+               </div>
+            </div>
+            <c-employee-feedback rec-id={recId} emp-name={empName} emp-id={empId}></c-employee-feedback>
+         </lightning-card>
+      </div>
+   </template>
+   <!--  Internal Meeting   -->
+   <template if:true={showInternalMeet}>
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks - Internal Meeting </div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+               </div>
+            </div>
+            <c-internal-meeting rec-id={recId} emp-name={empName} emp-id={empId}></c-internal-meeting>
+         </lightning-card>
+      </div>
+   </template>
+   <!--   Interview Management   -->
+   <template if:true={interviewTemplate}>     
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks - Interview Management</div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>               
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+                  <!--lightning-button  icon-name="standard:home" onclick={homehandler} name="Home" >
+                </lightning-button-->
+               </div>
+            </div>
+            <c-interview-management recid={recId} ></c-interview-management>
+         </lightning-card>
+      </div>
+   </template>
+   <!-- Appreciation -->
+   <template if:true={appreciationTemplate}>     
+      <div class="slds-m-around_medium">
+         <lightning-card>
+            <div class="slds-clearfix slds-p-bottom_small">
+               <div class="slds-align_absolute-center">
+                  <div class="slds-page-header__name-title">
+                     <h1 style="color:Black;font-size:30px;">
+                        <B>
+                           <div class="slds-align_absolute-center">Dazeworks - Appreciation</div>
+                        </B>
+                     </h1>
+                  </div>
+               </div>               
+               <div class="slds-float_right slds-p-bottom_small">
+                  <div class="homeic">
+                     <figure>
+                        <a>
+                           <image src={image12} width="50" height="50" title="Go Back To Home Page"
+                              onclick={homehandler}>
+                        </a>
+                     </figure>
+                  </div>
+                  <!--lightning-button  icon-name="standard:home" onclick={homehandler} name="Home" >
+                </lightning-button-->
+               </div>
+            </div>
+            <c-appreciation empid={empId}></c-appreciation>
+         </lightning-card>
+      </div>
+   </template>
+</template>

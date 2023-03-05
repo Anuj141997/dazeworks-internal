@@ -1,0 +1,49 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 06-30-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   06-30-2022   Shivam Kumar   Initial Version
+-->
+<template>
+    <!--template if:true={empLogin}>
+        <c-employee-login onotpverify={handleEmployeeId}></c-employee-login>
+    </template-->
+
+    
+    <template if:true={selectPerformance}>
+        <c-performance-l-w-c-page ontype={handleRecordType}></c-performance-l-w-c-page>
+    </template>
+
+    <template if:true={awardNomination}>
+        <c-award-nom-cmp onback={handleBack} empid={empId} onbackevent={handleBack}></c-award-nom-cmp>
+    </template>
+
+    <template if:true={depart}>
+       <!-- <c-department-page ></c-department-page> -->
+       <c-department-page ontype={handleDepartmentType}></c-department-page>
+       <!-- <c-emp-performance onnew={handleNewRecord} employeeid={empId} onbackevent={handleBack}></c-emp-performance> -->
+
+    </template>
+    <template if:true={epm}>
+        <c-emp-performance emp-ids={employeeId} onnew={handleNewRecord} ses-value={session} onview={handleView} onedit={handleEdit} employeeid={empId} onbackevent={handleBack}></c-emp-performance>
+    </template>
+
+    <template if:true={pbt}>
+        <c-performance-bonus-cmp onbackevent={handleBack} empid={empId} type={ptype}></c-performance-bonus-cmp>
+    </template>
+
+    <template if:true={tpt}>
+        <c-performance-bonus-cmp onbackevent={handleBack} empid={empId} type={ptype}></c-performance-bonus-cmp>
+
+    </template>
+
+    <template if:true={newPerf}>
+        <c-performance-c-m-p onbackevent={handleBack2} session={session} edit={editMode} view={viewMode} new={newMode} empid={empId} recid={recId} department={dtype}></c-performance-c-m-p>
+        </template>
+    
+
+</template>

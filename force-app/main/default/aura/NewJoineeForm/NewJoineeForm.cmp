@@ -1,0 +1,50 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable">
+    
+    
+    <!--Component-->
+    <div class="slds-m-around--xx-small">
+        <lightning:card title="New Joinee Form" iconName="standard:apps" class="slds-p-around_medium">
+            <lightning:recordEditForm aura:id="caseCreateForm" objectApiName="Case" onsuccess="{!c.handleOnSuccess}">
+                <lightning:messages />
+                 
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                        <lightning:inputField fieldName="ContactId"></lightning:inputField>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                        <lightning:inputField fieldName="Status"></lightning:inputField>
+                    </div>
+                </div>
+                 
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                        <lightning:inputField fieldName="Email__c"></lightning:inputField>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                        <lightning:inputField fieldName="Phone__c"></lightning:inputField>
+                    </div>
+                </div>
+                 
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                        <lightning:inputField fieldName="Priority"></lightning:inputField>
+                    </div>
+                   <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                       <lightning:inputField fieldName="Subject"></lightning:inputField> 
+                    </div>
+                </div>
+               <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                       
+                        <lightning:inputField fieldName="Origin"></lightning:inputField> 
+                    </div>
+                   <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                      <lightning:inputField fieldName="Description"></lightning:inputField>
+                    </div>
+                </div>
+                 
+                <lightning:button type="submit" label="Save" variant="brand" class="slds-align_absolute-center"/>
+            </lightning:recordEditForm>
+        </lightning:card>
+    </div>
+</aura:component>

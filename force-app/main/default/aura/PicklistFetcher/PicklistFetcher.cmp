@@ -1,0 +1,14 @@
+<aura:component >
+    
+    <aura:attribute name = "defValue" type = "List" /> 
+    <aura:attribute name = "defString" type = "String" />
+    <aura:registerEvent name="picklistChange" type="c:PicklistFetcherEvent"/>
+    <aura:attribute name = "paramId" type = "String" />
+    
+    <lightning:select  aura:id = "selectValue" onchange="{!c.onPicklistChange}" value = "{!v.defString}" class="formatDropDown">
+        <aura:iteration aura:id="accIndustry" items = "{!v.defValue}" var="color">
+            <option  value="{!color}" text="{!color}"></option>
+        </aura:iteration>
+    </lightning:select>    
+    
+</aura:component>

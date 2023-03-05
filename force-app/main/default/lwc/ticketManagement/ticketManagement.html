@@ -1,0 +1,108 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 09-06-2022
+  @last modified by  : Shivam Kumar 
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   09-06-2022   Shivam Kumar   Initial Version
+-->
+<template>
+		<lightning-card >
+				<div class="slds-box">
+						<div class="slds-box slds-theme_shade">
+								<div class="slds-box slds-theme_shade">
+										<div class="slds-grid slds-wrap">
+												<div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-6 slds-large-size_5-of-6">
+														<span>
+																<h1 class="slds-page-header__title ">{empName} : {empId}</h1>
+														</span>
+												</div>
+												<div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-6 slds-large-size_1-of-6 ">
+														<lightning-button class="slds-float_right" icon-name="utility:add" icon-position="right" name="Create New Ticket" label="Create New Ticket"
+																							onclick={createNewRecord}></lightning-button>
+												</div>
+										</div>
+								</div>
+								<lightning-card title="List Of Ticket">
+										<lightning-datatable key-field="id" data={listOfTickets} 
+																				 columns={columns} hide-checkbox-column="true" 
+																				 show-row-number-column>
+										</lightning-datatable>
+								</lightning-card>
+						</div>
+						<template if:true={isModal}>
+										<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+														 class="slds-modal slds-fade-in-open slds-modal_large">
+												<div class="slds-modal__container">
+														<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+																<lightning-icon icon-name="utility:close"
+																								alternative-text="close"
+																								variant="inverse"
+																								size="small" ></lightning-icon>
+																<span class="slds-assistive-text">Close</span>
+														</button>
+														<div class="slds-modal__header">
+																<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Ticket</h1>
+														</div>
+														<lightning-record-edit-form  object-api-name="Action_Items__c">
+																<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+																		Ticket Type: 
+																		<lightning-input-field  field-name="Ticket_Type__c" onchange={ticketType} variant="label-hidden"></lightning-input-field>
+																		<br/>
+																		Ticket SubType:
+																		<lightning-input-field  field-name="Ticket_SubType__c" onchange={ticketSubType} variant="label-hidden"> </lightning-input-field>
+																		<br/>
+																		Description:
+																		<lightning-input-field  field-name="Description__c" onchange={Desc} variant="label-hidden"></lightning-input-field>
+																		<div class="slds-modal__footer">
+																				<div class="slds-form-element buttons slds-text-align_center">
+																						<lightning-button class="slds-m-top_small" variant="Neutral" label="Cancel" onclick={closeModal}></lightning-button>
+																						&nbsp;&nbsp;
+																						<lightning-button class="slds-m-top_small" variant="Brand" label="Submit" onclick={handleSubmit}></lightning-button>
+																				</div>
+																		</div>
+																</div>
+														</lightning-record-edit-form>
+												</div>
+										</section>
+								<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+						</template>
+						<template if:true={showaction}>
+										<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-02"
+														 class="slds-modal slds-fade-in-open slds-modal_large">
+												<div class="slds-modal__container">
+														<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+																<lightning-icon icon-name="utility:close"
+																								alternative-text="close"
+																								variant="inverse"
+																								size="small" ></lightning-icon>
+																<span class="slds-assistive-text">Close</span>
+														</button>
+														<div class="slds-modal__header">
+																<h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate">New Ticket</h1>
+														</div>
+														<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+																<div class="slds-box" style="color:Black;font-size:15px;">
+																		<h1>
+																		<b>Thank You for reaching out {empName}.<br/>New Case is Successfully created.</b>
+																</h1>
+																<h1>
+																		<b>Your Reference Number is : {ticketName}.</b>
+																</h1>
+																</div>
+																<br/>
+																<div class="slds-modal__footer">
+																		<div class="slds-form-element buttons slds-text-align_center">
+																				<lightning-button class="slds-m-top_small" variant="Neutral" label="Close" onclick={closeModal}></lightning-button>
+																		</div>
+																</div>
+														</div>
+												</div>
+										</section>
+										<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+								</template>
+				</div>
+		</lightning-card>
+</template>

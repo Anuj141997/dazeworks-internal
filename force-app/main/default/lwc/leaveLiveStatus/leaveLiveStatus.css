@@ -1,0 +1,16 @@
+.abc{
+    font-weight: bold;
+    text-align:  center;
+
+}
+
+.clr{
+    background-color: lavender;
+}
+
+.ctr{
+    text-align:  center;
+}
+img.custom:hover {
+    transform: scale(1.06);
+}

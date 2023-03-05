@@ -1,0 +1,137 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="InterviewRatingL3_Controller" access="global" >
+    <aura:attribute name="interviewId" type="String" />
+    <aura:attribute name="empId" type="String" />
+    <aura:attribute name="objectName" type="String" default="Interview__c" access="global"/>
+    <aura:attribute name="intervieweeDidntJoin" type="boolean" default="false"/>
+    <aura:attribute name="isFieldRequired" type="boolean" default="true" />
+    <aura:attribute name="technicalFeedback" type="Interview__c" default="{'sObjectType' : 'Interview__c',
+                                                                          
+                                                                          'Comm_Skill__c' : '0',
+                                                                          'Attitude__c' : '0',
+                                                                          'Motivation__c' : '0',
+                                                                          'Management__c' : '0',
+                                                                          'Flexibility__c' : '0',
+                                                                          'Project_Lead__c' : '0',
+                                                                          'Overall_on_10__c' : '0',
+                                                                          'Comm_Skill_Remarks__c' : '',
+                                                                          'Attitude_Remarks__c' : '',
+                                                                          'Motivation_Remarks__c' : '',
+                                                                          'Management_Remarks__c' : '',
+                                                                          'Flexibility_Remarks__c' : '',
+                                                                          'Project_Lead_Remarks__c' : '',
+                                                                          'Comments__c' : ''}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card >
+        <div class="slds-p-around_xx-large">
+            <div class="slds-page-header slds-page-header_record-home slds-text-heading_large slds-text-align_center header">
+                {!$Label.c.InterviewRatingHeader}
+            </div>
+            <br/><br/>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-13 slds-p-right_x-small">
+                    <p class="slds-text-heading_small"><b>Interviewee didn't join</b></p>
+                </div>
+                <div class="slds-col slds-size_0-of-12 ">
+                    <lightning:input type="toggle" checked="{!v.intervieweeDidntJoin}" onchange="{!c.setIsRequired}" /><br/>
+                </div>
+            </div>
+            <aura:if isTrue="{!!v.intervieweeDidntJoin}">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Comm Skill
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Comm_Skill__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Comm_Skill_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Motivation
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Motivation__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Motivation_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Management
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Management__c}" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Management_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Overall Rating
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Overall_on_10__c}" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Attitude
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Attitude__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Attitude_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Flexibility
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Flexibility__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Flexibility_Remarks__c}"/><br/>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_x-small" style="margin-top:5px;">
+                                Project Lead
+                            </div>
+                            <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                                <c:StarRatingInput readonly= "false" value = "{!v.technicalFeedback.Project_Lead__c}" />
+                            </div>
+                        </div>
+                        <div class="slds-col slds-p-around_x-small">
+                                <lightning:textarea label="Remark" value="{!v.technicalFeedback.Project_Lead_Remarks__c}"/><br/>
+                        </div>
+                        
+                        
+                      
+                    </div>
+                </div>
+                <br/>
+                
+                <lightning:textarea label="Comments" value="{!v.technicalFeedback.Comments__c}" required="true" aura:id="inputField" messageWhenValueMissing="Please enter Comments"/><br/>
+            </aura:if>
+            <lightning:input label="Interview Id" value="{!v.interviewId}" required="true" readonly="true"/><br/>
+            <lightning:input label="Employee Id/ Professional Consultant Id" value="{!v.empId}" required="true" readonly="true"/><br/>
+            <div class="slds-align_absolute-center" style="height:5rem">
+                <lightning:button label="Submit" onclick="{!c.doSave}" variant="brand" />
+            </div>
+        </div>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,38 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <!-- <c:UploadExpense /> -->
+    <aura:attribute name = "paramId" type = "String" />
+    <aura:attribute name= "showUploadModal" type="Boolean" />
+    <div  style = "background : white;">
+        
+        <div class="slds-m-around_x-small">
+            <lightning:card  title="Expense Management" iconName="standard:buyer_group" >
+                <aura:set attribute="actions">
+                    <lightning:button variant="destructive" class = "slds-float_right" label="View Project" title="View Project" onclick="{! c.viewProject }"/>
+                    
+                </aura:set>
+                
+            </lightning:card>
+        </div>
+        
+        <div class="slds-grid slds-gutters slds-m-around_x-small">
+            <div class="slds-col slds-size_3-of-8 ">
+                <div>
+                    <c:GeneralInformationExpense paramId = "{!v.paramId}"/>
+                </div>
+                <div class = "slds-p-top_medium">
+                    <c:ExpenseTable paramId = "{!v.paramId}" />
+                </div>
+            </div>
+            
+            <div class="slds-col slds-size_5-of-8 ">
+               
+                <c:AddExpenseItem paramId = "{!v.paramId}" />
+                
+            </div>
+            
+        </div>
+        <!-- <c:FileCardPreview paramId = "{!v.paramId}"/> -->
+    </div>
+    
+    
+</aura:component>

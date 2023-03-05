@@ -1,0 +1,17 @@
+.one{
+    font-size: large;
+    font-weight: 400;
+}
+.two
+{
+    font-size: large;
+}
+
+span {
+    content: "\2605";
+    color: blue;
+    font-size: small
+  }
+.three{
+    font: size 10px;;
+}

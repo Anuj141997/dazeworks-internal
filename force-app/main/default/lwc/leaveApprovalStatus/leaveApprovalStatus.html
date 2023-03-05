@@ -1,0 +1,89 @@
+<template>
+        <div class="slds-box slds-theme_shade slds-grid">
+            <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" role="grid">
+                <thead>
+                    <tr>
+                        <th scope="col" height="22" style="width: 3rem">S.No</th>
+                        <th scope="col" height="22" >Employee Name</th>
+                        <th scope="col" height="22">Leave Id</th>
+                        <th scope="col" height="22">Leave From</th>
+                        <th scope="col" height="22">Leave Till</th>
+                        <th scope="col" height="22">Half Day</th>
+                        <th scope="col" height="22">Leave Type</th>
+                        <th scope="col" height="22">Type Of leave</th>
+                        <th scope="col" height="22">Manager Status</th>
+                        <!--Fri-->
+                        <th scope="col" height="22" style="width: 3rem"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="slds-hint-parent">
+                            <td style="font-weight: bold">
+                                <lightning-formatted-number value=""></lightning-formatted-number>.
+                            </td>
+                            <td>
+                                <lightning-input type="text" autocomplete="off" style="width: 7.5rem"
+                                        variant="label-hidden" label=""  data-id="" disabled
+                                        name="Tue" value=""></lightning-input>
+                            </td>
+                            <td>
+                                <lightning-input type="text" autocomplete="off" style="width: 7.5rem"
+                                        variant="label-hidden" label=""  data-id="" disabled
+                                        name="Tue" value={empName}></lightning-input>
+                            </td>
+                            <td>
+                                <lightning-input type="text" autocomplete="off" style="width: 7.5rem"
+                                        variant="label-hidden" label=""  data-id="" disabled
+                                        name="Tue" value={from}></lightning-input>
+                            </td>
+
+                            <td>
+                                <lightning-input type="text" autocomplete="off" style="width: 7.5rem"
+                                variant="label-hidden" label=""  data-id="" disabled
+                                name="Tue" value={till}></lightning-input>
+                            </td>
+                            <td>
+                                <lightning-input type="text" autocomplete="off" style="width: 7.5rem"
+                                variant="label-hidden" label=""  data-id="" disabled
+                                name="Tue" value={empName}></lightning-input>
+                            </td>
+                            <td>
+                                <lightning-input type="text" autocomplete="off" style="width: 7.5rem"
+                                        variant="label-hidden" label=""  data-id="" disabled
+                                        name="Tue" value={empName}></lightning-input>
+                            </td>
+                            <td>
+                                <lightning-input type="text" autocomplete="off" style="width: 7.5rem"
+                                        variant="label-hidden" label=""  data-id="" disabled
+                                        name="Tue" value={empName}></lightning-input>
+
+                            </td>
+                            <td>
+                                <lightning-input type="text" autocomplete="off" style="width: 7.5rem"
+                                variant="label-hidden" label=""  data-id="" disabled
+                                name="Tue" value={empName}></lightning-input>
+
+                            </td>
+                            
+                            <td>
+                                <div class="slds-grid slds-grid_align-end">
+                                    <div class="slds-col slds-p-right_x-small ">
+                                        <lightning-button variant="success" label="Approve" title="Approve"
+                                            ></lightning-button>
+                                    </div>
+                                    <div class="slds-col">
+                                        <lightning-button variant="Neutral" label="Reject" title="Reject"
+                                            ></lightning-button>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                            <!--Approve  Raw -->
+                            
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+</template>

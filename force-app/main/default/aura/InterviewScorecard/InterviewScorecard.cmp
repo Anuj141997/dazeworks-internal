@@ -1,0 +1,321 @@
+<aura:component controller = "interviewScorecardTableCtrl">
+    <!--use boolean attribute for Store true/false value,
+    make default to "false" so modal box are not display on the load of component. 
+    --> 
+    <!-- call doInit method on component load -->
+    <aura:registerEvent name="cmpEvent" type="c:closeModalEvent"/>
+    
+    <aura:handler name="change" event="c:RatingChangeEvent" action="{!c.handleRating}"/>
+    <aura:handler name="rescheduleEvent" event="c:closeRescheduleEvent" action="{!c.modalInterviewClose}"/>
+    
+    <aura:handler name="picklistChange" event="c:PicklistFetcherEvent" action="{!c.handleSelect}"/>
+    
+    <aura:method name="updateInterviewScorecard" action="{!c.updateInterviewScoreCard}" > 
+        
+    </aura:method>
+    <aura:attribute name="objInfo" type="Interview__c" default="{sobjectType : 'Interview__c'}" />
+    
+    
+    <aura:attribute name="ratingP" type = "Integer" />
+    <aura:attribute name="ratingRecId" type = "String" />
+    <aura:attribute name="paramId" type = "String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- aura attributes to store data/values --> 
+    <aura:attribute name="listOfAllAccounts" type="list"/> 
+    <aura:attribute name="PaginationList" type="list"/> 
+    <aura:attribute name="selectedCount" type="integer" default="0"
+                    description="selected Records Count"/>
+    <aura:attribute name="startPage" type="Integer" />
+    <aura:attribute name="endPage" type="Integer"/>
+    <aura:attribute name="totalRecordsCount" type="Integer"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"
+                    description="number of records to be display on per page"/>
+    <aura:attribute name = "candidateName" type = "String" />
+    <aura:attribute name="currentPage" type="integer" default="1"/>
+    <aura:attribute name="totalPagesCount" type="integer"/>
+    <aura:attribute name="bNoRecordsFound" type="boolean"/>
+    <aura:attribute name="showComponent" type="boolean" default="false" />
+    <aura:attribute name="commentId" type="String" />
+    <aura:attribute name="initialComments" type = "String" />
+    <aura:attribute name="showInterviewModal" type="boolean" default="false" />
+    <aura:attribute name="isOpen" type="boolean" default="true"/>
+    <aura:attribute name="readonly" type="boolean" default="false"/>
+    <aura:attribute name="applicationId" type = "String" />
+    <aura:attribute name="round" type = "String" default = "Round"/>
+    <aura:attribute name="enableButton" type = "Integer" default = "0"/>
+    
+    <!--Use "slds-m-around_xx-large" class to add standard X-Large padding to the component--> 
+    <div class="slds-m-around_xx-large">
+        
+        
+        
+        <!--###### MODAL BOX Start######--> 
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <!-- ###### MODAL BOX HEADER Start ######-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close slds-button__icon_large"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Interview Scorecard of {!v.candidateName}</h2>
+                </header>
+                <!--###### MODAL BOX BODY Part Start######-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                    <aura:if isTrue="{!v.bNoRecordsFound}">
+                        <!--display error message if there is no records available -->
+                        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+                            <span class="slds-assistive-text">error</span>
+                            <h2>No record found.</h2>
+                        </div>
+                        <aura:set attribute="else">
+                            
+                            <!-- display total record and selected record count -->   
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col slds-size_2-of-3">
+                                    <p class="slds-m-around_small">
+                                        <span class="slds-badge slds-badge_lightest" style="display:inline-block">
+                                            Total Records : {!v.selectedCount > 0 ? v.selectedCount + '/' : ''} {!v.totalRecordsCount} 
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-3">
+                                    <div class="slds-clearfix slds-m-around_small">
+                                        <div class="slds-clearfix">
+                                            <div class="slds-float_right">
+                                               <!-- <lightning:button variant="destructive"
+                                                                  label="Schedule New Interview"
+                                                                  onclick="{! c.newInterviewfromButton }"
+                                                                  disabled="{!v.enableButton == 0}"
+                                                                  /> -->
+                                                 <lightning:button variant="destructive"
+                                                                  label="Schedule New Interview"
+                                                                  onclick="{! c.newInterviewfromButton }"
+                                                                  
+                                                                  />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  style="overflow:auto;">
+                                <!-- data table start-->  
+                                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                    <thead>
+                                        <tr class="slds-text-title_caps">
+                                            <!--header checkbox for select all-->
+                                            <th style="width:3.25rem;" class="slds-text-align_right">
+                                                <div class="slds-form-element slds-align_absolute-center">
+                                                    Actions
+                                                </div>
+                                            </th>
+                                            
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Interview Round">Interview Round</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Interview Status">Interview Status</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Interviewer">Interviewer</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Candidate">Candidate</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Date and Time of Interview">Date and Time of Interview</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Technical Rating">Technical Rating</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Language Rating">Language Rating</div>
+                                            </th>
+                                            
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Overall Rating">Overall Rating</div>
+                                            </th>
+                                            
+                                            <th scope="col">
+                                                <div class="slds-truncate" title="Comments">Comments</div>
+                                            </th> 
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <aura:iteration items="{!v.PaginationList}" var="obj">
+                                            <aura:if isTrue="{!!obj.isChecked}">
+                                                <tr>
+                                                    <th scope="row" >
+                                                        <div class="slds-form-element" style="width:3.25rem;">
+                                                            <button name="View" class="slds-button"  >
+                                                                <span data-value ="{!obj.objInterview.Id}" onclick="{!c.viewRecord }">
+                                                                    <lightning:icon iconName="action:preview" title="View" size="small" class="blueFilterButton"/>
+                                                                </span>
+                                                            </button>
+                                                            
+                                                            
+                                                            <!--
+                                                        <button name="Delete" class="slds-button"  >
+                                                            <span data-value ="{!obj.objInterview.Id}" onclick="{!c.deleteInterview}">
+                                                                <lightning:icon iconName="action:delete" title= "Delete" size="small"/>
+                                                            </span>
+                                                        </button> -->
+                                                        </div>
+                                                    </th>
+                                                    <th scope="row" >
+                                                        <div class="slds-truncate " title="{!obj.objInterview.Interview_Round__c}">
+                                                            <lightning:button disabled="true" variant="success" label="{!obj.objInterview.Interview_Round__c}" title="Success" onclick="{! c.handleClick }" class= "buttonColors"/>                                                   
+                                                        </div>
+                                                    </th>
+                                                    <th scope="row">
+                                                        
+                                                        <div class="slds-truncate " title="{!obj.objInterview.Interview_Status__c}" style="width:10.25rem;">
+                                                            <c:PicklistFetcher defValue = "{!obj.listStatus}" paramId ="{!obj.objInterview.Id}" defString = "{!obj.objInterview.Interview_Status__c}"/>  
+                                                            
+                                                        </div>
+                                                    </th>
+                                                    <th scope="row">
+                                                        <div class="slds-truncate" title="{!obj.objInterview.Interviewer__r.Name}">
+                                                            {!obj.objInterview.Interviewer__r.Name}
+                                                        </div>
+                                                    </th> 
+                                                    <th scope="row">
+                                                        <div class="slds-truncate" title="{!obj.objInterview.Application__r.Candidate__r.Name	}">
+                                                            {!obj.objInterview.Application__r.Candidate__r.Name	}
+                                                        </div>
+                                                    </th>
+                                                    <th scope="row">
+                                                        <div class="slds-truncate" title="{!obj.objInterview.Interview_Date_and_Time__c}">
+                                                            
+                                                            <lightning:formattedDateTime value="{!obj.objInterview.Interview_Date_and_Time__c}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/>
+                                                            
+                                                        </div>
+                                                    </th>
+                                                    <th scope="row">
+                                                        <div class="slds-truncate" title="{!obj.objInterview.Technical_on_10__c}">
+                                                            <c:RatingCustom readonly= "{!v.readonly}"  paramId ="{!obj.objInterview.Id}" value = "{!obj.objInterview.Technical_on_10__c}"/>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="row">
+                                                        <div class="slds-truncate" title="{!obj.objInterview.Language_on_10__c}">
+                                                            <c:RatingCustom readonly= "{!v.readonly}" paramId ="{!obj.objInterview.Id}" value = "{!obj.objInterview.Language_on_10__c}"/>
+                                                        </div>
+                                                    </th>
+                                                    
+                                                    <th scope="row">
+                                                        <div class="slds-truncate" title="{!obj.objInterview.Overall_on_10__c}" style="width:8.25rem;">
+                                                            <c:RatingCustom readonly= "{!v.readonly}" paramId ="{!obj.objInterview.Id}" value = "{!obj.objInterview.Overall_on_10__c}"/>
+                                                        </div>
+                                                    </th>
+                                                    
+                                                    <th scope="row">
+                                                        <div class="slds-truncate slds-align_absolute-center" title="{!obj.objInterview.Comments__c}">
+                                                            
+                                                            
+                                                            <button name="Search" class="slds-button slds-align_absolute-center"  >
+                                                                <span data-value ="{!obj.objInterview.Id}" onclick="{!c.showComments}">
+                                                                    <lightning:icon iconName="action:log_event" size="medium" class="blueFilterButton" />
+                                                                </span>
+                                                            </button>
+                                                            
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </aura:if>
+                                            
+                                        </aura:iteration>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- DataTable End -->
+                            <br/>
+                            <!--  Pagination Buttons Start -->
+                            <div class="slds-align_absolute-center">         
+                                <lightning:button label="Previous"
+                                                  disabled="{!v.startPage == 0}"  
+                                                  onclick="{!c.navigation}"
+                                                  variant="brand"
+                                                  iconName="utility:back"
+                                                  name="previous"/>
+                                
+                                <span class="slds-badge slds-badge_lightest"
+                                      style="margin-right: 10px;margin-left: 10px;">
+                                    Page {!v.currentPage} out of {!v.totalPagesCount}
+                                </span>
+                                
+                                <lightning:button label="Next"
+                                                  disabled="{!(v.endPage + 1) >= v.totalRecordsCount}" 
+                                                  onclick="{!c.navigation}"
+                                                  variant="brand"
+                                                  iconName="utility:forward"
+                                                  iconPosition="right"
+                                                  name="next"/>
+                            </div>  
+                            
+                            <aura:if isTrue="{!v.showInterviewModal}">
+                                <c:Modal ObjectNameToCreate = "noRefresh" ApplicationId = "{!v.paramId}" roundVal ="{!v.round}" />
+                            </aura:if> 
+                            
+                            
+                            <aura:if isTrue = "{!v.showComponent}">
+                                <div class="slds-box slds-theme_info">
+                                    <div >
+                                        <section role="dialog" tabindex="-1" aria-label="Comments" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+                                            <div class="slds-modal__container" style="width: 30%;"	>
+                                                <header class="slds-modal__header slds-modal__header_empty">
+                                                    <lightning:buttonIcon iconName="utility:close"
+                                                                          onclick="{! c.closeComments }"
+                                                                          alternativeText="close"
+                                                                          variant="border-filled"
+                                                                          size = "large"
+                                                                          class="slds-modal__close slds-button__icon_large"/>
+                                                </header>
+                                                <div class="slds-modal__content slds-p-around_medium slds-box " id="modal-content-id-1">
+                                                    
+                                                    <lightning:recordEditForm recordId="{!v.commentId}" objectApiName="Interview__c" onsuccess = "{!c.closeComments}">
+                                                        <lightning:messages />
+                                                        <lightning:inputField  fieldName="Comments__c" value="{!v.initialComments}" class="slds-text-color_default"/>
+                                                        <div class = "slds-float_right">
+                                                            <lightning:button class="slds-m-top_small" variant="destructive"  name="Cancel" label="Cancel" onclick = "{!c.closeComments}" />
+                                                            <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update" />
+                                                            
+                                                        </div>
+                                                    </lightning:recordEditForm>
+                                                </div>
+                                                
+                                            </div>
+                                        </section>
+                                        <div class="slds-backdrop slds-backdrop_open"></div>
+                                    </div>
+                                </div>                           
+                            </aura:if>
+                            <!--  Pagination Buttons End -->
+                        </aura:set> 
+                    </aura:if>
+                    
+                </div>
+                <!--###### MODAL BOX FOOTER Part Start ######-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" 
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeModel }"/>
+                    
+                    <lightning:button variant="brand" 
+                                      label="Save and Close"
+                                      title="Save and Close"
+                                      onclick="{! c.saveCloseModel }"/>
+                    
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        <!--###### MODAL BOX Part END Here ######-->
+        
+    </div>
+</aura:component>

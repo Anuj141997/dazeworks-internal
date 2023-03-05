@@ -1,0 +1,49 @@
+.THIS .bgColor{
+    background-color: #F2F54B;
+    color: black !important;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.THIS .tableHeader{
+    background-color: #af0466;
+    color: white;
+    font-weight:bold;
+    height: 50px;
+}
+
+.THIS .dateInput{
+    width:250px;
+}
+
+.THIS .header{
+    background-color: #1e194e;
+    color: white !important;
+}
+
+.THIS .refreshButton{
+    background-color: #1e194e !important;
+    color: white;
+}
+
+.THIS .refreshButton svg{
+    fill: white !important;
+}
+
+.THIS .highlightCon{
+    background-color: #4B6F06 !important;
+    border-radius: 5px;
+    color: white !important;
+    font-weight: bold !important;
+    width: auto;
+    padding:12px;
+}
+
+.THIS .tableData{
+    width: 200px;
+}
+
+.THIS .noColor{
+    color: #2b358b !important;
+    padding: 5px;
+}

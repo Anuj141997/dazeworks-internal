@@ -1,0 +1,87 @@
+.bg { background-image: url('/resource/portalLoginPortalBackground');
+   
+    height: 120vh !important;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    
+}
+
+.bg_1 { background-image: url('/resource/DW_Design_For_portal');
+   
+    height: 120vh !important;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    
+}
+
+.line {
+    height: 10vh !important;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+  }
+  
+  input[type=text]:focus {
+    border: 3px solid #555;
+  } 
+
+  input[type=password] {
+        width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+  }
+  
+  input[type=text]:focus {
+    border: 3px solid #555;
+  } 
+
+  .button {
+    background: #5E5DF0;
+    background: dodgerblue;
+    border-radius: 999px;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
+  }
+  .p {
+    padding-left: 108px;
+  }
+.bottom{
+		padding-top: 170px;
+}
+.bottom1{
+		padding-top: 100px;
+}

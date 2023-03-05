@@ -1,0 +1,56 @@
+<template>
+        
+            <div class="c-container">
+                <div class="slds-p-around_small">
+                    <lightning-card  title="FNF Details">
+                        <lightning-button label="Add" slot="actions"></lightning-button>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-p-left_medium slds-p-right_medium slds-p-bottom_small">
+                                    <lightning-input type="text" label="Employee Name" value="Raghav Sharda" readonly></lightning-input>
+                                </div>
+                                <div class="slds-p-left_medium slds-p-right_medium slds-p-bottom_small">
+                                    <lightning-input type="date" name="Date of Payment" label="Date of Payment" ></lightning-input>
+                                </div>
+                                <div class="slds-p-left_medium slds-p-right_medium slds-p-bottom_small">
+                                    <lightning-input type="checkbox" label="Active" name="Active"></lightning-input>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-p-left_medium slds-p-right_medium slds-p-bottom_small">
+                                    <lightning-input type="number" name="Amount Payable" label="Amount Payable" formatter="currency"></lightning-input>
+                                </div>
+                                <div class="slds-p-left_medium slds-p-right_medium slds-p-bottom_small">
+                                    <lightning-input type="date" name="Due Date" label="Due Date" ></lightning-input>
+                                </div>
+                                <div class="slds-p-left_medium slds-p-right_medium slds-p-bottom_small"> 
+                                    <lightning-input type="checkbox" label="Eligible to Rehire" name="Eligible to Rehire"></lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-p-left_medium slds-p-right_medium slds-p-bottom_small">
+                            <lightning-input label="Comments"></lightning-input>    
+                        </div>
+                    </lightning-card>
+                </div>  
+
+                <!-- #############################################################################  -->
+                <div class="slds-p-around_small">
+                    <lightning-card>
+                        <lightning-datatable  data={data} 
+                              columns={columns} 
+                              key-field="Id"  
+                              show-row-number-column="true"
+                              onrowaction={handleRowAction}
+                         > 
+                        </lightning-datatable>
+                    </lightning-card>
+                </div>
+
+                <!-- #############################################################################  -->
+
+            </div>
+       
+    
+    
+</template>

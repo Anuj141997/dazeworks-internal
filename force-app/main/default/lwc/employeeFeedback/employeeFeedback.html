@@ -1,0 +1,98 @@
+<!--
+ @description       : 
+ @author            : Shivam Kumar
+ @group             : 
+ @last modified on  : 07-06-2022
+ @last modified by  : Shivam Kumar
+ Modifications Log
+ Ver   Date         Author         Modification
+ 1.0   06-27-2022   Shivam Kumar   Initial Version
+-->
+<template>
+	<template if:true={feedpage}>
+		<lightning-card title="Submit Feedback">
+			
+			<lightning-layout multiple-rows="true">
+				<lightning-layout-item size="12" padding="around-small">
+					<div class="slds-grid slds-wrap">
+						<div class="slds-col slds-size_1-of-2">
+							<div style="padding-right:10px;">
+								<c-int-meeting-lookup-for-feedback lookup-label="Meeting Name"
+									object-api-name="Internal_Meeting__c" icon-name="standard:task"
+									onrecordselection={meetingSelection}>
+								</c-int-meeting-lookup-for-feedback>
+							</div>
+						</div>
+						<div class="slds-col slds-size_1-of-2">
+							<br/>
+							<div style="padding-left:10px;">
+								<c-contact-lookupfor-int-meets lookup-label="Resource" rec-id={recId}
+									object-api-name="Contact" icon-name="standard:contact"
+									onrecordselection={onContactSelection}></c-contact-lookupfor-int-meets>
+							</div>
+						</div>
+					</div>
+					<div class="slds-grid slds-wrap">
+						<div class="slds-col slds-size_1-of-2">
+							<div style="padding-right:10px; padding-top:12px;">
+								<lightning-input type="Date" value={date} label="Date" onchange={dateONCH}>
+								</lightning-input>
+							</div>
+						</div>
+						<div class="slds-col slds-size_1-of-2"><br />
+							<div style=" padding-left:10px;"><label>Rating</label>
+								<select class="slds-select" onchange={selectOptionChanveValue}>
+									<option label="----Select----" value="">---Select---</option>
+									<template for:each={selectTargetValues.data} for:item="selectOptItem">
+										<option key={selectOptItem.custFldvalue} value={selectOptItem.custFldvalue}>
+											{selectOptItem.custFldlabel}
+										</option>
+									</template>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div style=" padding-top:5px;">
+						<lightning-textarea label="Feedback" value={feedback} placeholder="Feedback......."
+							onchange={feedbackONCH}></lightning-textarea>
+					</div>
+
+				</lightning-layout-item>
+				<lightning-layout-item padding="around-small" class="slds-align_absolute-center">
+					<div class="slds-clearfix">
+						<div class="slds-float_left">
+							<lightning-button variant="neutral" label="Cancel" onclick={cancelHandler}
+								style="padding-right: 1rem;"></lightning-button>
+							<lightning-button variant="brand" label="Submit Feedback" onclick={submitefeed}>
+							</lightning-button>
+						</div>
+					</div>
+
+				</lightning-layout-item>
+			</lightning-layout>
+
+		</lightning-card>
+	</template>
+
+	<template if:true={showaction}>
+
+		<lightning-card title="Meeting Feedback">
+			<div class="slds-m-around_medium">
+				<h1>
+					<b>Thank you.</b>
+				</h1>
+				<br />
+				<h1>
+					<b>We appreciate the time you took to share your valuable feedback.</b>
+				</h1>
+			</div>
+			<div class="slds-align_absolute-center">
+				<lightning-button variant="brand" name="Pervious" label="Pervious" onclick={PreviouspageHandler}>
+				</lightning-button>
+			</div>
+
+		</lightning-card>
+
+	</template>
+</template>

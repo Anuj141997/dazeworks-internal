@@ -1,0 +1,48 @@
+.trailimage {
+    max-width: 30%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.dazerkslogo2 {
+    max-width: 25%;
+    margin-left: 72%;
+}
+
+.dazerkslogo {
+    max-width: 38%;
+    margin-left:58%
+}
+
+.hrline {
+    border: none;
+    border-top: 1px dotted rgb(221, 219, 219);
+    color: #fff;
+    background-color: #fff;
+    height: 1px;
+    width: 50%;
+    margin: revert;
+  }
+  .userNumber {
+    font-size: x-large;
+    color: white;
+    text-align-last: center;
+  }
+
+  .mleft {
+    margin-left: 2%; 
+  }
+
+  .progressring {
+    transform: scale(3) translate(1em,1em);
+    position: absolute;
+}
+
+.last_Position {
+  text-align-last: end;
+  font-size: large;
+}
+
+ul:not(.browser-default) {
+   list-style-type: disc ;
+}

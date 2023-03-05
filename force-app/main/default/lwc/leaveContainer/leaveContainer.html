@@ -1,0 +1,30 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 09-05-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   09-02-2022   Shivam Kumar   Initial Version
+-->
+<template>
+    <lightning-card class="leaveContainer">
+        <c-dashboard empid={empid}></c-dashboard>
+        <div class="app slds-p-around_x-large">
+            <!--h1 class="slds-text-heading_large">Apply For Leave</h1-->
+            <div class="row">
+                <div class="column">
+                    <c-paybook empid={empid} oncreaterecord={handleCreateRecords} ></c-paybook>
+                    
+                </div>
+                <div class="column">
+                    <c-leave-history-table empid={empid}></c-leave-history-table>
+                    
+                </div>
+            </div>
+    
+        </div>
+    
+    </lightning-card>
+</template>

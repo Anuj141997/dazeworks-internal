@@ -1,0 +1,66 @@
+.valid {
+    color: green;
+  }
+  .valid:before {
+    position: relative;
+    left: -5px;
+    content: "✔";
+  }
+  .invalid {
+    color: red;
+  }
+  .invalid:before {
+    position: relative;
+    left: -5px;
+    content: "✖";
+  }
+
+  .bg_1 { background-image: url('/resource/portalLoginPortalBackground');
+   
+    height: 120vh !important;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    
+}
+
+.p {
+  padding-top: 170px;
+}
+
+.button {
+  background: #5E5DF0;
+  background: dodgerblue;
+  border-radius: 999px;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+}
+
+.bg { background-image: url('/resource/DW_Design_For_portal');
+   
+  height: 120vh !important;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover;
+  
+}
+
+.p_1{
+  padding-left: 100px;
+  padding-right: 100px;
+}

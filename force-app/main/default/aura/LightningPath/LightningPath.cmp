@@ -1,0 +1,15 @@
+<aura:component >
+    
+    <aura:registerEvent name="pathEvent" type="c:LightningPathEvent"/>
+    
+    <aura:attribute name = "paramId" type = "String" />
+    <aura:attribute name = "fieldName" type = "String" />
+    <aura:attribute name = "priorStatusValue" type = "String" />
+    
+   <lightning:picklistPath aura:id="picklistPath" recordId="{!v.paramId}"
+        variant="linear"
+        picklistFieldApiName="{!v.fieldName}"
+        onselect="{!c.handleSelect}">
+    </lightning:picklistPath>
+	
+</aura:component>

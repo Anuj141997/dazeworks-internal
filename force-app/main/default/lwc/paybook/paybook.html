@@ -1,0 +1,111 @@
+<!--
+		 @description       : 
+		 @author            : Shivam Kumar
+		 @group             : 
+		 @last modified on  : 09-05-2022
+		 @last modified by  : Shivam Kumar
+		 Modifications Log
+		 Ver   Date         Author         Modification
+		 1.0   07-01-2022   Shivam Kumar   Initial Version
+		-->
+		<template>
+				<lightning-card title="Apply for Leave">
+						<div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
+								<lightning-layout>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+										<lightning-layout-item size="10" padding="around-small">
+												<div class="slds-grid slds-gutters">
+														<div class="slds-col">
+																<lightning-radio-group name="radioGroup"
+																											 label="Leave Duration :"
+																											 options={leaveOptions}
+																											 value={leaveValue}
+																											 type="radio"
+																											 onchange={handleRadioChange}>
+																</lightning-radio-group>
+														</div>
+														<div class="slds-col" style="    position: relative;
+														left: 11%;" >
+																<label class="slds-form-element__label" for="checkbox-unique-id-81">Optout For Leave In This Current Months</label>
+																<br/>
+																<span class="slds-checkbox slds-checkbox_standalone">
+																		<input type="checkbox" id="checkbox-unique-id-81" name="label" checked={optOutForLeaves} disabled/>
+																		<span class="slds-checkbox_faux"></span>
+																</span>
+														</div>
+												</div>
+										</lightning-layout-item>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+								</lightning-layout>
+								<lightning-layout>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>    
+										<template if:true={isSingle}>
+												<lightning-layout-item size="10" padding="around-small">
+														<lightning-input required="true" label="Date " type="date" value={startDate} name="startEndDate" onchange={handleDate} ></lightning-input>
+												</lightning-layout-item>
+										</template>
+										<template if:true={isHalfDay}>
+												<lightning-layout-item size="5" padding="around-small">
+														<lightning-input required="true" label="Date " type="date" value={startDate} name="startDateHalf" onchange={handleDate}  ></lightning-input>
+												</lightning-layout-item>
+												<lightning-layout-item size="5" padding="around-small">
+														<lightning-combobox label="Session" required="true" value={session} placeholder="Select Session" options={sessionOptions} onchange={handleSession} name="session">
+														</lightning-combobox>
+												</lightning-layout-item>    
+										</template>
+										<template if:true={isMultiple}>
+												<lightning-layout-item size="5" padding="around-small">
+														<lightning-input required="true" label="Start Date " type="date" value={startDate} name="StartDate" onchange={handleDate}>
+														</lightning-input>
+												</lightning-layout-item>
+												<lightning-layout-item size="5" padding="around-small">
+														<lightning-input required="true" label="End Date " type="date" value={endDate} name="EndDate" onchange={handleDate}>
+														</lightning-input>
+												</lightning-layout-item>    
+										</template>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+
+								</lightning-layout>
+								<lightning-layout>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+										<lightning-layout-item size="10" padding="around-small">
+												<lightning-combobox label="Leave Type"   required="true"  value={leaveType} placeholder="Select Leave Type" options={leaveTypeOptions} onchange={handleLeaveType} name="leaveType">
+												</lightning-combobox>
+										</lightning-layout-item>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+								</lightning-layout>
+								<lightning-layout>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+										<lightning-layout-item size="10" padding="around-small">
+												<lightning-textarea label="Reason" required="true" value={reason} onchange={handleReason} class="mytextarea" name="Reason" >
+												</lightning-textarea>
+										</lightning-layout-item>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+								</lightning-layout>
+								<lightning-layout>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+										<lightning-layout-item size="10" padding="around-small">
+												<lightning-button type="brand" label="Apply" variant="brand" onclick={applyLeave} disabled={buttonAvailable}>
+												</lightning-button>
+										</lightning-layout-item>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+								</lightning-layout>
+								<lightning-layout>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+								<lightning-layout-item size="10" padding="around-small">
+												<div class="slds-box slds-text-longform">
+														<h1>
+																<b>Please Note :-</b>
+														</h1>
+														<ul>
+																<li>All the employees can apply their planned leave from 15th to 25th of every month.(Casual Leave)</li>
+
+																<li>All the employees can apply their Sick Leave , LOP & Earned Leave (For Emergency) anytime.</li>
+														</ul>
+												</div>
+										</lightning-layout-item>
+										<lightning-layout-item size="1" padding="around-small"></lightning-layout-item>
+								</lightning-layout>
+						</div>
+				</lightning-card>
+		</template>

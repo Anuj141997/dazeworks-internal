@@ -1,0 +1,31 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="EmployeeSkills_Controller">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="empId" type="String" />
+    <aura:attribute name="skillsList" type="List" description="Skills Picklist Values"/>
+    <aura:attribute name="selectedSkillsList" type="List" description="Selected Skills Picklist Values"/>
+    <aura:attribute name="otherSkills" type="String" />
+    
+    <lightning:card >
+        <div class="slds-p-around_xx-large">
+            <div class="slds-page-header slds-page-header_record-home slds-text-heading_large slds-text-align_center header">
+                {!$Label.c.EmployeeSkills_Header}
+            </div>
+            <br/><br/>
+                <lightning:input class="textBox slds-align_absolute-center" label="Employee Id" value="{!v.empId}" readonly="true" /><br/>
+                <lightning:dualListbox aura:id="selectSkills"
+                                       class="textBox slds-align_absolute-center"
+                                       name="skills"
+                                       label="Add Skills"
+                                       sourceLabel="Available Skills"
+                                       selectedLabel="Selected Skills"
+                                       options="{!v.skillsList}"
+                                       value="{!v.selectedSkillsList}"
+                                       onchange="{!c.handleSkillsChange}"/>
+                <br/>
+            <lightning:textarea class="textBox slds-align_absolute-center" label="Other Skills" value="{!v.otherSkills}"/>
+            <br/>
+            <lightning:button class="slds-align_absolute-center" variant="brand" label="Submit" onclick="{!c.updateEmployeeSkills}" />
+        </div>
+    </lightning:card>
+</aura:component>

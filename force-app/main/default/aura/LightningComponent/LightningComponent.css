@@ -1,0 +1,10 @@
+.THIS .blueFilterButton {
+    background-color : rgba(0, 135, 124, 1) !important;
+} 
+.THIS .blueInterviewButton {
+    fill : rgba(0, 135, 124, 1) !important;
+}
+.THIS .buttonColors {
+    background-color :rgba(0, 78, 71, 1) !important;
+    color : rgb(255, 255, 255) !important;
+}

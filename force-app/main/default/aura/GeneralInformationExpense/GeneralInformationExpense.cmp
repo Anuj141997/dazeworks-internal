@@ -1,0 +1,19 @@
+<aura:component >
+    <aura:attribute name = "paramId" type = "String" />
+    <div class="slds-box">
+        <div>
+            <lightning:card variant = "narrow"  title="Project Details" iconName="custom:custom61"  class= "cardBackground"/>
+        </div>
+        <div class = "slds-p-top_small">
+            <lightning:recordViewForm recordId="{!v.paramId}" objectApiName="Project__c" density = "compact">
+                <div class="slds-box" >
+                    <lightning:outputField fieldName="Name" />
+                    <lightning:outputField fieldName="Customer_Name__c" />
+                    <lightning:outputField fieldName="Opportunity__c" />
+                    <lightning:outputField fieldName="Total_Expense_Amount__c" />
+                    
+                </div>
+            </lightning:recordViewForm>
+        </div>
+    </div>
+</aura:component>

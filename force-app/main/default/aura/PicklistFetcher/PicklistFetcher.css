@@ -1,0 +1,8 @@
+.THIS .formatDropDown .slds-select{
+    border: 10px solid #000;
+}
+
+
+.THIS .slds-form-element__label{
+    display:none !important;
+}

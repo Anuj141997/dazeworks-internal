@@ -1,0 +1,23 @@
+<!--
+  @description       : 
+  @author            : Aviral Agrawal
+  @group             : 
+  @last modified on  : 06-23-2022
+  @last modified by  : Aviral Agrawal
+-->
+<apex:page showHeader="false" sidebar="false" controller="IPAddressController" action="{!getUserIPAddress}">
+
+    <script>
+        window.onload = function () {
+            var payload = '{!ip}';
+            var message = {
+                name: "SampleVFToLWCMessage",
+                payload: payload
+            };
+            parent.postMessage(message, '*');
+        }
+    </script>
+    <apex:form >
+    {!ip}
+    </apex:form>
+</apex:page>

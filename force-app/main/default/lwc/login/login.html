@@ -1,0 +1,71 @@
+<!--
+  @description       : 
+  @author            : Aviral Agrawal
+  @group             : 
+  @last modified on  : 06-23-2022
+  @last modified by  : Aviral Agrawal
+-->
+<template>
+  <lightning-card> 
+    <template if:true={login}> 
+      <lightning-card>
+        <div class="slds-align_absolute-center" >
+          <div class="slds-page-header__name-title">
+          <h1 style="color:Black;font-size:25px;">
+             <B>
+                <div class="slds-align_absolute-center">Login Employee Portal</div>
+             </B>
+          </h1>
+          </div>
+        </div>
+        <div class="slds-m-around_medium">
+        <div class="slds-box slds-theme_shade">
+              <lightning-input style=" padding: 10px;" 
+                type="text"
+                 label="Employee ID"
+                 value={empId}
+                 onkeyup={emailHandler}></lightning-input>
+                
+                 <lightning-input  style=" padding: 10px;" 
+                 type="password"
+                 label="Password"
+                 value={password}
+                 onkeyup={passwordHandler} >
+                 
+                </lightning-input>
+                
+                <div class="slds-align_absolute-center">
+                  <lightning-button 
+                variant="brand"
+                label="LogIn" 
+                title="LogIn"
+                onclick={submitHandler}
+                class="slds-m-left_x-small"></lightning-button>
+               
+             
+                <!-- <p><lightning-formatted-url style=" padding: 10px;" label="Forgot Password" value="https://resourceful-narwhal-4br7sg-dev-ed.lightning.force.com/one/one.app#eyJjb21wb25lbnREZWYiOiJjOmZvcmdvdFBGb3JtIiwiYXR0cmlidXRlcyI6e30sInN0YXRlIjp7fX0%3D" ></lightning-formatted-url></p> -->
+    
+                 <lightning-button
+                variant="destructive"
+                label="Forgot Password"
+                title="Forgot Password"
+                onclick={forgatePasswordHandler}
+                class="slds-m-left_x-small"></lightning-button> 
+                </div>
+              </div>
+            </div>
+            
+        </lightning-card>
+    </template>
+    <template if:true={forgatePassword}>
+      <div class="slds-m-around_medium">
+        <lightning-card>
+            <c-forget-password> </c-forget-password>
+        </lightning-card>
+      </div>
+      
+  </template>
+  </lightning-card>
+   
+       
+  </template>

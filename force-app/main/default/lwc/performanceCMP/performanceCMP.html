@@ -1,0 +1,438 @@
+<!--
+  @description       : 
+  @author            : Anuj Panwar
+  @group             : 
+  @last modified on  : 07-29-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author        Modification
+  1.0   07-05-2022   Anuj Panwar   Initial Version
+-->
+<template>
+
+	<lightning-card>
+		<!-- Page Header -->
+
+		<template if:true={loading}>
+			<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+
+		</template>
+		<div class="slds-page-header__row">
+			<div class="slds-page-header__col-title">
+		<div class="slds-media__body">
+			<div class="slds-page-header__name">
+				<div class="slds-page-header__name-title slds-m-left_medium">
+					<h1>
+						<span class="slds-page-header__title slds-truncate" title="Performance Login">{label.PerformanceLogin}</span>
+					</h1>
+				</div>
+			</div>
+			</div>
+			</div>
+			</div>
+		
+			<template if:true={isManager}>
+
+			<div class="slds-grid slds-gutters slds-m-around_small">
+				<div class="slds-col slds-size_3-of-12">
+
+					<lightning-combobox name="Employee__c" label={label.Employee} placeholder="Choose Employee" value={performanceData.Employee__c}
+						onchange={handleEmployeeSelectionChange} options={employeeOptions} read-only={disbaleForMan} required>
+					</lightning-combobox>
+
+				</div>
+				<div class="slds-col slds-size_2-of-12">
+
+					<lightning-input type="text" label="Employee Designation" value={empTitle} disabled></lightning-input>
+
+				</div>
+				<div class="slds-col slds-size_3-of-12">
+
+					<!-- <lightning-input type="date" label={label.FromDate} value={from} required></lightning-input> -->
+					<c-custom-lookup field-label={label.Manager} child-object-api-name='Performance__c' 
+                    target-field-api-name='Manager__c' value={managerValue} required={managerReq} disabled={managerDisabled}
+                    onvalueselected={handleManagerValue}></c-custom-lookup>
+				</div>
+				<div class="slds-col slds-size_2-of-12">
+
+					<lightning-combobox name="Session__c" label="Session" placeholder="Choose Session" value={performanceData.Session__c}
+					onchange={handlePerformanceChange} options={sessionTypes} read-only={disbaleForMan} required>
+				</lightning-combobox>
+				</div>
+				<div class="slds-col slds-size_2-of-12">
+
+					<lightning-combobox name="Type_of_Review__c" label="Review Type" placeholder="Choose Review" value={performanceData.Type_of_Review__c}
+					onchange={handlePerformanceChange} options={reviewTypes} read-only={isViewMode} required>
+				</lightning-combobox>
+				</div>
+
+			</div>
+
+
+			<div style="padding-bottom: 2%; padding-top: 5%;" class="slds-m-around_small data">
+
+				<table class="Fixed" id="myTable">
+					<tr class="slds-text-title_caps">
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center"
+							style="font-size: medium; ">
+							<b>{label.KRAGoalsName} </b>
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>{label.GoalsDescription} </b>
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="5%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>{label.Weightage} </b>
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>Performance Target </b>
+						</th>
+						<template if:true={notInitial}>
+							<th class="slds-text-title_caps" colspan={colSpan} scope="col" width="20%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>{label.EmployeeComment} </b>
+						</th>
+						
+						<th class="slds-text-title_caps" colspan={colSpan} scope="col" width="20%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>{label.ManagerComment} </b>
+						</th>
+					</template>
+					</tr>
+
+					<tr class="slds-line-height_reset ">
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center">
+
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center">
+
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="5%" align="center">
+
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center">
+
+						</th>
+						<template if:true={showMidYear}>
+						<th class="slds-text-title_caps" scope="col" width={midWidth} align="center"
+							style="font-size: medium; text-align: center; padding-top: 1%;">
+							<b>Mid Year </b>
+						</th>
+						</template>
+						<template if:true={showFinalYear}>
+						<th class="slds-text-title_caps" scope="col" width={finalWidth} align="center"
+							style="font-size: medium; text-align: center; padding-top: 1%;">
+							<b>Final Year </b>
+						</th>
+						</template>
+						<template if:true={showMidYear}>
+						<th class="slds-text-title_caps" scope="col" width={midWidth} align="center"
+							style="font-size: medium; text-align: center; padding-top: 1%;">
+							<b>Mid Year </b>
+						</th>
+					    </template>
+						<template if:true={showFinalYear}>
+						<th class="slds-text-title_caps" scope="col" width={finalWidth} align="center"
+							style="font-size: medium; text-align: center; padding-top: 1%;">
+							<b>Final Year </b>
+						</th>
+						</template>
+					</tr>
+
+					<template for:each={data} for:item="dataVal" for:index="index">
+						<tr class="slds-line-height_reset " key={dataVal.id}>
+							<td class="slds-text" width="15%" scope="col" data-index='index'>
+							
+							
+								<lightning-textarea name="Name"  value={dataVal.Name} data-index={index} data-name={dataVal.Name} onchange={hanldeText} read-only={readOnly}  style="padding: 4%;">
+								</lightning-textarea>
+								
+							</td>
+							<td class="slds-text" width="15%" scope="col">
+								<lightning-textarea name="Goal_Description__c"  value={dataVal.Goal_Description__c} data-index={index} data-name={dataVal.Name} onchange={hanldeText} read-only={readOnly} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+							<td class="slds-text" width="5%" scope="col">
+								<lightning-textarea name="Goal_Weightage__c" value={dataVal.Goal_Weightage__c} data-index={index} read-only={readOnly} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+							<td class="slds-text" width="15%" scope="col">
+								<lightning-textarea name="Performance_Target__c" value={dataVal.Performance_Target__c} data-index={index} read-only={readOnly} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+							<template if:true={showMidYear}>
+							<td class="slds-text" width={midWidth} scope="col">
+								<lightning-textarea name="Goal_Half_Yearly_Comments_Employee__c" data-index={index} value={dataVal.Goal_Half_Yearly_Comments_Employee__c} read-only={disbaleForMan} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+						    </template>
+							<template if:true={showFinalYear}>
+							<td class="slds-text" width={finalWidth} scope="col">
+								<lightning-textarea name="Goal_Yearly_Comments_Employee__c" data-index={index} value={dataVal.Goal_Yearly_Comments_Employee__c} read-only={disbaleForMan} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+						   </template>
+						   <template if:true={showMidYear}>
+							<td class="slds-text" width={midWidth} scope="col">
+								<lightning-textarea name="Goal_Half_Yearly_Comments_Manager__c" data-index={index} value={dataVal.Goal_Half_Yearly_Comments_Manager__c} read-only={readOnlyEmployeeMidComment} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+						    </template>
+							<template if:true={showFinalYear}>
+							<td class="slds-text" width={finalWidth} scope="col">
+								<lightning-textarea name="Goal_Yearly_Comments_Manager__c" data-index={index} value={dataVal.Goal_Yearly_Comments_Manager__c} read-only={isViewMode} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+						   </template>
+						</tr>
+					</template>
+
+				</table>
+
+			<template if:true={isNewMode}>
+				<div class='slds-m-around_medium'>
+					<lightning-button-icon
+						icon-name="utility:add"
+						alternative-text="Add Row"
+						class="slds-m-right_xx-small"
+						onclick={addRow}
+						title="Add Row"
+					></lightning-button-icon> 
+				</div>
+			</template>
+		</div>
+
+				
+				
+			<template if:true={notInitial}>
+			<div class="slds-grid slds-gutters slds-m-around_small ">
+				<div class="slds-col slds-size_2-of-12">
+
+					<lightning-combobox name="Employee_Rating_by_Manager__c" label={label.EmployeeRatingManager} placeholder="Choose Rating"
+						value={performanceData.Employee_Rating_by_Manager__c} onchange={handlePerformanceChange}
+						options={ratingOptions} read-only={isViewMode} >
+					</lightning-combobox>
+
+				</div>
+				<!-- <div class="slds-col slds-size_2-of-12">
+
+					<lightning-combobox name="Final_Performance_Rating__c" label={label.FinalPerformanceRating} placeholder="Choose Rating"
+						value={performanceData.Final_Performance_Rating__c} onchange={handlePerformanceChange}
+						options={finalTypes} read-only={isViewMode} >
+					</lightning-combobox>
+
+				</div> -->
+				<div class="slds-col slds-size_8-of-12">
+
+					<lightning-textarea name="Overall_Summery_By_Manager__c" value={performanceData.Overall_Summery_By_Manager__c}  onchange={handlePerformanceChange}
+						label={label.OverallSummaryManager} read-only={isViewMode}></lightning-textarea>
+
+				</div>
+
+			</div>
+		</template>
+			
+		
+
+				<div class="slds-align_absolute-center" style='margin-top: 0.1rem;'>
+					<div class="slds-grid slds-gutters slds-m-around_small " >
+						<div class="slds-col">
+						<span>
+							<lightning-button label="Back" onclick={handleBack}></lightning-button>
+						</span>
+						</div>
+						<template if:true={isNewMode}>
+						<div class="slds-col">
+						<span>
+							<lightning-button label="Save" onclick={handleSave} variant="brand" ></lightning-button>
+						</span>
+				
+						</div>
+						</template>
+						<template if:true={isEditMode}>
+							<template if:false={isViewMode}>
+						<div class="slds-col">
+							<span>
+								<lightning-button label="Update" onclick={handleSave} variant="brand" ></lightning-button>
+							</span>
+							</div>
+						</template>
+						</template>
+					</div>
+				</div>
+	     	
+				</template>
+
+
+
+
+				<template if:true={isEmployee}>
+
+				<div class="slds-grid slds-gutters slds-m-around_small">
+					<div class="slds-col slds-size_3-of-12">
+	
+						<lightning-combobox name="Employee__c" label={label.Employee} placeholder="Choose Employee" value={performanceData.Employee__c}
+							onchange={handleEmployeeSelectionChange} options={employeeOptions} read-only required>
+						</lightning-combobox>
+	
+					</div>
+					<div class="slds-col slds-size_2-of-12">
+	
+						<lightning-input type="text" label="Employee Designation" value={empTitle} disabled></lightning-input>
+	
+					</div>
+					<div class="slds-col slds-size_3-of-12">
+	
+						<!-- <lightning-input type="date" label={label.FromDate} value={from} required></lightning-input> -->
+						<c-custom-lookup field-label={label.Manager} child-object-api-name='Performance__c' 
+						target-field-api-name='Manager__c' value={managerValue} required={managerReq} disabled='true'
+						onvalueselected={handleManagerValue}></c-custom-lookup>
+					</div>
+					<div class="slds-col slds-size_2-of-12">
+	
+						<lightning-combobox name="Session__c" label="Session" placeholder="Choose Session" value={performanceData.Session__c}
+						onchange={handlePerformanceChange} options={sessionTypes} read-only required>
+					</lightning-combobox>
+					</div>
+					<div class="slds-col slds-size_2-of-12">
+	
+						<lightning-combobox name="Type_of_Review__c" label="Review Type" placeholder="Choose Review" value={performanceData.Type_of_Review__c}
+						onchange={handlePerformanceChange} options={reviewTypes} read-only={isViewMode} required>
+					</lightning-combobox>
+					</div>
+	
+				</div>
+	
+	
+				
+			<div style="padding-bottom: 5%; padding-top: 5%;" class="slds-m-around_small">
+
+				<table class="Fixed" id="myTable1">
+					<tr class="slds-text-title_caps">
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center"
+							style="font-size: medium; ">
+							<b>{label.KRAGoalsName} </b>
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>{label.GoalsDescription} </b>
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>{label.Weightage} </b>
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>Performance Target </b>
+						</th>
+						<template if:true={hideEmpComm}>
+							<th class="slds-text-title_caps" colspan='2' scope="col" width="30%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>{label.EmployeeComment} </b>
+						</th>
+						</template>
+						<!-- <th class="slds-text-title_caps" colspan={colSpan} scope="col" width="20%" align="center"
+							style="font-size: medium; text-align: center;">
+							<b>{label.ManagerComment} </b>
+						</th> -->
+					</tr>
+
+					<tr class="slds-line-height_reset ">
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center">
+
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center">
+
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center">
+
+						</th>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center">
+
+						</th>
+
+						<template if:true={showMidYear}>
+						<th class="slds-text-title_caps" scope="col" width='15%' align="center"
+							style="font-size: medium; text-align: center; padding-top: 1%;">
+							<b>Mid Year </b>
+						</th>
+					    </template>
+						<template if:true={showFinalYear}>
+						<th class="slds-text-title_caps" scope="col" width="15%" align="center"
+							style="font-size: medium; text-align: center; padding-top: 1%;">
+							<b>Final Year </b>
+						</th>
+						</template>
+					</tr>
+
+					<template for:each={data} for:item="dataVal" for:index="index">
+						<tr class="slds-line-height_reset " key={dataVal.Id}>
+							<td class="slds-text" width="15%" scope="col" style="font-size: medium; ">
+								{dataVal.Name}
+							</td>
+							<td class="slds-text" width="15%" scope="col">
+								<lightning-textarea name="Goal_Description__c" data-index={index} value={dataVal.Goal_Description__c} data-name={dataVal.Name} onchange={hanldeText} read-only style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+							<td class="slds-text" width="15%" scope="col">
+								<lightning-textarea name="Goal_Weightage__c" value={dataVal.Goal_Weightage__c} data-index={index} read-only data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+							<td class="slds-text" width="15%" scope="col">
+								<lightning-textarea name="Performance_Target__c" value={dataVal.Performance_Target__c} data-index={index} read-only data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+							<template if:true={showMidYear}>
+							<td class="slds-text" width="15%" scope="col">
+								<lightning-textarea name="Goal_Half_Yearly_Comments_Employee__c" data-index={index} value={dataVal.Goal_Half_Yearly_Comments_Employee__c} read-only={readOnlyEmployeeMidComment} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+						    </template>
+							<template if:true={showFinalYear}>
+							<td class="slds-text" width="15%" scope="col">
+								<lightning-textarea name="Goal_Yearly_Comments_Employee__c" data-index={index} value={dataVal.Goal_Yearly_Comments_Employee__c} read-only={isViewMode} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td>
+						   </template>
+							<!-- <td class="slds-text" width="10%" scope="col">
+								<lightning-textarea name="Goal_Half_Yearly_Comments_Manager__c" value={dataVal.Goal_Half_Yearly_Comments_Manager__c} read-only={isViewMode} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td> -->
+							<!-- <template if:true={showFinalYear}> -->
+							<!-- <td class="slds-text" width="10%" scope="col">
+								<lightning-textarea name="Goal_Yearly_Comments_Manager__c" value={dataVal.Goal_Yearly_Comments_Manager__c} read-only={isViewMode} data-name={dataVal.Name} onchange={hanldeText} style="padding: 4%;">
+								</lightning-textarea>
+							</td> -->
+						   <!-- </template> -->
+						</tr>
+					</template>
+
+				</table>
+
+			</div>		
+
+				<div class="slds-align_absolute-center" style='margin-top: 1rem;'>
+					<div class="slds-grid slds-gutters slds-m-around_small " >
+						<div class="slds-col">
+						<span>
+							<lightning-button label="Back" onclick={handleBack}></lightning-button>
+						</span>
+						</div>
+					
+						<template if:true={isEditMode}>
+							<template if:false={isViewMode}>
+						<div class="slds-col">
+							<span>
+								<lightning-button label="Update" onclick={handleSave} variant="brand" ></lightning-button>
+							</span>
+							</div>
+						</template>
+						</template>
+					</div>
+				</div>
+
+			</template>
+</lightning-card>
+</template>

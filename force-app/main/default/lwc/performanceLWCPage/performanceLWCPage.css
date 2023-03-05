@@ -1,0 +1,35 @@
+.row {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+
+
+
+.column {
+  cursor: pointer;
+}
+
+
+.column img {
+  border-radius: var(--lwc-spacingXxSmall, 0.5rem);
+  width: 400px;
+  height: 250px;
+  transition: transform .3s ease-in-out;
+}
+
+.column img:hover {
+  transform: scale(1.05);
+}
+.heading {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  padding: .7rem 0;
+  background-color: rgba(188, 230, 232, 0.707);
+  border-radius: 3px;
+  margin: 0 .7rem;
+}

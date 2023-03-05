@@ -1,0 +1,15 @@
+<aura:component description="StarRating">
+     <aura:registerEvent name="change" type="c:RatingChangeEvent"/>
+    <aura:attribute name = 'notify' type = 'boolean' default='true'/>
+    <aura:attribute name='value' type='Integer' default='0' />
+    <aura:attribute name='readonly' type='boolean' />
+    <aura:attribute name='paramId' type='String' />
+ 
+    <ltng:require styles="{!$Resource.fivestar + '/rating.css'}"
+                  scripts="{!$Resource.fivestar + '/rating.js'}"
+                  afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+
+    <aura:handler name='change' value="{!v.value}" action="{!c.onValueChange}" />
+
+    <ul aura:id='ratingArea' class="{!v.readonly ? 'readonly c-rating' : 'c-rating' }" />
+</aura:component>

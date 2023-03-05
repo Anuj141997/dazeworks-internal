@@ -1,0 +1,101 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 08-22-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   08-19-2022   Shivam Kumar   Initial Version
+-->
+<template>
+    <lightning-card>
+     <div class="slds-m-top_medium slds-m-bottom_x-large">
+         <div class="slds-p-around_medium lgc-bg">
+             <lightning-tile  type="media">
+                 
+ 
+                 <div class="rate">
+                     <input type="radio" id="star5" name="Delivery" value="5" onchange={rating} />
+                     <label for="star5" title="text">5 stars</label>
+                     <input type="radio" id="star4" name="Delivery" value="4" onchange={rating} />
+                     <label for="star4" title="text">4 stars</label>
+                     <input type="radio" id="star3" name="Delivery" value="3" onchange={rating} />
+                     <label for="star3" title="text">3 stars</label>
+                     <input type="radio" id="star2" name="Delivery" value="2" onchange={rating} />
+                     <label for="star2" title="text">2 stars</label>
+                     <input type="radio" id="star1" name="Delivery" value="1" onchange={rating} />
+                     <label for="star1" title="text">1 star</label>
+                 </div>
+             </lightning-tile>
+ 
+         </div>
+     </div>
+     <div class="slds-m-top_medium slds-m-bottom_x-large">
+ 
+         <div class="slds-p-around_medium lgc-bg">
+             <lightning-tile type="media">
+                
+                 <div class="rate">
+                     <div class="rate">
+                         <input type="radio" id="star15" name="Pizza" value="5" onchange={rating} />
+                         <label for="star15" title="text">5 stars</label>
+                         <input type="radio" id="star14" name="Pizza" value="4" onchange={rating} />
+                         <label for="star14" title="text">4 stars</label>
+                         <input type="radio" id="star13" name="Pizza" value="3" onchange={rating} />
+                         <label for="star13" title="text">3 stars</label>
+                         <input type="radio" id="star12" name="Pizza" value="2" onchange={rating} />
+                         <label for="star12" title="text">2 stars</label>
+                         <input type="radio" id="star11" name="Pizza" value="1" onchange={rating} />
+                         <label for="star11" title="text">1 star</label>
+                     </div>
+                 </div>
+             </lightning-tile>
+ 
+         </div>
+     </div>
+     <div class="slds-m-top_medium slds-m-bottom_x-large">
+ 
+         <div class="slds-p-around_medium lgc-bg">
+             <lightning-tile  type="media">
+                
+                 <div class="rate">
+                     <div class="rate">
+                         <input type="radio" id="star25" name="Burger" value="5" onchange={rating} />
+                         <label for="star25" title="text">5 stars</label>
+                         <input type="radio" id="star24" name="Burger" value="4" onchange={rating} />
+                         <label for="star24" title="text">4 stars</label>
+                         <input type="radio" id="star23" name="Burger" value="3" onchange={rating} />
+                         <label for="star23" title="text">3 stars</label>
+                         <input type="radio" id="star22" name="Burger" value="2" onchange={rating} />
+                         <label for="star22" title="text">2 stars</label>
+                         <input type="radio" id="star21" name="Burger" value="1" onchange={rating} />
+                         <label for="star21" title="text">1 star</label>
+                     </div>
+                 </div>
+             </lightning-tile>
+         </div>
+     </div>
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+         <div class="slds-p-around_medium lgc-bg">
+             <lightning-tile type="media">
+                 <div class="rate">
+                     <div class="rate">
+                         <input type="radio" id="star35" name="Package" value="5" onchange={rating} />
+                         <label for="star35" title="text">5 stars</label>
+                         <input type="radio" id="star34" name="Package" value="4" onchange={rating} />
+                         <label for="star34" title="text">4 stars</label>
+                         <input type="radio" id="star33" name="Package" value="3" onchange={rating} />
+                         <label for="star33" title="text">3 stars</label>
+                         <input type="radio" id="star32" name="Package" value="2" onchange={rating} />
+                         <label for="star32" title="text">2 stars</label>
+                         <input type="radio" id="star31" name="Package" value="1" onchange={rating} />
+                         <label for="star31" title="text">1 star</label>
+                     </div>
+                 </div>
+             </lightning-tile>
+             <lightning-button label="Submit" onclick={getvalues}> </lightning-button>
+        </div>
+     </div>
+    </lightning-card>
+ </template>

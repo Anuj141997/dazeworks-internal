@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT">
+    <aura:attribute name="stepName" type="String"/>
+    <aura:attribute name="paramId" type="String"/>
+    <aura:attribute name="priorStatusValue" type="String"/>
+</aura:event>

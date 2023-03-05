@@ -1,0 +1,139 @@
+<template>
+    
+    <lightning-card >
+    <div class="slds-page-header__row">
+        <div class="slds-page-header__col-title">
+    <div class="slds-media__body">
+        <div class="slds-page-header__name">
+            <div class="slds-page-header__name-title slds-m-left_medium">
+                <h1>
+                    <span class="slds-page-header__title slds-truncate" title="Performance Login">{label.PerformanceLogin}</span>
+                </h1>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class='body'>
+
+            <div class="slds-grid slds-gutters slds-m-around_small">
+                <div class="slds-col">
+                <span>
+                    <lightning-combobox label={label.Employee} placeholder="Select Employee"
+                    options={items}  value={saveData.Employee__c} name='Employee__c' onchange={handleValueChange} required></lightning-combobox>
+                </span>
+                </div>
+                <div class="slds-col">
+                <span style='margin-top: 1rem;'>
+                    <!-- <lightning-input disabled label=></lightning-input> -->
+                    <c-custom-lookup field-label={label.Manager} child-object-api-name='Performance__c' 
+                    target-field-api-name='Manager__c' value={managerValue}
+                    onvalueselected={handleManagerValue}></c-custom-lookup>
+                </span>
+                </div>
+              
+                </div>
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col">
+                    <span>
+                        <!--<lightning-input label={label.AwardType} name='Award_Type__c' value={saveData.Award_Type__c} onchange={handleValueChange} required></lightning-input>-->
+                        <lightning-combobox label={label.AwardType}
+                            name="Award_Type__c"
+                            options={awardControllingPicklist} 
+                            value={saveData.Award_Type__c}
+                            onchange={fetchDependentValue}
+                        >
+                        </lightning-combobox>                        
+                        
+                        <lightning-combobox label="Period"
+                                name="Period__c"
+                                options={finalPeriodDependentVal} 
+                                value={saveData.Period__c}
+                                disabled={dependentDisabled}   
+                                onchange={handleValueChange}                                 
+                        >
+                        </lightning-combobox>
+                    </span>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col">
+                    <span>
+                        <!-- <lightning-input label= ></lightning-input> -->
+                        <c-custom-lookup field-label={label.NominatedBy}
+                        child-object-api-name='Performance__c' value={nominatedValue}
+                        target-field-api-name='Manager__c'  onvalueselected={handleNominatedValue}></c-custom-lookup>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-around_small">
+                    <div class="slds-col">
+                    <span>
+                        <lightning-textarea label={label.JustificationPoints} name='Justification_Points__c' value={saveData.Justification_Points__c} onchange={handleValueChange} required></lightning-textarea>
+                    </span>
+                    </div>
+                </div>
+
+           <div class="slds-align_absolute-center">
+                <div class="slds-grid slds-gutters slds-m-around_small " >
+                    <div class="slds-col">
+                    <span>
+                        <lightning-button label="Previous" onclick={handleBack} ></lightning-button>
+                    </span>
+                    </div>
+                    <div class="slds-col">
+                    <span>
+                        <lightning-button label="Save" variant="brand" onclick={handleSave} ></lightning-button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info-container">
+            <div class="info-section info-section--a">
+                <h2 class="info-title">For Delivery</h2>
+                <span class="info-key">Nomination Criteria :</span>
+                <p class="info-value">
+                    Resolved Critical issues by putting in extra effort or out of the box solution. </br>
+                    Received at least 1 appreciation from the customer or Dazeworks management.</br>
+                    Worked on POC, Reusable components.</br>
+                    Skill Enhancement</br>
+                    Certification
+                </p>
+            </div>
+            <div class="info-section info-section--b">
+                <h2 class="info-title">For Quarterly Ninja Awards</h2>
+                <span class="info-key">Criteria :</span>
+                <p class="info-value">
+                    Resolved Critical issue by putting extra effort or out of the box solution.</br>
+                    Received at least 2 appreciation from customer or Dazeworks management.</br>
+                    Worked on POC, Reusable Components, Automation</br>
+                    Flowed all process (Filled timesheet on time, attended all meetings without fail) </br>
+                    No Escalation from customer.</br>
+                    Done certification</br>
+                    Took 10+ interviews</br>
+                </p>
+            </div>
+            <div class="info-section info-section--c">
+                <h2 class="info-title">For marketing/HR/TA</h2>
+                <span class="info-key">Evaluation Criteria :</span>
+                <p class="info-value">
+                    Resolve critical issues with minimum downtime</br>
+                    Receive at least one appreciation from stakeholders on work delivered</br>
+                    Manage and communicate expectations on project timing and expected results</br>
+                    Certifications and additional training</br>
+                    Upskilling and cross-skilling</br>
+                    Self-starter</br>
+                    Entries will be marked against each criterion on a scale of 0-4. The guidelines for these scores are as follows:</br>
+                    0: No evidence of this criterion</br>
+                    1: Touches upon this criterion</br>
+                    2: Meets this criterion at a basic level</br>
+                    3: Meets this criterion at an above average level</br>
+                    4: Meets this criterion comprehensively</br>
+                </p>
+            </div>
+        </div>
+    </lightning-card>
+</template>

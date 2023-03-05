@@ -1,0 +1,31 @@
+<aura:component controller = "ExpenseTableController">
+    
+    <!-- attributes --> 
+    <aura:attribute name = "paramId" type = "String" />
+    <aura:attribute name = "expenseItemId" type = "String" />
+    <aura:attribute name= "showUploadModal" type="Boolean" default = "false" />
+    
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    
+    <!-- handlers-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:handler name="uploadExpense" event="c:UploadExpenseEvent" action="{!c.handleUpload}"/>
+    
+    
+    <aura:if isTrue="{!v.showUploadModal}">
+        <c:UploadExpense paramId = "{!v.expenseItemId}" />
+    </aura:if>
+    
+    <div>
+        <lightning:card variant = "narrow"  title="Expense Line Items" iconName="standard:product_item" class= "cardBackground"/>
+    </div>
+    <!-- the container element determine the height of the datatable -->
+    <div class = "slds-box slds-m-around_x-small " style="overflow:auto;">
+        <lightning:datatable class = "slds-align_absolute-center"
+                             columns="{! v.columns }"
+                             data="{! v.data }"
+                             keyField="id"
+                             onrowaction="{! c.handleRowAction }"/>
+    </div>
+</aura:component>

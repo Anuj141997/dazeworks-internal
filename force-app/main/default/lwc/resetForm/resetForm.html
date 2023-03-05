@@ -1,0 +1,84 @@
+<!--
+@description       : 
+@author            : Shivam Kumar
+@group             : 
+@last modified on  : 08-01-2022
+@last modified by  : Shivam Kumar
+Modifications Log
+Ver   Date         Author         Modification
+1.0   08-01-2022   Shivam Kumar   Initial Version
+-->
+<template>
+  <div class="slds-grid  slds-wrap">
+    <div class="slds-col slds-size_1-of-2 bg">
+
+    </div>
+    <div class="slds-col slds-size_1-of-2 bg_1">	
+      <div class="p_1">
+        <div class="" >
+          <div class="slds-m-around_medium">
+          <div class="slds-align_absolute-center p">
+            <image src={image} style="height: 150px; width: 500px; " ></image>
+          </div>
+            <template if:true={showForm}>
+              <h1 style="color:rgb(0, 0, 0);font-size:18px;">
+                <B>
+                  <div class="slds-align_absolute-center">Change Your Password</div>
+                </B>
+              </h1>
+            </br>
+              <h2 class="slds-text-heading_small"><b>Note:-</b> You must have received a verification code on your email, check spam  in case it's not in inbox. </h2>
+              
+            </br>
+              <lightning-input class='otp' label={label.verification}  required value={vCode} onchange={handleOtp}></lightning-input>
+              
+              <lightning-input type="password" label="Enter your password" name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required onchange={passwordHandler} onfocus={handleFocus}
+                onblur={handleBlur}></lightning-input>
+              
+              <lightning-input type="password" label="Re-enter Password" name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required onchange={repasswordHandler}></lightning-input>
+              
+              <div class="slds-p-top_x-small slds-p-bottom_x-small ">
+                <!--button class="button" title="Reset" style="size: 50px;" onclick={handleClick} >Reset Password</button-->
+                <lightning-button variant="brand"  class="lightningButton" label="Reset Password" title="Reset" onclick={handleClick}> </lightning-button>
+              </div>
+  
+              <div class="slds-box slds-theme_shade slds-theme_alert-texture">
+                <h3>Password must contain the following :</h3>
+                <p data-id="letter" class="invalid">A lowercase letter</p>
+                <p data-id="capital" class="invalid">A uppercase letter</p>
+                <p data-id="number" class="invalid">A number character</p>
+                <p data-id="length" class="invalid">Minimum 8 characters</p>
+              </div>
+            </template>
+            <template if:true={showaction}>
+              <div class="slds-m-around_medium">
+                <div class="slds-box slds-theme_shade">
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_11-of-12">
+                      <span>
+                        <h1 class="slds-page-header__title ">{empName}</h1>
+                      </span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_1-of-12 ">
+  
+                    </div>
+                  </div>
+                  <h1>
+                    <b>Thank you!! Your Password has been changed sucessfully.</b>
+                  </h1>
+                  </br>
+                  <a href="https://dazeworks.force.com/s/">
+                    <lightning-button variant="brand" name="Go To Login Page" label="Go To Login Page">
+                  </lightning-button>
+                  </a>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

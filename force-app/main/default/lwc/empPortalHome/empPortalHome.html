@@ -1,0 +1,345 @@
+<!--
+  @description       : 
+  @author            : Shivam Kumar
+  @group             : 
+  @last modified on  : 07-06-2022
+  @last modified by  : Shivam Kumar
+  Modifications Log
+  Ver   Date         Author         Modification
+  1.0   06-27-2022   Shivam Kumar   Initial Version
+-->
+<template>
+   <template if:true={loading}>
+      <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+   </template>
+   <lightning-card style="width:1000rem">
+      <template if:true={home}>
+         <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center ">
+            <div class="slds-col">
+               <div class="slds-page-header__name-title">
+                  <h1 style="color:Black;font-size:35px;">
+                     <B>
+                        <div class="slds-align_absolute-center">Dazeworks Connect</div>
+                     </B>
+                  </h1>
+               </div>
+            </div>
+         </div>
+         <div class="slds-grid slds-grid_align-end">
+            <div class="slds-col slds-float_right slds-p-right_xx-large ">
+               <lightning-button label="Logout"  icon-name="utility:logout" icon-position="right" onclick={logoutHandler}
+                  class=" slds-p-right_x-small"></lightning-button>
+
+            </div>
+         </div>
+         <br>
+         <div class="slds-p-horizontal_small">
+            <span>
+               <div class="row">
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <!--a>      Induction Details     </a-->
+                        <image src={image1} onclick={inductionHandler}/>
+
+                     </figure>
+                  </div>
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <a href="https://dazeworks.engageloop.in/login">
+                           <image src={image2}>
+                        </a>
+                     </figure>
+                  </div>
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <!--a>      Company Policies     </a-->
+                        <a href="https://drive.google.com/drive/folders/1jthFtMQum9DV825lV8m8Ss75mpPuXmzS">
+                           <image src={image3}>
+                        </a>
+                     </figure>
+                  </div>
+               </div>
+               <br>
+               <div class="row">
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <!--a>      Paybook     </a-->
+                        <a href="https://mypayinfo.co.in/payroll/daze/emplogin.aspx">
+
+                           <image src={image4}>
+                        </a>
+                     </figure>
+                  </div>
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <a href="https://ipeople.ilink-digital.com/ilinkdigital/zp#home/dashboard">
+                           <image src={image5}>
+                        </a>
+                     </figure>
+                  </div>
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <!--a>      Ticket Manag     </a-->
+                        <a>
+                           <image src={image6} onclick={showTicketHandler}>
+                        </a>
+                     </figure>
+                  </div>
+               </div>
+               <br>
+               <div class="row">
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <!--a>      performance manag     </a-->
+                        <a>
+                           <image src={image7} onclick={perfMangtHandler}>
+                        </a>
+                     </figure>
+                  </div>
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <a>
+                           <image src={image8} onclick={applyLeave}>
+                        </a>
+                     </figure>
+                  </div>
+                  <div class="column slds-align_absolute-center">
+                     <figure>
+                        <!--a>      Internal Meetings    </a-->
+                        <a>
+                           <image src={image9} onclick={internalMeeting}>
+                        </a>
+                     </figure>
+                  </div>
+
+               </div>
+               <br>
+               <div class="row">
+                  <div class="slds-align_absolute-center">
+                     <div class="column slds-float_right ">
+                        <figure>
+                           <!--a>      Meeting Feedback     </a-->
+                           <a>
+                              <image src={image10} onclick={showMeetingfeedbackHandler}>
+                           </a>
+                        </figure>
+                     </div>
+                     <div class="column slds-float_left">
+                        <figure>
+                           <!--a>      Certification     </a-->
+                           <a>
+                              <image src={image11} onclick={certificatehandler}>
+                           </a>
+                        </figure>
+                     </div>
+                  </div>
+               </div>
+            </span>
+         </div>
+      </template>
+      <!--a>      Induction Details     </a-->
+      <template if:true={showInductionDetails}>
+         
+         <div class="slds-m-around_medium">
+            <lightning-card>
+               <div class="slds-clearfix slds-p-bottom_small">
+                  <div class="slds-align_absolute-center">
+                     <div class="slds-page-header__name-title">
+                        <h1 style="color:Black;font-size:35px;">
+                           <B>
+                              <div class="slds-align_absolute-center">Dazeworks</div>
+                           </B>
+                        </h1>
+                     </div>
+                  </div>
+                  <div class="slds-float_right slds-p-bottom_small">
+                     <div class="homeic" >
+                        <figure>
+                           <a>
+                              <image  src={image12} width="50" height="50" title="Go Back To Home Page" onclick={homehandler} >
+                           </a>
+                        </figure>
+                     </div>
+                     <!--lightning-button  icon-name="standard:home" onclick={homehandler} name="Home" >
+                     </lightning-button-->
+                  </div>
+               </div>
+               <c-update-contact emp-id={empId}></c-update-contact>
+
+            </lightning-card>
+         </div>
+      </template>
+
+      <!--a>      Leave Portal        </a-->
+      <template if:true={leaveport}>
+         <div class="slds-m-around_medium">
+            <lightning-card>
+               <div class="slds-clearfix slds-p-bottom_small">
+                  <div class="slds-align_absolute-center">
+                     <div class="slds-page-header__name-title">
+                        <h1 style="color:Black;font-size:35px;">
+                           <B>
+                              <div class="slds-align_absolute-center">Dazeworks</div>
+                           </B>
+                        </h1>
+                     </div>
+                  </div>
+                  <div class="slds-float_right slds-p-bottom_small">
+                     <div class="homeic" >
+                        <figure>
+                           <a>
+                              <image  src={image12} width="50" height="50" title="Go Back To Home Page" onclick={homehandler} >
+                           </a>
+                        </figure>
+                     </div>
+                  </div>
+               </div>
+               <c-leave-container empid={empId}></c-leave-container>
+
+            </lightning-card>
+         </div>
+      </template>
+      <!--a>     Certification     </a-->
+      <template if:true={certificate}>
+         <div class="slds-m-around_medium">
+            <lightning-card>
+               <div class="slds-clearfix slds-p-bottom_small">
+                  <div class="slds-align_absolute-center">
+                     <div class="slds-page-header__name-title">
+                        <h1 style="color:Black;font-size:35px;">
+                           <B>
+                              <div class="slds-align_absolute-center">Dazeworks</div>
+                           </B>
+                        </h1>
+                     </div>
+                  </div>
+                  <div class="slds-float_right slds-p-bottom_small">
+                     <div class="homeic" >
+                        <figure>
+                           <a>
+                              <image  src={image12} width="50" height="50" title="Go Back To Home Page" onclick={homehandler} >
+                           </a>
+                        </figure>
+                     </div>
+                  </div>
+               </div>
+               <c-certification-d-w-e-m-p emp-id={empId} emp-name={empName}></c-certification-d-w-e-m-p>
+            </lightning-card>
+         </div>
+      </template>
+      <!--a>     Performance Manag     </a-->
+      <template if:true={perfMangt}>
+         <div class="slds-m-around_medium">
+            <lightning-card>
+               <div class="slds-clearfix slds-p-bottom_small">
+                  <div class="slds-align_absolute-center">
+                     <div class="slds-page-header__name-title">
+                        <h1 style="color:Black;font-size:35px;">
+                           <B>
+                              <div class="slds-align_absolute-center">Dazeworks</div>
+                           </B>
+                        </h1>
+                     </div>
+                  </div>
+                  <div class="slds-float_right slds-p-bottom_small">
+                     <div class="homeic" >
+                        <figure>
+                           <a>
+                              <image  src={image12} width="50" height="50" title="Go Back To Home Page" onclick={homehandler} >
+                           </a>
+                        </figure>
+                     </div>
+                  </div>
+               </div>
+               <c-performance-parent-cmp emp-id={recId} employee-id={empId}></c-performance-parent-cmp>
+            </lightning-card>
+         </div>
+      </template>
+
+       <!--  Ticket Management  -->
+      <template if:true={showTicket}>
+         <div class="slds-m-around_medium">
+            <lightning-card>
+               <div class="slds-clearfix slds-p-bottom_small">
+                  <div class="slds-align_absolute-center">
+                     <div class="slds-page-header__name-title">
+                        <h1 style="color:Black;font-size:35px;">
+                           <B>
+                              <div class="slds-align_absolute-center">Dazeworks</div>
+                           </B>
+                        </h1>
+                     </div>
+                  </div>
+                  <div class="slds-float_right slds-p-bottom_small">
+                     <div class="homeic" >
+                        <figure>
+                           <a>
+                              <image  src={image12} width="50" height="50" title="Go Back To Home Page" onclick={homehandler} >
+                           </a>
+                        </figure>
+                     </div>
+                  </div>
+               </div>
+             <c-ticket-management emp-id={empId} emp-name={empName}></c-ticket-management>
+            </lightning-card>
+         </div>
+      </template>
+					<!--  Meeting Feedback   -->
+      <template if:true={showMeetingfeedback}>
+         <div class="slds-m-around_medium">
+            <lightning-card>
+               <div class="slds-clearfix slds-p-bottom_small">
+                  <div class="slds-align_absolute-center">
+                     <div class="slds-page-header__name-title">
+                        <h1 style="color:Black;font-size:35px;">
+                           <B>
+                              <div class="slds-align_absolute-center">Dazeworks</div>
+                           </B>
+                        </h1>
+                     </div>
+                  </div>
+                  <div class="slds-float_right slds-p-bottom_small">
+                     <div class="homeic" >
+                        <figure>
+                           <a>
+                              <image  src={image12} width="50" height="50" title="Go Back To Home Page" onclick={homehandler} >
+                           </a>
+                        </figure>
+                     </div>
+                  </div>
+               </div>
+             <c-employee-feedback rec-id={recId} emp-name={empName} emp-id={empId}></c-employee-feedback>
+            </lightning-card>
+         </div>
+      </template>
+<!--  Internal Meeting   -->
+      <template if:true={showInternalMeet}>
+         <div class="slds-m-around_medium">
+            <lightning-card>
+               <div class="slds-clearfix slds-p-bottom_small">
+                  <div class="slds-align_absolute-center">
+                     <div class="slds-page-header__name-title">
+                        <h1 style="color:Black;font-size:35px;">
+                           <B>
+                              <div class="slds-align_absolute-center">Dazeworks</div>
+                           </B>
+                        </h1>
+                     </div>
+                  </div>
+                  <div class="slds-float_right slds-p-bottom_small">
+                     <div class="homeic" >
+                        <figure>
+                           <a>
+                              <image  src={image12} width="50" height="50" title="Go Back To Home Page" onclick={homehandler} >
+                           </a>
+                        </figure>
+                     </div>
+                  </div>
+               </div>
+             <c-internal-meeting rec-id={recId} emp-name={empName} emp-id={empId}></c-internal-meeting>
+            </lightning-card>
+         </div>
+      </template>
+     
+   </lightning-card>
+</template>

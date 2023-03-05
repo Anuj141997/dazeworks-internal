@@ -1,0 +1,106 @@
+<template>
+        <template if:true={editEnable}>
+            <img src={buttonLeave} style="width: 424px;height: 200px;" name="birthday" />
+          </template>
+          <template if:false={editEnable}>
+            <img class="custom" src={buttonLeave} style="width: 424px;height: 200px;" name="birthday" onclick={checkLeave}/>
+          </template>
+        <template if:true={isleaveModal}>
+          <section role="dialog" tabindex="-1" aria-modal="true" aria-label="Meaningful description of the modal content"
+            class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+              <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="slds-modal__content slds-p-around_medium slds-modal__content_headless" id="modal-content-id-1">
+            <!-- Today -->
+            <template if:true={leaveListtemp}>
+            <lightning-card title="Employee Leave Status For Today" icon-name="custom:custom103">
+                
+              <div class="slds-box slds-theme_shade" >
+                    <div class="container-fluid">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped ">          
+                            <tr class="slds-text-title_caps clr">
+                                <th scope="col">
+                                    <div class="slds-truncate abc">Employee Name</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate abc">Title</div>
+                                </th>
+                                <!-- <th scope="col">
+                                    <div class="slds-truncate abc">From</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate abc">Till</div>
+                                </th>
+                                <th> 
+                                    <div class="slds-align_absolute-center abc">Number of Business Days</div>
+                                </th>    -->
+                            </tr>
+                            <template for:each={leaveList} for:item="leaveObj" for:index="index">                
+                                <tr class="slds-hint-parent" key={leaveObj.Id}>   
+                                    <td class="ctr">{leaveObj.Employee__r.Employee__r.Name}</td>
+                                    <td class="ctr">{leaveObj.Employee__r.Employee__r.Title}</td>
+                                    <!-- <td class="ctr">{leaveObj.From__c}</td>
+                                    <td class="ctr">{leaveObj.Till__c}</td>
+                                    <td class="ctr">{leaveObj.Number_of_Buisness_Days__c}</td> -->
+                                </tr>            
+                            </template>          
+                            </table>
+                </div>            
+              </div>
+              </lightning-card>
+            </template>
+            
+
+              <!-- Tomorrow -->
+              <template if:true={leaveList2temp}>
+              <lightning-card title="Employee Leave Status For Tomorrow" icon-name="custom:custom103">
+              <div class="slds-box slds-theme_shade" >
+              
+                <div class="container-fluid" >
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped" title="hii">          
+                        <tr class="slds-text-title_caps clr">
+                            <th scope="col">
+                                <div class="slds-truncate abc">Employee Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate abc">Title</div>
+                            </th>
+                            <!-- <th scope="col">
+                                <div class="slds-truncate abc">From</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate abc">Till</div>
+                            </th>
+                            <th> 
+                                <div class="slds-align_absolute-center abc">Number of Business Days</div>
+                            </th>    -->
+                        </tr>
+                        <template for:each={leaveList2} for:item="leaveObj2" for:index="index">                
+                            <tr class="slds-hint-parent" key={leaveObj2.Id}>   
+                                <td class="ctr">{leaveObj2.Employee__r.Employee__r.Name}</td>
+                                <td class="ctr">{leaveObj2.Employee__r.Employee__r.Title}</td>
+                                <!-- <td class="ctr">{leaveObj2.From__c}</td>
+                                <td class="ctr">{leaveObj2.Till__c}</td>
+                                <td class="ctr">{leaveObj2.Number_of_Buisness_Days__c}</td> -->
+                            </tr>            
+                        </template>          
+                        </table>
+                    </div>
+                </div>
+            </lightning-card>
+        </template>
+    </div>
+    <div  class="slds-modal__footer">
+        <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeModal}>Close</button>
+    </div>
+</div>
+</section>
+<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>
+</template>
